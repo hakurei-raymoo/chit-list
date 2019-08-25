@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/navigation"
+            app:startDestination="@id/users_list_fragment">
+
+    <fragment android:id="@+id/users_list_fragment"
+              android:name="gensokyo.hakurei.chitlist.userslist.UsersListFragment"
+              android:label="UsersListFragment"
+              tools:layout="@layout/fragment_users_list">
+        <action android:id="@+id/action_users_list_fragment_to_user_detail_fragment"
+                app:destination="@id/user_detail_fragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:popEnterAnim="@anim/slide_in_right"/>
+
+    </fragment>
+
+    <fragment android:id="@+id/user_detail_fragment"
+              android:name="gensokyo.hakurei.chitlist.userdetail.UserDetailFragment"
+              android:label="UserDetailFragment"
+              tools:layout="@layout/fragment_user_detail">
+        <argument
+                android:name="userKey"
+                app:argType="long" />
+        <action android:id="@+id/action_user_detail_fragment_to_users_list_fragment"
+                app:destination="@id/users_list_fragment" app:popUpTo="@+id/users_list_fragment"
+                app:popUpToInclusive="true"/>
+    </fragment>
+</navigation>

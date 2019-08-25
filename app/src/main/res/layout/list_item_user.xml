@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="user"
+                type="gensokyo.hakurei.chitlist.database.User"/>
+        <variable
+                name="clickListener"
+                type="gensokyo.hakurei.chitlist.userslist.UserListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/id_text"
+                android:text="@string/userid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/edit_button" android:visibility="gone"/>
+        <TextView
+                android:id="@+id/first_name_text"
+                android:text="@string/first_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:firstNameFormatted="@{user}"
+                app:layout_constraintTop_toBottomOf="@+id/id_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/edit_button"/>
+        <TextView
+                android:id="@+id/last_name_text"
+                android:text="@string/last_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:lastNameFormatted="@{user}"
+                app:layout_constraintTop_toBottomOf="@+id/first_name_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/edit_button"/>
+        <Button
+                android:id="@+id/edit_button"
+                android:text="@string/edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> clickListener.onClick(user)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -44,8 +44,8 @@ class ItemsListFragment : Fragment() {
         binding.itemsListViewModel = itemsListViewModel
 
         val adapter = ItemAdaptor(ItemListener { itemId ->
-            Toast.makeText(context, "${itemId}", Toast.LENGTH_LONG).show()
-//            itemsListViewModel.onEditItemClicked(itemId)
+//            Toast.makeText(context, "${itemId}", Toast.LENGTH_LONG).show()
+            itemsListViewModel.onEditItemClicked(itemId)
         })
         binding.itemsList.adapter = adapter
 
@@ -60,14 +60,14 @@ class ItemsListFragment : Fragment() {
         binding.setLifecycleOwner(this)
 
         // Add an Observer on the state variable for Navigating when EDIT button is pressed.
-//        itemsListViewModel.navigateToEditItem.observe(this, Observer { item ->
-//            item?.let {
-//                this.findNavController().navigate(
-//                    ItemsListFragmentDirections
-//                        .actionItemsListFragmentToItemDetailFragment(item))
-//                itemsListViewModel.onEditItemNavigated()
-//            }
-//        })
+        itemsListViewModel.navigateToEditItem.observe(this, Observer { item ->
+            item?.let {
+                this.findNavController().navigate(
+                    ItemsListFragmentDirections
+                        .actionItemsListFragmentToItemDetailFragment(item))
+                itemsListViewModel.onEditItemNavigated()
+            }
+        })
 
         return binding.root
 }

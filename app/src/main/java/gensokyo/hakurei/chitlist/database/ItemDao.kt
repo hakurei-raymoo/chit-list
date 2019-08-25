@@ -16,6 +16,14 @@ interface ItemDao {
     fun delete(item: Item)
 
     /**
+     * Selects and returns the row that matches the supplied itemId, which is our key.
+     *
+     * @param key itemId to match
+     */
+    @Query ("SELECT * from items_table WHERE itemId = :key")
+    fun get(key: Long): Item
+
+    /**
      * Deletes all values from the table.
      *
      * This does not delete the table, only its contents.

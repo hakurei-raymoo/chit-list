@@ -5,12 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import gensokyo.hakurei.chitlist.database.User
-import gensokyo.hakurei.chitlist.database.UsersDatabaseDao
+import gensokyo.hakurei.chitlist.database.UserDao
 import kotlinx.coroutines.*
 
 private const val TAG = "UserDetailViewModel"
 
-class UserDetailViewModel(private val userKey: Long = 0L, dataSource: UsersDatabaseDao) : ViewModel() {
+class UserDetailViewModel(private val userKey: Long = 0L, dataSource: UserDao) : ViewModel() {
 
     val database = dataSource
 

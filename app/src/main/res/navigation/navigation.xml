@@ -3,7 +3,14 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/navigation"
-            app:startDestination="@id/users_list_fragment">
+            app:startDestination="@id/itemsListFragment">
+
+    <fragment
+            android:id="@+id/itemsListFragment"
+            android:name="gensokyo.hakurei.chitlist.itemslist.ItemsListFragment"
+            android:label="ItemsListFragment"
+            tools:layout="@layout/fragment_items_list"
+    />
 
     <fragment android:id="@+id/users_list_fragment"
               android:name="gensokyo.hakurei.chitlist.userslist.UsersListFragment"
@@ -13,7 +20,6 @@
                 app:destination="@id/user_detail_fragment"
                 app:enterAnim="@anim/slide_in_right"
                 app:popEnterAnim="@anim/slide_in_right"/>
-
     </fragment>
 
     <fragment android:id="@+id/user_detail_fragment"
@@ -27,4 +33,5 @@
                 app:destination="@id/users_list_fragment" app:popUpTo="@+id/users_list_fragment"
                 app:popUpToInclusive="true"/>
     </fragment>
+
 </navigation>

@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import gensokyo.hakurei.chitlist.R
-import gensokyo.hakurei.chitlist.database.UsersDatabase
+import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentUserDetailBinding
 
 private const val TAG = "UserDetailFragment"
@@ -34,7 +34,7 @@ class UserDetailFragment : Fragment() {
         val arguments = UserDetailFragmentArgs.fromBundle(arguments!!)
 
         // Create an instance of the ViewModel Factory.
-        val dataSource = UsersDatabase.getInstance(application).usersDatabaseDao
+        val dataSource = AppDatabase.getInstance(application).userDao
         val viewModelFactory = UserDetailViewModelFactory(arguments.userKey, dataSource)
 
         // Get a reference to the ViewModel associated with this fragment.

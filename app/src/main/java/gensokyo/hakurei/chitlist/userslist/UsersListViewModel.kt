@@ -4,13 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import gensokyo.hakurei.chitlist.database.User
-import gensokyo.hakurei.chitlist.database.UsersDatabaseDao
+import gensokyo.hakurei.chitlist.database.UserDao
 import kotlinx.coroutines.*
 
 private const val TAG = "UsersListViewModel"
 
 class UsersListViewModel(
-    val database: UsersDatabaseDao, application: Application) : AndroidViewModel(application) {
+    val database: UserDao, application: Application) : AndroidViewModel(application) {
     private var viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)

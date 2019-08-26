@@ -3,20 +3,22 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/navigation"
-            app:startDestination="@id/itemsListFragment">
+            app:startDestination="@id/users_list_fragment">
 
     <fragment
-            android:id="@+id/itemsListFragment"
+            android:id="@+id/items_list_fragment"
             android:name="gensokyo.hakurei.chitlist.itemslist.ItemsListFragment"
             android:label="ItemsListFragment"
             tools:layout="@layout/fragment_items_list">
         <action
-                android:id="@+id/action_itemsListFragment_to_itemDetailFragment"
-                app:destination="@id/itemDetailFragment" />
+                android:id="@+id/action_items_list_fragment_to_item_detail_fragment"
+                app:destination="@id/item_detail_fragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:popEnterAnim="@anim/slide_in_right" />
     </fragment>
 
     <fragment
-            android:id="@+id/itemDetailFragment"
+            android:id="@+id/item_detail_fragment"
             android:name="gensokyo.hakurei.chitlist.itemdetail.ItemDetailFragment"
             android:label="ItemDetailFragment"
             tools:layout="@layout/fragment_item_detail">
@@ -24,9 +26,9 @@
                 android:name="itemKey"
                 app:argType="long" />
         <action
-                android:id="@+id/action_itemDetailFragment_to_itemsListFragment"
-                app:destination="@id/itemsListFragment"
-                app:popUpTo="@+id/itemDetailFragment"
+                android:id="@+id/action_item_detail_fragment_to_items_list_fragment"
+                app:destination="@id/items_list_fragment"
+                app:popUpTo="@+id/items_list_fragment"
                 app:popUpToInclusive="true" />
     </fragment>
 
@@ -48,8 +50,9 @@
                 android:name="userKey"
                 app:argType="long" />
         <action android:id="@+id/action_user_detail_fragment_to_users_list_fragment"
-                app:destination="@id/users_list_fragment" app:popUpTo="@+id/users_list_fragment"
-                app:popUpToInclusive="true"/>
+                app:destination="@id/users_list_fragment"
+                app:popUpTo="@+id/users_list_fragment"
+                app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

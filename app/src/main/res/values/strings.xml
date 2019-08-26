@@ -16,4 +16,6 @@
     <string name="name">Name</string>
     <string name="add_item">Add Item</string>
     <string name="clear_items">Clear Items</string>
+    <string name="items">Items</string>
+    <string name="users">Users</string>
 </resources>

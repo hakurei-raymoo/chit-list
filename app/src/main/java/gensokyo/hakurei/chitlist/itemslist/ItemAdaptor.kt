@@ -14,14 +14,7 @@ class ItemAdaptor(val clickListener: ItemListener) : ListAdapter<Item, ItemAdapt
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-//        val res = holder.itemView.context.resources
-
         holder.bind(getItem(position)!!, clickListener)
-
-        holder.binding.idText.text = item.itemId.toString()
-        holder.binding.nameText.text = item.name
-        holder.binding.priceText.text = item.price.toString()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -18,31 +18,32 @@
 
         <TextView
                 android:id="@+id/id_text"
-                android:text="@string/itemid"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:text="@{@string/primary_key_equals(item.itemId)}"
+                android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/edit_button"
-                android:visibility="gone"/>
+                tools:text="@string/primary_key_unknown"/>
         <TextView
                 android:id="@+id/name_text"
-                tools:text="@string/name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:nameFormatted="@{item}"
+                android:text="@{item.name}"
                 app:layout_constraintTop_toBottomOf="@+id/id_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/edit_button"/>
+                app:layout_constraintEnd_toStartOf="@+id/edit_button"
+                tools:text="@string/name_unknown"/>
         <TextView
                 android:id="@+id/price_text"
-                tools:text="@string/price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:priceFormatted="@{item}"
+                android:text="@{@string/dollars(item.price)}"
                 app:layout_constraintTop_toBottomOf="@+id/name_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/edit_button"/>
+                app:layout_constraintEnd_toStartOf="@+id/edit_button"
+                tools:text="@string/price_unknown"/>
         <Button
                 android:id="@+id/edit_button"
                 android:text="@string/edit"
@@ -51,5 +52,6 @@
                 android:onClick="@{() -> clickListener.onClick(item)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

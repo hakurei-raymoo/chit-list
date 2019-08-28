@@ -1,21 +1,35 @@
 <resources>
     <string name="app_name">Chit List</string>
-    <string name="add_user">Add User</string>
-    <string name="clear_users">Clear Users</string>
     <string name="submit">Submit</string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
-    <string name="edit_user">Edit User</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
-    <string name="userid">userID</string>
-    <string name="primary_key">Primary Key</string>
+    <string name="primary_key_equals">key=%d</string>
+    <string name="primary_key_unknown">key=unknown</string>
+    <string name="dollars">$%d</string>
+    <string name="dollars_unknown">$unknown</string>
+<!--Account-->
+    <string name="accounts">Accounts</string>
+    <string name="add_account">Add Account</string>
+    <string name="account_id_equals">accountId=%d</string>
+    <string name="account_id_unknown">accountId=unknown</string>
+    <string name="first_name">First Name</string>
+    <string name="first_name_equals">first_name=%s</string>
+    <string name="first_name_unknown">first_name=unknown</string>
+    <string name="last_name">Last Name</string>
+    <string name="last_name_equals">last_name=%s</string>
+    <string name="last_name_unknown">last_name=unknown</string>
     <string name="password">Password</string>
-    <string name="itemid">itemID</string>
-    <string name="price">Price</string>
-    <string name="name">Name</string>
-    <string name="add_item">Add Item</string>
-    <string name="clear_items">Clear Items</string>
+    <string name="password_hash_equals">password_hash=%s</string>
+    <string name="password_hash_unknown">password_hash=unknown</string>
+<!--Item-->
     <string name="items">Items</string>
-    <string name="users">Users</string>
+    <string name="add_item">Add Item</string>
+    <string name="item_id_equals">itemId=%d</string>
+    <string name="item_id_unknown">itemId=unknown</string>
+    <string name="name">Name</string>
+    <string name="name_equals">name=%s</string>
+    <string name="name_unknown">name=unknown</string>
+    <string name="price">Price</string>
+    <string name="price_equals">price=$%d</string>
+    <string name="price_unknown">price=unknown</string>
 </resources>

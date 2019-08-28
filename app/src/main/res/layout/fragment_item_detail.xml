@@ -16,47 +16,48 @@
 
         <TextView
                 android:id="@+id/primary_key_text"
-                tools:text="itemId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{@string/primary_key_equals(itemDetailViewModel.item.itemId)}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:itemIdFormatted="@{itemDetailViewModel.item}"/>
+                tools:text="@string/primary_key_unknown"/>
         <EditText
                 android:id="@+id/name_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="@string/name"
                 android:text="@={itemDetailViewModel.item.name}"
+                android:hint="@string/name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/primary_key_text"/>
+
         <EditText
                 android:id="@+id/price_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/price"
                 android:inputType="number"
                 android:text="@={`` + itemDetailViewModel.item.price}"
+                android:hint="@string/price"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name_edit" />
+                app:layout_constraintTop_toBottomOf="@+id/name_edit"/>
         <Button
                 android:id="@+id/submit_button"
-                android:text="@string/submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/submit"
                 android:onClick="@{() -> itemDetailViewModel.onUpdateItemDetails()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/delete_button"/>
         <Button
                 android:id="@+id/delete_button"
-                android:text="@string/delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/delete"
                 android:onClick="@{() -> itemDetailViewModel.onDeleteItem()}"
                 app:layout_constraintStart_toEndOf="@+id/submit_button"
                 app:layout_constraintBottom_toBottomOf="parent"

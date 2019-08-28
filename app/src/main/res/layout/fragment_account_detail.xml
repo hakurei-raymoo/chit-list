@@ -5,31 +5,31 @@
 
     <data>
         <variable
-                name="userDetailViewModel"
-                type="gensokyo.hakurei.chitlist.userdetail.UserDetailViewModel" />
+                name="accountDetailViewModel"
+                type="gensokyo.hakurei.chitlist.accountdetail.AccountDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".userdetail.UserDetailFragment">
+            tools:context=".accountdetail.AccountDetailFragment">
 
         <TextView
                 android:id="@+id/primary_key_text"
-                tools:text="usedId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{@string/primary_key_equals(accountDetailViewModel.account.accountId)}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:userIdFormatted="@{userDetailViewModel.user}"/>
+                tools:text="@string/primary_key_unknown"/>
         <EditText
                 android:id="@+id/first_name_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
+                android:text="@={accountDetailViewModel.account.firstName}"
                 android:hint="@string/first_name"
-                android:text="@={userDetailViewModel.user.firstName}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/primary_key_text"/>
@@ -38,8 +38,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
+                android:text="@={accountDetailViewModel.account.lastName}"
                 android:hint="@string/last_name"
-                android:text="@={userDetailViewModel.user.lastName}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/first_name_edit"/>
@@ -47,9 +47,9 @@
                 android:id="@+id/password_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="textVisiblePassword"
+                android:text="@={accountDetailViewModel.account.passwordHash}"
                 android:hint="@string/password"
-                android:text="@={userDetailViewModel.user.defAuthHash}"
                 app:layout_constraintTop_toBottomOf="@+id/last_name_edit"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -58,7 +58,7 @@
                 android:text="@string/submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> userDetailViewModel.onUpdateUserDetails()}"
+                android:onClick="@{() -> accountDetailViewModel.onUpdateAccountDetails()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/delete_button"/>
@@ -67,11 +67,10 @@
                 android:text="@string/delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> userDetailViewModel.onDeleteUser()}"
+                android:onClick="@{() -> accountDetailViewModel.onDeleteAccount()}"
                 app:layout_constraintStart_toEndOf="@+id/submit_button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

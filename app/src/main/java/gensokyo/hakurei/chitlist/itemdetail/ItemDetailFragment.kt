@@ -15,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentItemDetailBinding
-import gensokyo.hakurei.chitlist.databinding.FragmentUserDetailBinding
 
 private const val TAG = "ItemDetailFragment"
 

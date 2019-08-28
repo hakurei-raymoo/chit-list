@@ -4,8 +4,8 @@
 
     <data>
         <variable
-                name="itemsListViewModel"
-                type="gensokyo.hakurei.chitlist.itemslist.ItemsListViewModel" />
+                name="accountsListViewModel"
+                type="gensokyo.hakurei.chitlist.accountslist.AccountsListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,23 +13,23 @@
             android:layout_height="match_parent">
 
         <Button
-                android:id="@+id/add_item_button"
-                android:text="@string/add_item"
+                android:id="@+id/add_account_button"
+                android:text="@string/add_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> itemsListViewModel.onNewItem()}"
+                android:onClick="@{() -> accountsListViewModel.onNewAccount()}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/items_list"
+                android:id="@+id/accounts_list"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/add_item_button"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_account_button"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

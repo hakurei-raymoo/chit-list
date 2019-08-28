@@ -5,6 +5,6 @@
             android:id="@+id/items_list_fragment"
             android:title="@string/items" />
     <item
-            android:id="@+id/users_list_fragment"
-            android:title="@string/users" />
+            android:id="@+id/accounts_list_fragment"
+            android:title="@string/accounts" />
 </menu>

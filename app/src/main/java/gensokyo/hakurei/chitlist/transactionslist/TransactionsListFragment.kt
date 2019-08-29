@@ -1,4 +1,4 @@
-package gensokyo.hakurei.chitlist.accountslist
+package gensokyo.hakurei.chitlist.transactionslist
 
 import android.os.Bundle
 import android.util.Log
@@ -12,41 +12,41 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.database.AppDatabase
-import gensokyo.hakurei.chitlist.databinding.FragmentAccountsListBinding
+import gensokyo.hakurei.chitlist.databinding.FragmentTransactionsListBinding
 
-private const val TAG = "AccountsListFragment"
+private const val TAG = "TXsListFragment"
 
-class AccountsListFragment : Fragment() {
+class TransactionsListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         Log.i(TAG, "onCreateView called")
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentAccountsListBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_accounts_list, container, false)
+        val binding: FragmentTransactionsListBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_transactions_list, container, false)
 
         val application = requireNotNull(this.activity).application
 
         // Create an instance of the ViewModel Factory.
-        val dataSource = AppDatabase.getInstance(application).accountDao
-        val viewModelFactory = AccountsListViewModelFactory(dataSource, application)
+        val dataSource = AppDatabase.getInstance(application).transactionDao
+        val viewModelFactory = TransactionsListViewModelFactory(dataSource, application)
 
         // Get a reference to the ViewModel associated with this fragment.
-        val accountsListViewModel =
+        val transactionsListViewModel =
             ViewModelProviders.of(
-                this, viewModelFactory).get(AccountsListViewModel::class.java)
+                this, viewModelFactory).get(TransactionsListViewModel::class.java)
 
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
-        binding.accountsListViewModel = accountsListViewModel
+        binding.transactionsListViewModel = transactionsListViewModel
 
-        val adapter = AccountAdaptor(AccountListener { accountId ->
+        val adapter = TransactionAdaptor(TransactionListener { transactionId ->
 //            Toast.makeText(context, "${id}", Toast.LENGTH_LONG).show()
-            accountsListViewModel.onEditAccountClicked(accountId)
+            transactionsListViewModel.onEditTransactionClicked(transactionId)
         })
-        binding.accountsList.adapter = adapter
+        binding.transactionsList.adapter = adapter
 
-        accountsListViewModel.accounts.observe(viewLifecycleOwner, Observer {
+        transactionsListViewModel.transactions.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
@@ -57,12 +57,12 @@ class AccountsListFragment : Fragment() {
         binding.setLifecycleOwner(this)
 
         // Add an Observer on the state variable for Navigating when EDIT button is pressed.
-        accountsListViewModel.navigateToEditAccount.observe(this, Observer { account ->
-            account?.let {
+        transactionsListViewModel.navigateToEditTransaction.observe(this, Observer { transaction ->
+            transaction?.let {
                 this.findNavController().navigate(
-                    AccountsListFragmentDirections
-                        .actionAccountsListFragmentToAccountDetailFragment(account))
-                accountsListViewModel.onEditAccountNavigated()
+                    TransactionsListFragmentDirections
+                        .actionTransactionsListFragmentToTransactionDetailFragment(transaction))
+                transactionsListViewModel.onEditTransactionNavigated()
             }
         })
 

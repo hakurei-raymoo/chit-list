@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="transactionDetailViewModel"
+                type="gensokyo.hakurei.chitlist.transactiondetail.TransactionDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".transactiondetail.TransactionDetailFragment">
+
+        <TextView
+                android:id="@+id/primary_key_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/primary_key_unknown"/>
+<!--        android:text="@{@string/primary_key_equals(transactionDetailViewModel.transaction.id)}"-->
+        <EditText
+                android:id="@+id/account_id_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="@={`` + transactionDetailViewModel.transaction.accountId}"
+                android:hint="@string/account"
+                android:importantForAutofill="no"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/primary_key_text"/>
+<!--        TODO: Add Autofill populated with Items -->
+        <EditText
+                android:id="@+id/item_id_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="@={`` + transactionDetailViewModel.transaction.itemId}"
+                android:hint="@string/item"
+                android:importantForAutofill="no"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/account_id_edit"/>
+        <EditText
+                android:id="@+id/comments_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="@={transactionDetailViewModel.transaction.comments}"
+                android:hint="@string/comments"
+                android:importantForAutofill="no"
+                app:layout_constraintTop_toBottomOf="@+id/item_id_edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        <Button
+                android:id="@+id/submit_button"
+                android:text="@string/submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> transactionDetailViewModel.onUpdateTransactionDetails()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/delete_button"/>
+        <Button
+                android:id="@+id/delete_button"
+                android:text="@string/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> transactionDetailViewModel.onDeleteTransaction()}"
+                app:layout_constraintStart_toEndOf="@+id/submit_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

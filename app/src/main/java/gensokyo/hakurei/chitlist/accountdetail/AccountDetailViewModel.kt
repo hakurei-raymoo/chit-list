@@ -40,6 +40,7 @@ class AccountDetailViewModel(private val accountKey: Long = 0L, dataSource: Acco
                 val currentAccount = database.get(accountKey)
                 currentAccount.firstName = account.value?.firstName!!
                 currentAccount.lastName = account.value?.lastName!!
+                // TODO: Hash password.
                 currentAccount.passwordHash = account.value?.passwordHash!!//.hash
                 database.update(currentAccount)
                 Log.i(TAG, "updated $currentAccount")

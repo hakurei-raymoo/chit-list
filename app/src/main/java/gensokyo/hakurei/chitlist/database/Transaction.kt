@@ -6,7 +6,6 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "transactions_table",
-    primaryKeys = arrayOf("account_id","item_id"),
     foreignKeys = arrayOf(
         ForeignKey(
             entity = Account::class,
@@ -19,7 +18,7 @@ import androidx.room.PrimaryKey
     )
 )
 data class Transaction (
-    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
     var id: Long = 0L,
 
     @ColumnInfo(name = "time")
@@ -29,5 +28,8 @@ data class Transaction (
     var accountId: Long = 0L,
 
     @ColumnInfo(name = "item_id")
-    var itemId: Long = 0L
+    var itemId: Long = 0L,
+    
+    @ColumnInfo(name = "comments")
+    var comments: String = ""
 )

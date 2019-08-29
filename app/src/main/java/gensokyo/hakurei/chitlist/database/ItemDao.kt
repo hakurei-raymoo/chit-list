@@ -3,6 +3,9 @@ package gensokyo.hakurei.chitlist.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
+/**
+ * Defines methods for using the Item class with Room.
+ */
 @Dao
 interface ItemDao {
 
@@ -16,32 +19,24 @@ interface ItemDao {
     fun delete(item: Item)
 
     /**
-     * Selects and returns the row that matches the supplied itemId, which is our key.
+     * Selects and returns the row that matches the supplied id, which is our key.
      *
-     * @param key itemId to match
+     * @param key id to match
      */
-    @Query ("SELECT * from items_table WHERE itemId = :key")
+    @Query ("SELECT * from items_table WHERE id = :key")
     fun get(key: Long): Item
-
-    /**
-     * Deletes all values from the table.
-     *
-     * This does not delete the table, only its contents.
-     */
-    @Query("DELETE FROM items_table")
-    fun clear()
 
     /**
      * Selects and returns all rows in the table,
      *
-     * sorted by itemId in descending order.
+     * sorted by id in descending order.
      */
-    @Query("SELECT * FROM items_table ORDER BY itemId DESC")
+    @Query("SELECT * FROM items_table ORDER BY id DESC")
     fun getItems(): LiveData<List<Item>>
 
     /**
-     * Selects and returns the item with given itemId.
+     * Selects and returns the item with given id.
      */
-    @Query("SELECT * from items_table WHERE itemId = :key")
+    @Query("SELECT * from items_table WHERE id = :key")
     fun getItem(key: Long): LiveData<Item>
 }

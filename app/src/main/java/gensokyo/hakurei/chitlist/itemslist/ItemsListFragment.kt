@@ -41,7 +41,7 @@ class ItemsListFragment : Fragment() {
         binding.itemsListViewModel = itemsListViewModel
 
         val adapter = ItemAdaptor(ItemListener { itemId ->
-//            Toast.makeText(context, "${itemId}", Toast.LENGTH_LONG).show()
+//            Toast.makeText(context, "${id}", Toast.LENGTH_LONG).show()
             itemsListViewModel.onEditItemClicked(itemId)
         })
         binding.itemsList.adapter = adapter

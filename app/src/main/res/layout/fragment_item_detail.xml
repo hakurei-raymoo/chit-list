@@ -18,7 +18,7 @@
                 android:id="@+id/primary_key_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{@string/primary_key_equals(itemDetailViewModel.item.itemId)}"
+                android:text="@{@string/primary_key_equals(itemDetailViewModel.item.id)}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -30,6 +30,7 @@
                 android:inputType="textPersonName"
                 android:text="@={itemDetailViewModel.item.name}"
                 android:hint="@string/name"
+                android:importantForAutofill="no"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/primary_key_text"/>
@@ -41,6 +42,7 @@
                 android:inputType="number"
                 android:text="@={`` + itemDetailViewModel.item.price}"
                 android:hint="@string/price"
+                android:importantForAutofill="no"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/name_edit"/>

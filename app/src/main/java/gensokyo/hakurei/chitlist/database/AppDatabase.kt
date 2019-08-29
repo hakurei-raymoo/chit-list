@@ -8,11 +8,12 @@ import androidx.room.RoomDatabase
 
 private const val TAG = "AppDatabase"
 
-@Database(entities = [Account::class, Item::class], version = 1, exportSchema = false)
+@Database(entities = [Account::class, Item::class, Transaction::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract val accountDao: AccountDao
     abstract val itemDao: ItemDao
+    abstract val transactionDao: TransactionDao
 
     companion object {
         @Volatile
@@ -24,7 +25,7 @@ abstract class AppDatabase : RoomDatabase() {
 
                 if (instance == null) {
 
-                    Log.i(TAG, "New Database created, Room.databaseBuilder called")
+                    Log.i(TAG, "Room.databaseBuilder called")
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         AppDatabase::class.java,

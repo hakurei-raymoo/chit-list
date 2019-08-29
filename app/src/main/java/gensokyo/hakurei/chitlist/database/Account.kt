@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "accounts_table")
 data class Account(
     @PrimaryKey(autoGenerate = true)
-    var accountId: Long = 0L,
+    var id: Long = 0L,
 
     @ColumnInfo(name = "first_name")
     var firstName: String = "",

@@ -41,7 +41,7 @@ class AccountsListFragment : Fragment() {
         binding.accountsListViewModel = accountsListViewModel
 
         val adapter = AccountAdaptor(AccountListener { accountId ->
-//            Toast.makeText(context, "${accountId}", Toast.LENGTH_LONG).show()
+//            Toast.makeText(context, "${id}", Toast.LENGTH_LONG).show()
             accountsListViewModel.onEditAccountClicked(accountId)
         })
         binding.accountsList.adapter = adapter

@@ -7,7 +7,7 @@ import gensokyo.hakurei.chitlist.database.Account
 //@BindingAdapter("accountIdFormatted")
 //fun TextView.setAccountIdFormatted(item: Account?) {
 //    item?.let {
-//        text = "accountId=${item.accountId.toString()}"
+//        text = "id=${item.id.toString()}"
 //    }
 //}
 //

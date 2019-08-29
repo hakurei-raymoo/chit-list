@@ -42,7 +42,7 @@ class ItemAdaptor(val clickListener: ItemListener) : ListAdapter<Item, ItemAdapt
 class ItemDiffCallback : DiffUtil.ItemCallback<Item>() {
 
     override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
-        return oldItem.itemId == newItem.itemId
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
@@ -51,5 +51,5 @@ class ItemDiffCallback : DiffUtil.ItemCallback<Item>() {
 }
 
 class ItemListener(val clickListener: (itemId: Long) -> Unit) {
-    fun onClick(item: Item) = clickListener(item.itemId)
+    fun onClick(item: Item) = clickListener(item.id)
 }

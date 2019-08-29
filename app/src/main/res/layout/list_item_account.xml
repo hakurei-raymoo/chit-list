@@ -20,7 +20,7 @@
                 android:id="@+id/id_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{@string/primary_key_equals(account.accountId)}"
+                android:text="@{@string/primary_key_equals(account.id)}"
                 android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

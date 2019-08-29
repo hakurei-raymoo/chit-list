@@ -41,7 +41,7 @@ class AccountAdaptor(val clickListener: AccountListener) : ListAdapter<Account, 
 class AccountDiffCallback : DiffUtil.ItemCallback<Account>() {
 
     override fun areItemsTheSame(oldItem: Account, newItem: Account): Boolean {
-        return oldItem.accountId == newItem.accountId
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Account, newItem: Account): Boolean {
@@ -50,5 +50,5 @@ class AccountDiffCallback : DiffUtil.ItemCallback<Account>() {
 }
 
 class AccountListener(val clickListener: (accountId: Long) -> Unit) {
-    fun onClick(account: Account) = clickListener(account.accountId)
+    fun onClick(account: Account) = clickListener(account.id)
 }

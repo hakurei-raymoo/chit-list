@@ -18,12 +18,15 @@ private const val TAG = "TXsListFragment"
 
 class TransactionsListFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        Log.i(TAG, "onCreateView called")
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentTransactionsListBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_transactions_list, container, false)
+        val binding: FragmentTransactionsListBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_transactions_list, container, false)
 
         val application = requireNotNull(this.activity).application
 
@@ -33,15 +36,13 @@ class TransactionsListFragment : Fragment() {
 
         // Get a reference to the ViewModel associated with this fragment.
         val transactionsListViewModel =
-            ViewModelProviders.of(
-                this, viewModelFactory).get(TransactionsListViewModel::class.java)
+            ViewModelProviders.of(this, viewModelFactory).get(TransactionsListViewModel::class.java)
 
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
         binding.transactionsListViewModel = transactionsListViewModel
 
         val adapter = TransactionAdaptor(TransactionListener { transactionId ->
-//            Toast.makeText(context, "${id}", Toast.LENGTH_LONG).show()
             transactionsListViewModel.onEditTransactionClicked(transactionId)
         })
         binding.transactionsList.adapter = adapter
@@ -60,8 +61,8 @@ class TransactionsListFragment : Fragment() {
         transactionsListViewModel.navigateToEditTransaction.observe(this, Observer { transaction ->
             transaction?.let {
                 this.findNavController().navigate(
-                    TransactionsListFragmentDirections
-                        .actionTransactionsListFragmentToTransactionDetailFragment(transaction))
+                    TransactionsListFragmentDirections.actionTransactionsListFragmentToTransactionDetailFragment(transaction)
+                )
                 transactionsListViewModel.onEditTransactionNavigated()
             }
         })

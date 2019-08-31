@@ -3,7 +3,6 @@ package gensokyo.hakurei.chitlist.accountslist
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import gensokyo.hakurei.chitlist.database.Account
 import gensokyo.hakurei.chitlist.database.AccountDao
 import kotlinx.coroutines.*
 
@@ -13,8 +12,6 @@ class AccountsListViewModel(
     val database: AccountDao, application: Application) : AndroidViewModel(application) {
     private var viewModelJob = Job()
 
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
     val accounts = database.getAccounts()
 
     private val _navigateToEditAccount = MutableLiveData<Long>()
@@ -22,16 +19,8 @@ class AccountsListViewModel(
         get() = _navigateToEditAccount
 
     fun onNewAccount() {
-        uiScope.launch {
-            val newAccount = Account()
-            insert(newAccount)
-        }
-    }
-
-    private suspend fun insert(account: Account) {
-        withContext(Dispatchers.IO) {
-            database.insert(account)
-        }
+        // TODO: Remove new account magic number (-1L).
+        _navigateToEditAccount.value = -1L
     }
 
     fun onEditAccountClicked(id: Long) {

@@ -19,31 +19,51 @@ class ItemDetailViewModel(private val itemKey: Long = 0L, dataSource: ItemDao) :
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private val item: LiveData<Item>
-
-    fun getItem() = item
-
-
-    init {
-        item = database.getItem(itemKey)
-    }
-
+    // TODO: Remove after testing.
+    val publicItem
+        get() = item
 
     private val _navigateToItemsList = MutableLiveData<Boolean?>()
     val navigateToItemsList: LiveData<Boolean?>
         get() = _navigateToItemsList
 
-    fun onUpdateItemDetails() {
+    fun getItem() = item
+
+
+    /**
+     * Check itemKey to either get existing Item or insert a new one.
+     */
+    init {
+        if (itemKey == -1L) {
+            newItem()
+            item = database.getLastItem()
+        } else {
+            item = database.getItem(itemKey)
+        }
+    }
+
+    private fun newItem() {
         uiScope.launch {
-            // IO is a thread pool for running operations that access the disk, such as
-            // our Room database.
             withContext(Dispatchers.IO) {
-                val currentItem = database.get(itemKey)
-                currentItem.name = item.value?.name!!
-                currentItem.price = item.value?.price!!//.toInt()
-                database.update(currentItem)
-                Log.i(TAG, "updated $currentItem")
+                val newItem = Item()
+                database.insert(newItem)
+                Log.i(TAG, "Inserted $newItem")
             }
+        }
+    }
+
+    fun onSubmitItemDetails() {
+        uiScope.launch {
+            update()
             _navigateToItemsList.value = true
+        }
+    }
+
+    private suspend fun update() {
+        withContext(Dispatchers.IO) {
+            // TODO: Transform price between cents to dollars.
+            database.update(item.value!!)
+            Log.i(TAG, "Updated ${item.value!!}")
         }
     }
 
@@ -53,12 +73,9 @@ class ItemDetailViewModel(private val itemKey: Long = 0L, dataSource: ItemDao) :
 
     fun onDeleteItem() {
         uiScope.launch {
-            // IO is a thread pool for running operations that access the disk, such as
-            // our Room database.
             withContext(Dispatchers.IO) {
-                val currentItem = database.get(itemKey)
-                database.delete(currentItem)
-                Log.i(TAG, "deleted $currentItem")
+                database.delete(item.value!!)
+                Log.i(TAG, "Deleted ${item.value!!}")
             }
             _navigateToItemsList.value = true
         }

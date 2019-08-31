@@ -10,7 +10,8 @@ import kotlinx.coroutines.*
 
 private const val TAG = "AccountDetailViewModel"
 
-class AccountDetailViewModel(private val accountKey: Long = 0L, dataSource: AccountDao) : ViewModel() {
+class AccountDetailViewModel(private val accountKey: Long = 0L, dataSource: AccountDao) :
+    ViewModel() {
 
     val database = dataSource
 
@@ -19,33 +20,51 @@ class AccountDetailViewModel(private val accountKey: Long = 0L, dataSource: Acco
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private val account: LiveData<Account>
-
-    fun getAccount() = account
-
-
-    init {
-        account = database.getAccount(accountKey)
-    }
-
+    // TODO: Remove after testing.
+    val publicAccount
+        get() = account
 
     private val _navigateToAccountsList = MutableLiveData<Boolean?>()
     val navigateToAccountsList: LiveData<Boolean?>
         get() = _navigateToAccountsList
 
-    fun onUpdateAccountDetails() {
+    fun getAccount() = account
+
+
+    /**
+     * Check accountKey to either get existing Account or insert a new one.
+     */
+    init {
+        if (accountKey == -1L) {
+            newAccount()
+            account = database.getLastAccount()
+        } else {
+            account = database.getAccount(accountKey)
+        }
+    }
+
+    private fun newAccount() {
         uiScope.launch {
-            // IO is a thread pool for running operations that access the disk, such as
-            // our Room database.
             withContext(Dispatchers.IO) {
-                val currentAccount = database.get(accountKey)
-                currentAccount.firstName = account.value?.firstName!!
-                currentAccount.lastName = account.value?.lastName!!
-                // TODO: Hash password.
-                currentAccount.passwordHash = account.value?.passwordHash!!//.hash
-                database.update(currentAccount)
-                Log.i(TAG, "updated $currentAccount")
+                val newAccount = Account()
+                database.insert(newAccount)
+                Log.i(TAG, "Inserted $newAccount")
             }
+        }
+    }
+
+    fun onSubmitAccountDetails() {
+        uiScope.launch {
+            update()
             _navigateToAccountsList.value = true
+        }
+    }
+
+    private suspend fun update() {
+        withContext(Dispatchers.IO) {
+            // TODO: Hash password.
+            database.update(account.value!!)
+            Log.i(TAG, "Updated ${account.value!!}")
         }
     }
 
@@ -55,12 +74,9 @@ class AccountDetailViewModel(private val accountKey: Long = 0L, dataSource: Acco
 
     fun onDeleteAccount() {
         uiScope.launch {
-            // IO is a thread pool for running operations that access the disk, such as
-            // our Room database.
             withContext(Dispatchers.IO) {
-                val currentAccount = database.get(accountKey)
-                database.delete(currentAccount)
-                Log.i(TAG, "deleted $currentAccount")
+                database.delete(account.value!!)
+                Log.i(TAG, "Deleted ${account.value!!}")
             }
             _navigateToAccountsList.value = true
         }

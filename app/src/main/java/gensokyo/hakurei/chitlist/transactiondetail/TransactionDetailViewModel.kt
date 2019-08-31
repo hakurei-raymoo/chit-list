@@ -19,32 +19,55 @@ class TransactionDetailViewModel(private val transactionKey: Long = 0L, dataSour
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private val transaction: LiveData<Transaction>
-
-    fun getTransaction() = transaction
-
-
-    init {
-        transaction = database.getTransaction(transactionKey)
-    }
-
+    // TODO: Remove after testing.
+    val publicTransaction
+        get() = transaction
 
     private val _navigateToTransactionsList = MutableLiveData<Boolean?>()
     val navigateToTransactionsList: LiveData<Boolean?>
         get() = _navigateToTransactionsList
 
-    fun onUpdateTransactionDetails() {
+    fun getTransaction() = transaction
+
+
+    /**
+     * Check transactionKey to either get existing Transaction or insert a new one.
+     */
+    init {
+        if (transactionKey == -1L) {
+            newTransaction()
+            transaction = database.getLastTransaction()
+        } else {
+            transaction = database.getTransaction(transactionKey)
+        }
+    }
+
+    private fun newTransaction() {
         uiScope.launch {
-            // IO is a thread pool for running operations that access the disk, such as
-            // our Room database.
             withContext(Dispatchers.IO) {
-                val currentTransaction = database.get(transactionKey)
-                currentTransaction.accountId = transaction.value?.accountId!!
-                currentTransaction.itemId = transaction.value?.itemId!!
-                currentTransaction.comments = transaction.value?.comments!!
-                database.update(currentTransaction)
-                Log.i(TAG, "updated $currentTransaction")
+                val newTransaction = Transaction()
+                newTransaction.accountId = 1L
+                newTransaction.itemId = 1L
+                Log.i(TAG, "Attempting $newTransaction")
+                database.insert(newTransaction)
+                Log.i(TAG, "Inserted $newTransaction")
             }
+        }
+    }
+
+    fun onSubmitTransactionDetails() {
+        uiScope.launch {
+            update()
             _navigateToTransactionsList.value = true
+        }
+    }
+
+
+    private suspend fun update() {
+        withContext(Dispatchers.IO) {
+            // TODO: Ensure accountId and itemId exist.
+            database.update(transaction.value!!)
+            Log.i(TAG, "Updated ${transaction.value!!}")
         }
     }
 
@@ -54,12 +77,9 @@ class TransactionDetailViewModel(private val transactionKey: Long = 0L, dataSour
 
     fun onDeleteTransaction() {
         uiScope.launch {
-            // IO is a thread pool for running operations that access the disk, such as
-            // our Room database.
             withContext(Dispatchers.IO) {
-                val currentTransaction = database.get(transactionKey)
-                database.delete(currentTransaction)
-                Log.i(TAG, "deleted $currentTransaction")
+                database.delete(transaction.value!!)
+                Log.i(TAG, "Deleted ${transaction.value!!}")
             }
             _navigateToTransactionsList.value = true
         }

@@ -18,12 +18,15 @@ private const val TAG = "AccountsListFragment"
 
 class AccountsListFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        Log.i(TAG, "onCreateView called")
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentAccountsListBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_accounts_list, container, false)
+        val binding: FragmentAccountsListBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_accounts_list, container, false)
 
         val application = requireNotNull(this.activity).application
 
@@ -33,15 +36,13 @@ class AccountsListFragment : Fragment() {
 
         // Get a reference to the ViewModel associated with this fragment.
         val accountsListViewModel =
-            ViewModelProviders.of(
-                this, viewModelFactory).get(AccountsListViewModel::class.java)
+            ViewModelProviders.of(this, viewModelFactory).get(AccountsListViewModel::class.java)
 
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
         binding.accountsListViewModel = accountsListViewModel
 
         val adapter = AccountAdaptor(AccountListener { accountId ->
-//            Toast.makeText(context, "${id}", Toast.LENGTH_LONG).show()
             accountsListViewModel.onEditAccountClicked(accountId)
         })
         binding.accountsList.adapter = adapter
@@ -60,8 +61,8 @@ class AccountsListFragment : Fragment() {
         accountsListViewModel.navigateToEditAccount.observe(this, Observer { account ->
             account?.let {
                 this.findNavController().navigate(
-                    AccountsListFragmentDirections
-                        .actionAccountsListFragmentToAccountDetailFragment(account))
+                    AccountsListFragmentDirections.actionAccountsListFragmentToAccountDetailFragment(account)
+                )
                 accountsListViewModel.onEditAccountNavigated()
             }
         })

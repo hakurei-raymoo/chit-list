@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
                 name="accountDetailViewModel"
                 type="gensokyo.hakurei.chitlist.accountdetail.AccountDetailViewModel" />
@@ -16,64 +17,69 @@
 
         <TextView
                 android:id="@+id/primary_key_text"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{@string/primary_key_equals(accountDetailViewModel.account.id)}"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/primary_key_unknown"/>
+                tools:text="@string/primary_key_unknown" />
+
         <EditText
                 android:id="@+id/first_name_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:text="@={accountDetailViewModel.account.firstName}"
                 android:hint="@string/first_name"
                 android:importantForAutofill="no"
-                app:layout_constraintStart_toStartOf="parent"
+                android:inputType="textPersonName"
+                android:text="@={accountDetailViewModel.account.firstName}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/primary_key_text"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/primary_key_text" />
+
         <EditText
                 android:id="@+id/last_name_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:text="@={accountDetailViewModel.account.lastName}"
                 android:hint="@string/last_name"
                 android:importantForAutofill="no"
-                app:layout_constraintStart_toStartOf="parent"
+                android:inputType="textPersonName"
+                android:text="@={accountDetailViewModel.account.lastName}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/first_name_edit"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/first_name_edit" />
+
         <EditText
                 android:id="@+id/password_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="textVisiblePassword"
-                android:text="@={accountDetailViewModel.account.passwordHash}"
                 android:hint="@string/password"
                 android:importantForAutofill="no"
-                app:layout_constraintTop_toBottomOf="@+id/last_name_edit"
+                android:inputType="textVisiblePassword"
+                android:text="@={accountDetailViewModel.account.passwordHash}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/last_name_edit" />
+
         <Button
                 android:id="@+id/submit_button"
-                android:text="@string/submit"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> accountDetailViewModel.onUpdateAccountDetails()}"
-                app:layout_constraintStart_toStartOf="parent"
+                android:onClick="@{() -> accountDetailViewModel.onSubmitAccountDetails()}"
+                android:text="@string/submit"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/delete_button"/>
+                app:layout_constraintEnd_toStartOf="@+id/delete_button"
+                app:layout_constraintStart_toStartOf="parent" />
+
         <Button
                 android:id="@+id/delete_button"
-                android:text="@string/delete"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> accountDetailViewModel.onDeleteAccount()}"
-                app:layout_constraintStart_toEndOf="@+id/submit_button"
+                android:text="@string/delete"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/submit_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

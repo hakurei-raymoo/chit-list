@@ -8,7 +8,11 @@ import androidx.room.RoomDatabase
 
 private const val TAG = "AppDatabase"
 
-@Database(entities = [Account::class, Item::class, Transaction::class], version = 1, exportSchema = false)
+@Database(
+    entities = [Account::class, Item::class, Transaction::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract val accountDao: AccountDao

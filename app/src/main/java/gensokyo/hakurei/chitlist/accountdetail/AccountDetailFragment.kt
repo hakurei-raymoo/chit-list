@@ -20,10 +20,11 @@ private const val TAG = "AccountDetailFragment"
 
 class AccountDetailFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-
-        Log.i(TAG, "onCreateView called")
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentAccountDetailBinding = DataBindingUtil.inflate(
@@ -50,8 +51,10 @@ class AccountDetailFragment : Fragment() {
         // Add an Observer to the state variable for Navigating when a Submit button is tapped.
         accountDetailViewModel.navigateToAccountsList.observe(this, Observer {
             if (it == true) { // Observed state is true.
+                val inputMethodManager =
+                    activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
                 // Hide the keyboard.
-                val inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
                 this.findNavController().navigate(
@@ -61,6 +64,12 @@ class AccountDetailFragment : Fragment() {
                 // has a configuration change.
                 accountDetailViewModel.doneNavigating()
             }
+        })
+
+        // Test Observer to report changes on account.
+        // TODO: Remove after testing.
+        accountDetailViewModel.publicAccount.observe(this, Observer {
+            Log.i(TAG, "Observed ${accountDetailViewModel.publicAccount.value}")
         })
 
         return binding.root

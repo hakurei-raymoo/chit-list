@@ -18,25 +18,12 @@ interface AccountDao {
     @Delete
     fun delete(account: Account)
 
-    /**
-     * Selects and returns the row that matches the supplied id, which is our key.
-     *
-     * @param key id to match
-     */
-    @Query ("SELECT * from accounts_table WHERE id = :key")
-    fun get(key: Long): Account
-
-    /**
-     * Selects and returns all rows in the table,
-     *
-     * sorted by id in descending order.
-     */
-    @Query("SELECT * FROM accounts_table ORDER BY id DESC")
-    fun getAccounts(): LiveData<List<Account>>
-
-    /**
-     * Selects and returns the [Account] with given id.
-     */
     @Query("SELECT * from accounts_table WHERE id = :key")
     fun getAccount(key: Long): LiveData<Account>
+
+    @Query("SELECT * from accounts_table ORDER BY id DESC LIMIT 1")
+    fun getLastAccount(): LiveData<Account>
+
+    @Query("SELECT * FROM accounts_table ORDER BY id DESC")
+    fun getAccounts(): LiveData<List<Account>>
 }

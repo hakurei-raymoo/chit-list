@@ -17,9 +17,8 @@ class ItemDetailViewModelFactory(
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        Log.i(TAG, "create called with itemKey=$itemKey")
-
         if (modelClass.isAssignableFrom(ItemDetailViewModel::class.java)) {
+            Log.i(TAG, "ItemDetailViewModel created with itemKey=$itemKey")
             return ItemDetailViewModel(itemKey, dataSource) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

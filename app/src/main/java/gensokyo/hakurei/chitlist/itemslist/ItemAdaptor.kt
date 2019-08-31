@@ -10,7 +10,8 @@ import gensokyo.hakurei.chitlist.databinding.ListItemItemBinding
 
 private const val TAG = "ItemAdaptor"
 
-class ItemAdaptor(val clickListener: ItemListener) : ListAdapter<Item, ItemAdaptor.ViewHolder>(ItemDiffCallback()) {
+class ItemAdaptor(val clickListener: ItemListener) :
+    ListAdapter<Item, ItemAdaptor.ViewHolder>(ItemDiffCallback()) {
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -21,7 +22,8 @@ class ItemAdaptor(val clickListener: ItemListener) : ListAdapter<Item, ItemAdapt
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ListItemItemBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(val binding: ListItemItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Item, clickListener: ItemListener) {
             binding.item = item

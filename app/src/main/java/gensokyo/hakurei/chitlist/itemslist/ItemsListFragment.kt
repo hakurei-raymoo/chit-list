@@ -18,12 +18,15 @@ private const val TAG = "ItemsListFragment"
 
 class ItemsListFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        Log.i(TAG, "onCreateView called")
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentItemsListBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_items_list, container, false)
+        val binding: FragmentItemsListBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_items_list, container, false)
 
         val application = requireNotNull(this.activity).application
 
@@ -33,15 +36,13 @@ class ItemsListFragment : Fragment() {
 
         // Get a reference to the ViewModel associated with this fragment.
         val itemsListViewModel =
-            ViewModelProviders.of(
-                this, viewModelFactory).get(ItemsListViewModel::class.java)
+            ViewModelProviders.of(this, viewModelFactory).get(ItemsListViewModel::class.java)
 
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
         binding.itemsListViewModel = itemsListViewModel
 
         val adapter = ItemAdaptor(ItemListener { itemId ->
-//            Toast.makeText(context, "${id}", Toast.LENGTH_LONG).show()
             itemsListViewModel.onEditItemClicked(itemId)
         })
         binding.itemsList.adapter = adapter
@@ -60,8 +61,8 @@ class ItemsListFragment : Fragment() {
         itemsListViewModel.navigateToEditItem.observe(this, Observer { item ->
             item?.let {
                 this.findNavController().navigate(
-                    ItemsListFragmentDirections
-                        .actionItemsListFragmentToItemDetailFragment(item))
+                    ItemsListFragmentDirections.actionItemsListFragmentToItemDetailFragment(item)
+                )
                 itemsListViewModel.onEditItemNavigated()
             }
         })

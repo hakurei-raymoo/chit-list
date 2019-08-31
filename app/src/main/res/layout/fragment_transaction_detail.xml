@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
                 name="transactionDetailViewModel"
                 type="gensokyo.hakurei.chitlist.transactiondetail.TransactionDetailViewModel" />
@@ -16,65 +17,79 @@
 
         <TextView
                 android:id="@+id/primary_key_text"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{@string/primary_key_equals(transactionDetailViewModel.transaction.id)}"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/primary_key_unknown"/>
+                tools:text="@string/primary_key_unknown" />
+
+        <TextView
+                android:id="@+id/time_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{@string/time_equals(transactionDetailViewModel.transaction.time)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/primary_key_text"
+                tools:text="@string/time_unknown" />
+
         <EditText
                 android:id="@+id/account_id_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:text="@={`` + transactionDetailViewModel.transaction.accountId}"
                 android:hint="@string/account"
                 android:importantForAutofill="no"
-                app:layout_constraintStart_toStartOf="parent"
+                android:inputType="textPersonName"
+                android:text="@={`` + transactionDetailViewModel.transaction.accountId}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/primary_key_text"/>
-<!--        TODO: Add Autofill populated with Items -->
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time_text" />
+        <!--        TODO: Add Autofill populated with Items -->
         <EditText
                 android:id="@+id/item_id_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:text="@={`` + transactionDetailViewModel.transaction.itemId}"
                 android:hint="@string/item"
                 android:importantForAutofill="no"
-                app:layout_constraintStart_toStartOf="parent"
+                android:inputType="textPersonName"
+                android:text="@={`` + transactionDetailViewModel.transaction.itemId}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_id_edit"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/account_id_edit" />
+
         <EditText
                 android:id="@+id/comments_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:text="@={transactionDetailViewModel.transaction.comments}"
                 android:hint="@string/comments"
                 android:importantForAutofill="no"
-                app:layout_constraintTop_toBottomOf="@+id/item_id_edit"
+                android:inputType="text"
+                android:text="@={transactionDetailViewModel.transaction.comments}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/item_id_edit" />
+
         <Button
                 android:id="@+id/submit_button"
-                android:text="@string/submit"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> transactionDetailViewModel.onUpdateTransactionDetails()}"
-                app:layout_constraintStart_toStartOf="parent"
+                android:onClick="@{() -> transactionDetailViewModel.onSubmitTransactionDetails()}"
+                android:text="@string/submit"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/delete_button"/>
+                app:layout_constraintEnd_toStartOf="@+id/delete_button"
+                app:layout_constraintStart_toStartOf="parent" />
+
         <Button
                 android:id="@+id/delete_button"
-                android:text="@string/delete"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> transactionDetailViewModel.onDeleteTransaction()}"
-                app:layout_constraintStart_toEndOf="@+id/submit_button"
+                android:text="@string/delete"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/submit_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

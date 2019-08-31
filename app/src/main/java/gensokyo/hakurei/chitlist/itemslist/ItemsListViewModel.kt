@@ -3,7 +3,6 @@ package gensokyo.hakurei.chitlist.itemslist
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import gensokyo.hakurei.chitlist.database.Item
 import gensokyo.hakurei.chitlist.database.ItemDao
 import kotlinx.coroutines.*
 
@@ -13,8 +12,6 @@ class ItemsListViewModel(
     val database: ItemDao, application: Application) : AndroidViewModel(application) {
     private var viewModelJob = Job()
 
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
     val items = database.getItems()
 
     private val _navigateToEditItem = MutableLiveData<Long>()
@@ -22,16 +19,8 @@ class ItemsListViewModel(
         get() = _navigateToEditItem
 
     fun onNewItem() {
-        uiScope.launch {
-            val newItem = Item()
-            insert(newItem)
-        }
-    }
-
-    private suspend fun insert(item: Item) {
-        withContext(Dispatchers.IO) {
-            database.insert(item)
-        }
+        // TODO: Remove new item magic number (-1L).
+        _navigateToEditItem.value = -1L
     }
 
     fun onEditItemClicked(id: Long) {

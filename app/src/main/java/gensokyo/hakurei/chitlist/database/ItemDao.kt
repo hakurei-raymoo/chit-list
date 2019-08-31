@@ -18,25 +18,12 @@ interface ItemDao {
     @Delete
     fun delete(item: Item)
 
-    /**
-     * Selects and returns the row that matches the supplied id, which is our key.
-     *
-     * @param key id to match
-     */
-    @Query ("SELECT * from items_table WHERE id = :key")
-    fun get(key: Long): Item
-
-    /**
-     * Selects and returns all rows in the table,
-     *
-     * sorted by id in descending order.
-     */
-    @Query("SELECT * FROM items_table ORDER BY id DESC")
-    fun getItems(): LiveData<List<Item>>
-
-    /**
-     * Selects and returns the [Item] with given id.
-     */
     @Query("SELECT * from items_table WHERE id = :key")
     fun getItem(key: Long): LiveData<Item>
+
+    @Query("SELECT * from items_table ORDER BY id DESC LIMIT 1")
+    fun getLastItem(): LiveData<Item>
+
+    @Query("SELECT * FROM items_table ORDER BY id DESC")
+    fun getItems(): LiveData<List<Item>>
 }

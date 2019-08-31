@@ -10,7 +10,8 @@ import gensokyo.hakurei.chitlist.databinding.ListItemTransactionBinding
 
 private const val TAG = "TXAdaptor"
 
-class TransactionAdaptor(val clickListener: TransactionListener) : ListAdapter<Transaction, TransactionAdaptor.ViewHolder>(TransactionDiffCallback()) {
+class TransactionAdaptor(val clickListener: TransactionListener) :
+    ListAdapter<Transaction, TransactionAdaptor.ViewHolder>(TransactionDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position)!!, clickListener)
@@ -20,7 +21,8 @@ class TransactionAdaptor(val clickListener: TransactionListener) : ListAdapter<T
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ListItemTransactionBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(val binding: ListItemTransactionBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(transaction: Transaction, clickListener: TransactionListener) {
             binding.transaction = transaction

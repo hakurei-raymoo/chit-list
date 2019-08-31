@@ -4,9 +4,11 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
                 name="item"
-                type="gensokyo.hakurei.chitlist.database.Item"/>
+                type="gensokyo.hakurei.chitlist.database.Item" />
+
         <variable
                 name="clickListener"
                 type="gensokyo.hakurei.chitlist.itemslist.ItemListener" />
@@ -18,40 +20,41 @@
 
         <TextView
                 android:id="@+id/id_text"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{@string/primary_key_equals(item.id)}"
-                android:visibility="gone"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/edit_button"
-                tools:text="@string/primary_key_unknown"/>
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/primary_key_unknown" />
+
         <TextView
                 android:id="@+id/name_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{item.name}"
-                app:layout_constraintTop_toBottomOf="@+id/id_text"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/edit_button"
-                tools:text="@string/name_unknown"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/name_unknown" />
+
         <TextView
                 android:id="@+id/price_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{@string/dollars(item.price)}"
-                app:layout_constraintTop_toBottomOf="@+id/name_text"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/edit_button"
-                tools:text="@string/price_unknown"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name_text"
+                tools:text="@string/price_unknown" />
+
         <Button
                 android:id="@+id/edit_button"
-                android:text="@string/edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> clickListener.onClick(item)}"
+                android:text="@string/edit"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

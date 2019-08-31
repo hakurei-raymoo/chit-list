@@ -13,12 +13,12 @@ private const val TAG = "AccountDetailVMFactory"
  */
 class AccountDetailViewModelFactory(
     private val accountKey: Long,
-    private val dataSource: AccountDao) : ViewModelProvider.Factory {
+    private val dataSource: AccountDao
+) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        Log.i(TAG, "create called with accountKey=$accountKey")
-
         if (modelClass.isAssignableFrom(AccountDetailViewModel::class.java)) {
+            Log.i(TAG, "AccountDetailViewModel created with accountKey=$accountKey")
             return AccountDetailViewModel(accountKey, dataSource) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

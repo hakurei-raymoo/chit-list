@@ -13,12 +13,11 @@ private const val TAG = "AccountsListVMFactory"
  */
 class AccountsListViewModelFactory(
     private val dataSource: AccountDao,
-    private val application: Application) : ViewModelProvider.Factory {
+    private val application: Application
+) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        Log.i(TAG, "create called")
-
         if (modelClass.isAssignableFrom(AccountsListViewModel::class.java)) {
             return AccountsListViewModel(dataSource, application) as T
         }

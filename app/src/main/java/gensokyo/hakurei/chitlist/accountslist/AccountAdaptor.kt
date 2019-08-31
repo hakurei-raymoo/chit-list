@@ -10,7 +10,8 @@ import gensokyo.hakurei.chitlist.databinding.ListItemAccountBinding
 
 private const val TAG = "AccountAdaptor"
 
-class AccountAdaptor(val clickListener: AccountListener) : ListAdapter<Account, AccountAdaptor.ViewHolder>(AccountDiffCallback()) {
+class AccountAdaptor(val clickListener: AccountListener) :
+    ListAdapter<Account, AccountAdaptor.ViewHolder>(AccountDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position)!!, clickListener)
@@ -20,7 +21,8 @@ class AccountAdaptor(val clickListener: AccountListener) : ListAdapter<Account, 
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ListItemAccountBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(val binding: ListItemAccountBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Account, clickListener: AccountListener) {
             binding.account = item

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 
 /**
- * Defines methods for using the Transaction class with Room.
+ * Defines methods for using the [Transaction] class with Room.
  */
 @Dao
 interface TransactionDao {

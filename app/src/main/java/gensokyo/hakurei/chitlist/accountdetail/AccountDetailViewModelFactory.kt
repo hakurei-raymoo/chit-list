@@ -3,12 +3,13 @@ package gensokyo.hakurei.chitlist.accountdetail
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import gensokyo.hakurei.chitlist.database.Account
 import gensokyo.hakurei.chitlist.database.AccountDao
 
 private const val TAG = "AccountDetailVMFactory"
 
 /**
- * Provides the key for the account and the AccountDao to the ViewModel.
+ * Provides the key for the [Account] and the [AccountDao] to the [AccountDetailViewModel].
  */
 class AccountDetailViewModelFactory(
     private val accountKey: Long,

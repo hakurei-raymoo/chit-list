@@ -9,7 +9,7 @@ import gensokyo.hakurei.chitlist.database.AccountDao
 private const val TAG = "AccountsListVMFactory"
 
 /**
- * Provides the AccountDao and context to the ViewModel.
+ * Provides the [AccountDao] and context to the [AccountsListViewModel].
  */
 class AccountsListViewModelFactory(
     private val dataSource: AccountDao,

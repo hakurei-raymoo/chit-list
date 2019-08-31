@@ -3,12 +3,13 @@ package gensokyo.hakurei.chitlist.transactiondetail
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import gensokyo.hakurei.chitlist.database.Transaction
 import gensokyo.hakurei.chitlist.database.TransactionDao
 
 private const val TAG = "TXDetailVMFactory"
 
 /**
- * Provides the key for the transaction and the TransactionDao to the ViewModel.
+ * Provides the key for the [Transaction] and the [TransactionDao] to the [TransactionDetailViewModel].
  */
 class TransactionDetailViewModelFactory(
     private val transactionKey: Long,

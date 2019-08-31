@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 
 /**
- * Defines methods for using the Item class with Room.
+ * Defines methods for using the [Item] class with Room.
  */
 @Dao
 interface ItemDao {
@@ -35,7 +35,7 @@ interface ItemDao {
     fun getItems(): LiveData<List<Item>>
 
     /**
-     * Selects and returns the item with given id.
+     * Selects and returns the [Item] with given id.
      */
     @Query("SELECT * from items_table WHERE id = :key")
     fun getItem(key: Long): LiveData<Item>

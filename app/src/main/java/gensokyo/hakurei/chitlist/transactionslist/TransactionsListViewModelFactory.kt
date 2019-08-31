@@ -9,7 +9,7 @@ import gensokyo.hakurei.chitlist.database.TransactionDao
 private const val TAG = "TXsListVMFactory"
 
 /**
- * Provides the TransactionDao and context to the ViewModel.
+ * Provides the [TransactionDao] and context to the [TransactionsListViewModel].
  */
 class TransactionsListViewModelFactory(
     private val dataSource: TransactionDao,

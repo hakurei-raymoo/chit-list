@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 
 /**
- * Defines methods for using the Account class with Room.
+ * Defines methods for using the [Account] class with Room.
  */
 @Dao
 interface AccountDao {
@@ -35,7 +35,7 @@ interface AccountDao {
     fun getAccounts(): LiveData<List<Account>>
 
     /**
-     * Selects and returns the account with given id.
+     * Selects and returns the [Account] with given id.
      */
     @Query("SELECT * from accounts_table WHERE id = :key")
     fun getAccount(key: Long): LiveData<Account>

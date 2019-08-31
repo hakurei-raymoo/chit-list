@@ -9,7 +9,7 @@ import gensokyo.hakurei.chitlist.database.ItemDao
 private const val TAG = "ItemsListVMFactory"
 
 /**
- * Provides the ItemDao and context to the ViewModel.
+ * Provides the [ItemDao] and context to the [ItemsListViewModel].
  */
 class ItemsListViewModelFactory(
     private val dataSource: ItemDao,

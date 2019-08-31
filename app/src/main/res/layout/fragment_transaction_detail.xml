@@ -18,11 +18,11 @@
                 android:id="@+id/primary_key_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{@string/primary_key_equals(transactionDetailViewModel.transaction.id)}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/primary_key_unknown"/>
-<!--        android:text="@{@string/primary_key_equals(transactionDetailViewModel.transaction.id)}"-->
         <EditText
                 android:id="@+id/account_id_edit"
                 android:layout_width="wrap_content"

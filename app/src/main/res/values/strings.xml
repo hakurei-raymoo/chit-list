@@ -1,23 +1,50 @@
 <resources>
     <string name="app_name">Chit List</string>
-    <string name="add_user">Add User</string>
-    <string name="clear_users">Clear Users</string>
     <string name="submit">Submit</string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
-
-    <!-- Output to TextView styled with a little HTML -->
-    <string name="user_title"><![CDATA[<h3><b>SELECT</b> * <b>FROM</b> chit_users_table <b>ORDER BY</b> userId <b>DESC</b></h3>]]></string>
-    <string name="user_user_id"><![CDATA[<b>ID:</b>]]></string>
-    <string name="user_first_name"><![CDATA[<b>First Name:</b>]]></string>
-    <string name="user_last_name"><![CDATA[<b>Last Name:</b>]]></string>
-    <string name="user_password_hash"><![CDATA[<b>Password Hash:</b>]]></string>
-    <string name="user_bio_auth_hash"><![CDATA[<b>Bio Auth Hash:</b>]]></string>
-    <string name="user_two_fa_hash"><![CDATA[<b>Two FA Hash:</b>]]></string>
-    <string name="edit_user">Edit User</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
-    <string name="userid">userID</string>
-    <string name="primary_key">Primary Key</string>
+    <string name="primary_key_equals">key=%d</string>
+    <string name="primary_key_unknown">key=unknown</string>
+    <string name="dollars">$%d</string>
+    <string name="dollars_unknown">$unknown</string>
+<!--Account-->
+    <string name="accounts">Accounts</string>
+    <string name="add_account">Add Account</string>
+    <string name="account_id_equals">accountId=%d</string>
+    <string name="account_id_unknown">accountId=unknown</string>
+    <string name="first_name">First Name</string>
+    <string name="first_name_equals">first_name=%s</string>
+    <string name="first_name_unknown">first_name=unknown</string>
+    <string name="last_name">Last Name</string>
+    <string name="last_name_equals">last_name=%s</string>
+    <string name="last_name_unknown">last_name=unknown</string>
     <string name="password">Password</string>
+    <string name="password_hash_equals">password_hash=%s</string>
+    <string name="password_hash_unknown">password_hash=unknown</string>
+<!--Item-->
+    <string name="items">Items</string>
+    <string name="add_item">Add Item</string>
+    <string name="item_id_equals">itemId=%d</string>
+    <string name="item_id_unknown">itemId=unknown</string>
+    <string name="name">Name</string>
+    <string name="name_equals">name=%s</string>
+    <string name="name_unknown">name=unknown</string>
+    <string name="price">Price</string>
+    <string name="price_equals">price=$%d</string>
+    <string name="price_unknown">price=unknown</string>
+<!--    Transaction-->
+    <string name="transactions">Transactions</string>
+    <string name="add_transaction">Add Transaction</string>
+    <string name="time">Time</string>
+    <string name="time_equals">time=%d</string>
+    <string name="time_unknown">time=unknown</string>
+    <string name="account">Account</string>
+    <string name="account_equals">account=%s</string>
+    <string name="account_unknown">account=unknown</string>
+    <string name="item">Item</string>
+    <string name="item_equals">item=%s</string>
+    <string name="item_unknown">item=unknown</string>
+    <string name="comments">Comments</string>
+    <string name="comments_equals">comments=%s</string>
+    <string name="comments_unknown">comments=unknown</string>
 </resources>

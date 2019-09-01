@@ -3,28 +3,83 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/navigation"
-            app:startDestination="@id/users_list_fragment">
+            app:startDestination="@id/accounts_list_fragment">
 
-    <fragment android:id="@+id/users_list_fragment"
-              android:name="gensokyo.hakurei.chitlist.userslist.UsersListFragment"
-              android:label="UsersListFragment"
-              tools:layout="@layout/fragment_users_list">
-        <action android:id="@+id/action_users_list_fragment_to_user_detail_fragment"
-                app:destination="@id/user_detail_fragment"
+    <fragment
+            android:id="@+id/items_list_fragment"
+            android:name="gensokyo.hakurei.chitlist.itemslist.ItemsListFragment"
+            android:label="ItemsListFragment"
+            tools:layout="@layout/fragment_items_list">
+        <action
+                android:id="@+id/action_items_list_fragment_to_item_detail_fragment"
+                app:destination="@id/item_detail_fragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:popEnterAnim="@anim/slide_in_right" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/item_detail_fragment"
+            android:name="gensokyo.hakurei.chitlist.itemdetail.ItemDetailFragment"
+            android:label="ItemDetailFragment"
+            tools:layout="@layout/fragment_item_detail">
+        <argument
+                android:name="itemKey"
+                app:argType="long" />
+        <action
+                android:id="@+id/action_item_detail_fragment_to_items_list_fragment"
+                app:destination="@id/items_list_fragment"
+                app:popUpTo="@+id/items_list_fragment"
+                app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment android:id="@+id/accounts_list_fragment"
+              android:name="gensokyo.hakurei.chitlist.accountslist.AccountsListFragment"
+              android:label="AccountsListFragment"
+              tools:layout="@layout/fragment_accounts_list">
+        <action android:id="@+id/action_accounts_list_fragment_to_account_detail_fragment"
+                app:destination="@id/account_detail_fragment"
                 app:enterAnim="@anim/slide_in_right"
                 app:popEnterAnim="@anim/slide_in_right"/>
-
     </fragment>
 
-    <fragment android:id="@+id/user_detail_fragment"
-              android:name="gensokyo.hakurei.chitlist.userdetail.UserDetailFragment"
-              android:label="UserDetailFragment"
-              tools:layout="@layout/fragment_user_detail">
+    <fragment android:id="@+id/account_detail_fragment"
+              android:name="gensokyo.hakurei.chitlist.accountdetail.AccountDetailFragment"
+              android:label="AccountDetailFragment"
+              tools:layout="@layout/fragment_account_detail">
         <argument
-                android:name="userKey"
+                android:name="accountKey"
                 app:argType="long" />
-        <action android:id="@+id/action_user_detail_fragment_to_users_list_fragment"
-                app:destination="@id/users_list_fragment" app:popUpTo="@+id/users_list_fragment"
-                app:popUpToInclusive="true"/>
+        <action android:id="@+id/action_account_detail_fragment_to_accounts_list_fragment"
+                app:destination="@id/accounts_list_fragment"
+                app:popUpTo="@+id/accounts_list_fragment"
+                app:popUpToInclusive="true" />
     </fragment>
+
+    <fragment
+            android:id="@+id/transactions_list_fragment"
+            android:name="gensokyo.hakurei.chitlist.transactionslist.TransactionsListFragment"
+            android:label="TransactionsListFragment"
+            tools:layout="@layout/fragment_transactions_list">
+        <action
+                android:id="@+id/action_transactions_list_fragment_to_transaction_detail_fragment"
+                app:destination="@id/transaction_detail_fragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:popEnterAnim="@anim/slide_in_right" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/transaction_detail_fragment"
+            android:name="gensokyo.hakurei.chitlist.transactiondetail.TransactionDetailFragment"
+            android:label="TransactionDetailFragment"
+            tools:layout="@layout/fragment_transaction_detail">
+        <argument
+                android:name="transactionKey"
+                app:argType="long" />
+        <action
+                android:id="@+id/action_transaction_detail_fragment_to_transactions_list_fragment"
+                app:destination="@id/transactions_list_fragment"
+                app:popUpTo="@+id/transactions_list_fragment"
+                app:popUpToInclusive="true" />
+    </fragment>
+
 </navigation>

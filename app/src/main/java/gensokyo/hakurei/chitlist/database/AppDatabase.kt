@@ -6,28 +6,34 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-private const val TAG = "UsersDatabase"
+private const val TAG = "AppDatabase"
 
-@Database(entities = [User::class], version = 1, exportSchema = false)
-abstract class UsersDatabase : RoomDatabase() {
+@Database(
+    entities = [Account::class, Item::class, Transaction::class],
+    version = 1,
+    exportSchema = false
+)
+abstract class AppDatabase : RoomDatabase() {
 
-    abstract val usersDatabaseDao: UsersDatabaseDao
+    abstract val accountDao: AccountDao
+    abstract val itemDao: ItemDao
+    abstract val transactionDao: TransactionDao
 
     companion object {
         @Volatile
-        private var INSTANCE: UsersDatabase? = null
+        private var INSTANCE: AppDatabase? = null
 
-        fun getInstance(context: Context): UsersDatabase {
+        fun getInstance(context: Context): AppDatabase {
             synchronized(this) {
                 var instance = INSTANCE
 
                 if (instance == null) {
 
-                    Log.i(TAG, "New Database created, Room.databaseBuilder called")
+                    Log.i(TAG, "Room.databaseBuilder called")
                     instance = Room.databaseBuilder(
                         context.applicationContext,
-                        UsersDatabase::class.java,
-                        "chit_list_database"
+                        AppDatabase::class.java,
+                        "chit_list-db"
                     )
                         .fallbackToDestructiveMigration()
                         .build()

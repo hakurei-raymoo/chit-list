@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="itemDetailViewModel"
+                type="gensokyo.hakurei.chitlist.itemdetail.ItemDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".itemdetail.ItemDetailFragment">
+
+        <TextView
+                android:id="@+id/primary_key_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{@string/primary_key_equals(itemDetailViewModel.item.id)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/primary_key_unknown" />
+
+        <EditText
+                android:id="@+id/name_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:text="@={itemDetailViewModel.item.name}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/primary_key_text" />
+
+        <EditText
+                android:id="@+id/price_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/price"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:text="@={`` + itemDetailViewModel.item.price}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name_edit" />
+
+        <Button
+                android:id="@+id/submit_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> itemDetailViewModel.onSubmitItemDetails()}"
+                android:text="@string/submit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/delete_button"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+                android:id="@+id/delete_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> itemDetailViewModel.onDeleteItem()}"
+                android:text="@string/delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/submit_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

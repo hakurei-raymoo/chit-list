@@ -4,10 +4,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "chit_users_table")
-data class User(
+@Entity(tableName = "accounts_table")
+data class Account(
     @PrimaryKey(autoGenerate = true)
-    var userId: Long = 0L,
+    var id: Long = 0L,
 
     @ColumnInfo(name = "first_name")
     var firstName: String = "",
@@ -15,12 +15,12 @@ data class User(
     @ColumnInfo(name = "last_name")
     var lastName: String = "",
 
-    @ColumnInfo(name = "def_auth_hash")
-    var defAuthHash: String = "",
+    @ColumnInfo(name = "password_hash")
+    var passwordHash: String = "",
 
-    @ColumnInfo(name = "bio_auth_hash")
-    var bioAuthHash: String = "",
+    @ColumnInfo(name = "alt_auth")
+    var altAuth: String = "",
 
-    @ColumnInfo(name = "two_FA_hash")
-    var twoFAHash: String = ""
+    @ColumnInfo(name = "bio_auth")
+    var bioAuth: String = ""
 )

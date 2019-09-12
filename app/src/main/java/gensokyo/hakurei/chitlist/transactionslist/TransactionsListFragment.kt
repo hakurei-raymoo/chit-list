@@ -1,10 +1,11 @@
 package gensokyo.hakurei.chitlist.transactionslist
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -47,7 +48,7 @@ class TransactionsListFragment : Fragment() {
         })
         binding.transactionsList.adapter = adapter
 
-        transactionsListViewModel.transactions.observe(viewLifecycleOwner, Observer {
+        transactionsListViewModel.displayTransactions.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
@@ -65,6 +66,15 @@ class TransactionsListFragment : Fragment() {
                 )
                 transactionsListViewModel.onEditTransactionNavigated()
             }
+        })
+
+        // Add an Observer to the LiveData when the Search button is tapped.
+        transactionsListViewModel.publicDisplaySearch.observe(this, Observer {
+            val inputMethodManager =
+                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+            // Hide the keyboard.
+            inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
         })
 
         return binding.root

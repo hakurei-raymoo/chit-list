@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -13,6 +14,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+        <AutoCompleteTextView
+                android:id="@+id/search_autocomplete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/account"
+                android:text="@={transactionsListViewModel.searchString}"
+                app:layout_constraintBottom_toTopOf="@id/transactions_list"
+                app:layout_constraintEnd_toStartOf="@+id/search_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+                android:id="@+id/search_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/search"
+                android:onClick="@{() -> transactionsListViewModel.onSearch()}"
+                app:layout_constraintBottom_toTopOf="@id/transactions_list"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/search_autocomplete"
+                app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/transactions_list"
                 android:layout_width="0dp"
@@ -21,7 +44,7 @@
                 app:layout_constraintBottom_toTopOf="@id/add_transaction_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/search_autocomplete" />
 
         <Button
                 android:id="@+id/add_transaction_button"

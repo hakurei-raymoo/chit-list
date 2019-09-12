@@ -7,6 +7,7 @@
     <string name="primary_key_unknown">key=unknown</string>
     <string name="dollars">$%d</string>
     <string name="dollars_unknown">$unknown</string>
+    <string name="search">Search</string>
 <!--Account-->
     <string name="accounts">Accounts</string>
     <string name="add_account">Add Account</string>

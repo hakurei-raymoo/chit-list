@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -30,6 +32,10 @@ class TransactionsListFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_transactions_list, container, false)
 
         val application = requireNotNull(this.activity).application
+
+        // Get a reference to the input method manager to allow hiding the keyboard.
+        val inputMethodManager =
+            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         // Create an instance of the ViewModel Factory.
         val dataSource = AppDatabase.getInstance(application).transactionDao
@@ -61,6 +67,9 @@ class TransactionsListFragment : Fragment() {
         // Add an Observer on the state variable for Navigating when EDIT button is pressed.
         transactionsListViewModel.navigateToEditTransaction.observe(this, Observer { transaction ->
             transaction?.let {
+                // Hide the keyboard.
+                inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+
                 this.findNavController().navigate(
                     TransactionsListFragmentDirections.actionTransactionsListFragmentToTransactionDetailFragment(transaction)
                 )
@@ -70,12 +79,20 @@ class TransactionsListFragment : Fragment() {
 
         // Add an Observer to the LiveData when the Search button is tapped.
         transactionsListViewModel.publicDisplaySearch.observe(this, Observer {
-            val inputMethodManager =
-                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
             // Hide the keyboard.
             inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
         })
+
+        // Get a reference to the AutoCompleteTextView in the layout.
+        val searchAutocomplete = binding.searchAutocomplete as AutoCompleteTextView
+        // Create the adapter and set it to the AutoCompleteTextView.
+        val accountsAdaptor = ArrayAdapter<String>(
+            requireContext(),
+            android.R.layout.simple_list_item_1,
+            transactionsListViewModel.accountNames
+        )
+        searchAutocomplete.setAdapter(accountsAdaptor)
+
 
         return binding.root
     }

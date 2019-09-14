@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import gensokyo.hakurei.chitlist.database.Item
 import gensokyo.hakurei.chitlist.databinding.ListItemItemBinding
 
-private const val TAG = "ItemAdaptor"
+private const val TAG = "ItemAdapter"
 
-class ItemAdaptor(val clickListener: ItemListener) :
-    ListAdapter<Item, ItemAdaptor.ViewHolder>(ItemDiffCallback()) {
+class ItemAdapter(val clickListener: ItemListener) :
+    ListAdapter<Item, ItemAdapter.ViewHolder>(ItemDiffCallback()) {
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -44,7 +44,7 @@ class ItemAdaptor(val clickListener: ItemListener) :
 class ItemDiffCallback : DiffUtil.ItemCallback<Item>() {
 
     override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.itemId == newItem.itemId
     }
 
     override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
@@ -53,5 +53,5 @@ class ItemDiffCallback : DiffUtil.ItemCallback<Item>() {
 }
 
 class ItemListener(val clickListener: (itemId: Long) -> Unit) {
-    fun onClick(item: Item) = clickListener(item.id)
+    fun onClick(item: Item) = clickListener(item.itemId)
 }

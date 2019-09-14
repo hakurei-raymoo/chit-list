@@ -1,18 +1,23 @@
 <resources>
     <string name="app_name">Chit List</string>
+<!--Buttons-->
     <string name="submit">Submit</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="search">Search</string>
+<!--Common-->
     <string name="primary_key_equals">key=%d</string>
     <string name="primary_key_unknown">key=unknown</string>
+    <string name="enabled">Enabled</string>
     <string name="dollars">$%d</string>
     <string name="dollars_unknown">$unknown</string>
-    <string name="search">Search</string>
 <!--Account-->
     <string name="accounts">Accounts</string>
     <string name="add_account">Add Account</string>
     <string name="account_id_equals">accountId=%d</string>
     <string name="account_id_unknown">accountId=unknown</string>
+    <string name="account_name">Account name</string>
+    <string name="full_name">%s %s</string>
     <string name="first_name">First Name</string>
     <string name="first_name_equals">first_name=%s</string>
     <string name="first_name_unknown">first_name=unknown</string>

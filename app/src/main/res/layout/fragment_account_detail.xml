@@ -19,7 +19,7 @@
                 android:id="@+id/primary_key_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{@string/primary_key_equals(accountDetailViewModel.account.id)}"
+                android:text="@{@string/primary_key_equals(accountDetailViewModel.account.accountId)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -60,6 +60,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/last_name_edit" />
+
+        <Switch
+                android:id="@+id/enabled_switch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/enabled"
+                android:checked="@={accountDetailViewModel.account.enabled}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_edit" />
 
         <Button
                 android:id="@+id/submit_button"

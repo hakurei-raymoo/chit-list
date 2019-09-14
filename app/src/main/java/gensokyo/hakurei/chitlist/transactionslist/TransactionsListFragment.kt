@@ -2,24 +2,26 @@ package gensokyo.hakurei.chitlist.transactionslist
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
+import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentTransactionsListBinding
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
+import gensokyo.hakurei.chitlist.R
+
 
 private const val TAG = "TXsListFragment"
 
 class TransactionsListFragment : Fragment() {
+
+    lateinit var adapter: TransactionAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,14 +51,15 @@ class TransactionsListFragment : Fragment() {
         // give the binding object a reference to it.
         binding.transactionsListViewModel = transactionsListViewModel
 
-        val adapter = TransactionAdaptor(TransactionListener { transactionId ->
+        adapter = TransactionAdapter(TransactionListener { transactionId ->
             transactionsListViewModel.onEditTransactionClicked(transactionId)
         })
         binding.transactionsList.adapter = adapter
 
-        transactionsListViewModel.displayTransactions.observe(viewLifecycleOwner, Observer {
+        transactionsListViewModel.transactions.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.submitList(it)
+                adapter.data = it
+                adapter.getFilter().filter("") // Initial call to filter data to display.
             }
         })
 
@@ -77,23 +80,37 @@ class TransactionsListFragment : Fragment() {
             }
         })
 
-        // Add an Observer to the LiveData when the Search button is tapped.
-        transactionsListViewModel.publicDisplaySearch.observe(this, Observer {
-            // Hide the keyboard.
-            inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
-        })
-
-        // Get a reference to the AutoCompleteTextView in the layout.
-        val searchAutocomplete = binding.searchAutocomplete as AutoCompleteTextView
-        // Create the adapter and set it to the AutoCompleteTextView.
-        val accountsAdaptor = ArrayAdapter<String>(
-            requireContext(),
-            android.R.layout.simple_list_item_1,
-            transactionsListViewModel.accountNames
-        )
-        searchAutocomplete.setAdapter(accountsAdaptor)
-
+        setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.search_menu, menu)
+
+        val search = menu.findItem(R.id.search)
+        val searchView = search.actionView as SearchView
+        search(searchView)
+        searchView.queryHint = getString(R.string.account_name)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item, view!!.findNavController())
+                || super.onOptionsItemSelected(item)
+    }
+
+    private fun search(searchView: SearchView) {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                searchView.clearFocus()
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                adapter.getFilter().filter(newText)
+                return true
+            }
+        })
     }
 }

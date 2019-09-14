@@ -1,7 +1,6 @@
 package gensokyo.hakurei.chitlist.accountslist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +41,7 @@ class AccountsListFragment : Fragment() {
         // give the binding object a reference to it.
         binding.accountsListViewModel = accountsListViewModel
 
-        val adapter = AccountAdaptor(AccountListener { accountId ->
+        val adapter = AccountAdapter(AccountListener { accountId ->
             accountsListViewModel.onEditAccountClicked(accountId)
         })
         binding.accountsList.adapter = adapter

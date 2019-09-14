@@ -1,7 +1,6 @@
 package gensokyo.hakurei.chitlist.itemslist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +41,7 @@ class ItemsListFragment : Fragment() {
         // give the binding object a reference to it.
         binding.itemsListViewModel = itemsListViewModel
 
-        val adapter = ItemAdaptor(ItemListener { itemId ->
+        val adapter = ItemAdapter(ItemListener { itemId ->
             itemsListViewModel.onEditItemClicked(itemId)
         })
         binding.itemsList.adapter = adapter

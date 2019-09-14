@@ -23,7 +23,8 @@
                 android:id="@+id/id_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{@string/primary_key_equals(account.id)}"
+                android:text="@{@string/primary_key_equals(account.accountId)}"
+                android:textColor="@{account.enabled ? @color/colorPrimaryDark : @color/colorAccent}"
                 app:layout_constraintEnd_toStartOf="@+id/edit_button"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/primary_key_unknown" />

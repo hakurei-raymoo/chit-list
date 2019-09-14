@@ -45,9 +45,8 @@ class TransactionDetailViewModel(private val transactionKey: Long = 0L, dataSour
     private fun newTransaction() {
         uiScope.launch {
             withContext(Dispatchers.IO) {
-                val newTransaction = Transaction()
-                newTransaction.accountId = 1L
-                newTransaction.itemId = 1L
+                // Transaction must have valid ForeignKeys before insertion to table.
+                val newTransaction = Transaction(accountId = 1L, itemId = 1L)
                 Log.i(TAG, "Attempting $newTransaction")
                 database.insert(newTransaction)
                 Log.i(TAG, "Inserted $newTransaction")

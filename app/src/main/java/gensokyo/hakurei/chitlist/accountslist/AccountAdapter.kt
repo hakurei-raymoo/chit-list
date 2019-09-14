@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import gensokyo.hakurei.chitlist.database.Account
 import gensokyo.hakurei.chitlist.databinding.ListItemAccountBinding
 
-private const val TAG = "AccountAdaptor"
+private const val TAG = "AccountAdapter"
 
-class AccountAdaptor(val clickListener: AccountListener) :
-    ListAdapter<Account, AccountAdaptor.ViewHolder>(AccountDiffCallback()) {
+class AccountAdapter(val clickListener: AccountListener) :
+    ListAdapter<Account, AccountAdapter.ViewHolder>(AccountDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position)!!, clickListener)
@@ -43,7 +43,7 @@ class AccountAdaptor(val clickListener: AccountListener) :
 class AccountDiffCallback : DiffUtil.ItemCallback<Account>() {
 
     override fun areItemsTheSame(oldItem: Account, newItem: Account): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.accountId == newItem.accountId
     }
 
     override fun areContentsTheSame(oldItem: Account, newItem: Account): Boolean {
@@ -52,5 +52,5 @@ class AccountDiffCallback : DiffUtil.ItemCallback<Account>() {
 }
 
 class AccountListener(val clickListener: (accountId: Long) -> Unit) {
-    fun onClick(account: Account) = clickListener(account.id)
+    fun onClick(account: Account) = clickListener(account.accountId)
 }

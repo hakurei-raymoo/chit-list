@@ -49,6 +49,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/name_edit" />
 
+        <Switch
+                android:id="@+id/locked_switch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/locked"
+                android:checked="@={itemDetailViewModel.item.locked}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/price_edit" />
+
         <Button
                 android:id="@+id/submit_button"
                 android:layout_width="0dp"

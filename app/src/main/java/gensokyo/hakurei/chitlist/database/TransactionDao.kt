@@ -26,15 +26,15 @@ interface TransactionDao {
     @Query("SELECT * FROM transactions_table ORDER BY transaction_id DESC")
     fun getTransactions(): LiveData<List<Transaction>>
 
-    @Query("SELECT * FROM accounts_table ORDER BY first_name DESC")
-    fun getAccounts(): List<Account>
-
-    @Query("SELECT * FROM items_table ORDER BY name DESC")
-    fun getItems(): List<Item>
-
     @Query("SELECT transactions_table.*, accounts_table.*, items_table.* FROM transactions_table" +
-            " LEFT JOIN accounts_table ON transactions_table.account_id = accounts_table.account_id" +
-            " LEFT JOIN items_table ON transactions_table.item_id = items_table.item_id" +
-            " GROUP BY transaction_id ORDER BY transaction_id DESC")
+        " LEFT JOIN accounts_table ON transactions_table.account_id = accounts_table.account_id" +
+        " LEFT JOIN items_table ON transactions_table.item_id = items_table.item_id" +
+        " GROUP BY transaction_id ORDER BY transaction_id DESC")
     fun getTransactionsWithChildren(): LiveData<List<TransactionWithChildren>>
+
+    @Query("SELECT * FROM accounts_table WHERE account_id = :key")
+    fun getAccount(key: Long): LiveData<BareAccount>
+
+    @Query("SELECT * FROM items_table WHERE item_id = :key")
+    fun getItem(key: Long): Item
 }

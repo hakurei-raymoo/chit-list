@@ -35,29 +35,50 @@
                 app:layout_constraintTop_toBottomOf="@+id/primary_key_text"
                 tools:text="@string/time_unknown" />
 
-        <EditText
-                android:id="@+id/account_id_edit"
+        <!--        TODO: Add Autofill adapter populated with Items/Accounts -->
+        <AutoCompleteTextView
+                android:id="@+id/account_autocomplete"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/account"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:text="@={`` + transactionDetailViewModel.transaction.accountId}"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/account_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/time_text" />
-        <!--        TODO: Add Autofill populated with Items -->
-        <EditText
-                android:id="@+id/item_id_edit"
+
+        <TextView
+                android:id="@+id/account_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/account_autocomplete"
+                app:layout_constraintTop_toTopOf="@+id/account_autocomplete"
+                tools:text="@string/account_unknown" />
+<!--        android:text="@{transactionDetailViewModel.transaction.accountId}"-->
+
+        <AutoCompleteTextView
+                android:id="@+id/item_autocomplete"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/item"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:text="@={`` + transactionDetailViewModel.transaction.itemId}"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/item_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_id_edit" />
+                app:layout_constraintTop_toBottomOf="@+id/account_autocomplete" />
+
+        <TextView
+                android:id="@+id/item_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/item_autocomplete"
+                app:layout_constraintTop_toTopOf="@+id/item_autocomplete"
+                tools:text="@string/item_unknown" />
+<!--        android:text="@{transactionDetailViewModel.item.name}"-->
 
         <EditText
                 android:id="@+id/comments_edit"
@@ -69,7 +90,7 @@
                 android:text="@={transactionDetailViewModel.transaction.comments}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_id_edit" />
+                app:layout_constraintTop_toBottomOf="@+id/item_autocomplete" />
 
         <Button
                 android:id="@+id/submit_button"

@@ -9,6 +9,7 @@
     <string name="primary_key_equals">key=%d</string>
     <string name="primary_key_unknown">key=unknown</string>
     <string name="enabled">Enabled</string>
+    <string name="locked">Locked</string>
     <string name="dollars">$%d</string>
     <string name="dollars_unknown">$unknown</string>
 <!--Account-->

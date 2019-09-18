@@ -12,6 +12,10 @@
     <string name="locked">Locked</string>
     <string name="dollars">$%d</string>
     <string name="dollars_unknown">$unknown</string>
+<!--Login-->
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 <!--Account-->
     <string name="accounts">Accounts</string>
     <string name="add_account">Add Account</string>
@@ -25,7 +29,6 @@
     <string name="last_name">Last Name</string>
     <string name="last_name_equals">last_name=%s</string>
     <string name="last_name_unknown">last_name=unknown</string>
-    <string name="password">Password</string>
     <string name="password_hash_equals">password_hash=%s</string>
     <string name="password_hash_unknown">password_hash=unknown</string>
 <!--Item-->

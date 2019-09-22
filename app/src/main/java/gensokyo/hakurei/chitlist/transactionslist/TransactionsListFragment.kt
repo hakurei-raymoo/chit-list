@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -30,8 +29,7 @@ class TransactionsListFragment : Fragment() {
     ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentTransactionsListBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_transactions_list, container, false)
+        val binding = FragmentTransactionsListBinding.inflate(inflater, container, false)
 
         val application = requireNotNull(this.activity).application
 
@@ -56,6 +54,10 @@ class TransactionsListFragment : Fragment() {
         })
         binding.transactionsList.adapter = adapter
 
+        // Specify the current activity as the lifecycle owner of the binding.
+        // This is necessary so that the binding can observe LiveData updates.
+        binding.lifecycleOwner = viewLifecycleOwner
+
         transactionsListViewModel.transactions.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.data = it
@@ -63,12 +65,8 @@ class TransactionsListFragment : Fragment() {
             }
         })
 
-        // Specify the current activity as the lifecycle owner of the binding.
-        // This is necessary so that the binding can observe LiveData updates.
-        binding.setLifecycleOwner(this)
-
         // Add an Observer on the state variable for Navigating when EDIT button is pressed.
-        transactionsListViewModel.navigateToEditTransaction.observe(this, Observer { transaction ->
+        transactionsListViewModel.navigateToEditTransaction.observe(viewLifecycleOwner, Observer { transaction ->
             transaction?.let {
                 // Hide the keyboard.
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)

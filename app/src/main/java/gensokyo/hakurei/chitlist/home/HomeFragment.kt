@@ -1,10 +1,12 @@
 package gensokyo.hakurei.chitlist.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentHomeBinding
@@ -22,10 +24,11 @@ class HomeFragment : Fragment() {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val application = requireNotNull(this.activity).application
+        val arguments = HomeFragmentArgs.fromBundle(arguments!!)
 
         // Create an instance of the ViewModel Factory.
         val dataSource = AppDatabase.getInstance(application).accountDao
-        val viewModelFactory = HomeViewModelFactory(dataSource, application)
+        val viewModelFactory = HomeViewModelFactory(arguments.accountKey, dataSource, application)
 
         // Get a reference to the ViewModel associated with this fragment.
         val homeViewModel =

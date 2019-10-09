@@ -2,14 +2,17 @@ package gensokyo.hakurei.chitlist.login
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentLoginBinding
 
@@ -23,7 +26,8 @@ class LoginFragment : Fragment() {
     ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding = FragmentLoginBinding.inflate(inflater, container, false)
+        val binding: FragmentLoginBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
         val application = requireNotNull(this.activity).application
 
@@ -45,19 +49,25 @@ class LoginFragment : Fragment() {
 
         // Specify the current activity as the lifecycle owner of the binding.
         // This is necessary so that the binding can observe LiveData updates.
-        binding.lifecycleOwner = viewLifecycleOwner
+        binding.setLifecycleOwner(this)
 
-        // Add an Observer on the state variable for Navigating when EDIT button is pressed.
-        loginViewModel.navigateToHome.observe(viewLifecycleOwner, Observer { transaction ->
-            transaction?.let {
+        // Add an Observer on the state variable for Navigating when LOGIN button is pressed.
+        loginViewModel.navigateToHome.observe(this, Observer { accountId ->
+            accountId?.let {
                 // Hide the keyboard.
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
                 this.findNavController().navigate(
-                    LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                    LoginFragmentDirections.actionLoginFragmentToHomeFragment(accountId)
                 )
                 loginViewModel.onHomeNavigated()
             }
+        })
+
+        // Observer to process login attempt once account returned.
+        loginViewModel.account.observe(this, Observer {
+            Log.i(TAG, "Observed ${loginViewModel.account.value}")
+            loginViewModel.checkCredentials()
         })
 
         return binding.root

@@ -10,9 +10,6 @@
             android:name="gensokyo.hakurei.chitlist.login.LoginFragment"
             android:label="LoginFragment"
             tools:layout="@layout/fragment_login" >
-        <argument
-                android:name="accountKey"
-                app:argType="long" />
         <action
                 android:id="@+id/action_login_fragment_to_home_fragment"
                 app:destination="@id/home_fragment" />
@@ -23,6 +20,9 @@
             android:name="gensokyo.hakurei.chitlist.home.HomeFragment"
             android:label="HomeFragment"
             tools:layout="@layout/fragment_home" >
+        <argument
+                android:name="accountKey"
+                app:argType="long" />
         <action
                 android:id="@+id/action_home_fragment_to_items_list_fragment"
                 app:destination="@id/items_list_fragment" />

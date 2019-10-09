@@ -2,6 +2,7 @@ package gensokyo.hakurei.chitlist.login
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,18 +51,23 @@ class LoginFragment : Fragment() {
         // This is necessary so that the binding can observe LiveData updates.
         binding.setLifecycleOwner(this)
 
-
-        // Add an Observer on the state variable for Navigating when EDIT button is pressed.
-        loginViewModel.navigateToHome.observe(this, Observer { transaction ->
-            transaction?.let {
+        // Add an Observer on the state variable for Navigating when LOGIN button is pressed.
+        loginViewModel.navigateToHome.observe(this, Observer { accountId ->
+            accountId?.let {
                 // Hide the keyboard.
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
                 this.findNavController().navigate(
-                    LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                    LoginFragmentDirections.actionLoginFragmentToHomeFragment(accountId)
                 )
                 loginViewModel.onHomeNavigated()
             }
+        })
+
+        // Observer to process login attempt once account returned.
+        loginViewModel.account.observe(this, Observer {
+            Log.i(TAG, "Observed ${loginViewModel.account.value}")
+            loginViewModel.checkCredentials()
         })
 
         return binding.root

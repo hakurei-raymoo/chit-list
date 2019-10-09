@@ -18,6 +18,9 @@ interface AccountDao {
     @Delete
     fun delete(account: Account)
 
+    @Query("SELECT * from accounts_table WHERE account_id = :key AND password_hash = :passwordHash")
+    fun getLogin(key: Long, passwordHash: String): Account
+
     @Query("SELECT * from accounts_table WHERE account_id = :key")
     fun getAccount(key: Long): LiveData<Account>
 

@@ -16,6 +16,8 @@
     <string name="login">Login</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+<!--Home-->
+    <string name="logged_in_as">Logged in as: %s %s</string>
 <!--Account-->
     <string name="accounts">Accounts</string>
     <string name="add_account">Add Account</string>

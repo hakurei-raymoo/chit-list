@@ -16,32 +16,42 @@
             android:layout_gravity="center"
             android:layout_margin="16dp">
 
-    <Button
-            android:id="@+id/accounts_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/accounts"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+                android:id="@+id/current_account_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/logged_in_as(homeViewModel.publicCurrentAccount.firstName, homeViewModel.publicCurrentAccount.lastName)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/account_unknown" />
 
-    <Button
-            android:id="@+id/items_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/items"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/accounts_button" />
+        <Button
+                android:id="@+id/accounts_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/accounts"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/current_account_text" />
 
-    <Button
-            android:id="@+id/transactions_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/transactions"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/items_button" />
+        <Button
+                android:id="@+id/items_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/items"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/accounts_button" />
+
+        <Button
+                android:id="@+id/transactions_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/transactions"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/items_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

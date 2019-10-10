@@ -10,7 +10,7 @@ import kotlinx.coroutines.*
 
 private const val TAG = "AccountDetailViewModel"
 
-class AccountDetailViewModel(private val accountKey: Long = 0L, dataSource: AccountDao) :
+class AccountDetailViewModel(accountKey: Long = 0L, dataSource: AccountDao) :
     ViewModel() {
 
     val database = dataSource
@@ -19,17 +19,13 @@ class AccountDetailViewModel(private val accountKey: Long = 0L, dataSource: Acco
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val account: LiveData<Account>
-    // TODO: Remove after testing.
-    val publicAccount
-        get() = account
+    private val _account: LiveData<Account>
+    val account
+        get() = _account
 
     private val _navigateToAccountsList = MutableLiveData<Boolean?>()
     val navigateToAccountsList: LiveData<Boolean?>
         get() = _navigateToAccountsList
-
-    fun getAccount() = account
-
 
     /**
      * Check accountKey to either get existing Account or insert a new one.
@@ -37,9 +33,9 @@ class AccountDetailViewModel(private val accountKey: Long = 0L, dataSource: Acco
     init {
         if (accountKey == -1L) {
             newAccount()
-            account = database.getLastAccount()
+            _account = database.getLastAccount()
         } else {
-            account = database.getAccount(accountKey)
+            _account = database.getAccount(accountKey)
         }
     }
 

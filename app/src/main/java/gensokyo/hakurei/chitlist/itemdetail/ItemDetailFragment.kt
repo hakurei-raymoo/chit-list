@@ -66,8 +66,8 @@ class ItemDetailFragment : Fragment() {
 
         // Test Observer to report changes on item.
         // TODO: Remove after testing.
-        itemDetailViewModel.publicItem.observe(viewLifecycleOwner, Observer {
-            Log.i(TAG, "Observed ${itemDetailViewModel.publicItem.value}")
+        itemDetailViewModel.item.observe(viewLifecycleOwner, Observer {
+            Log.i(TAG, "Observed ${itemDetailViewModel.item.value}")
         })
 
         return binding.root

@@ -42,17 +42,6 @@ class HomeFragment : Fragment() {
         // This is necessary so that the binding can observe LiveData updates.
         binding.lifecycleOwner = viewLifecycleOwner
 
-
-//        // Add an Observer on the state variable for Navigating when EDIT button is pressed.
-//        homeViewModel.navigateToEditTransaction.observe(viewLifecycleOwner, Observer { transaction ->
-//            transaction?.let {
-//                this.findNavController().navigate(
-//                    TransactionsListFragmentDirections.actionTransactionsListFragmentToTransactionDetailFragment(transaction)
-//                )
-//                homeViewModel.onEditTransactionNavigated()
-//            }
-//        })
-
         return binding.root
     }
 }

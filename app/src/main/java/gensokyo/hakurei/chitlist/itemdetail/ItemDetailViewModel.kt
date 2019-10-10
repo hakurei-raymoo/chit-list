@@ -10,7 +10,7 @@ import kotlinx.coroutines.*
 
 private const val TAG = "ItemDetailViewModel"
 
-class ItemDetailViewModel(private val itemKey: Long = 0L, dataSource: ItemDao) : ViewModel() {
+class ItemDetailViewModel(itemKey: Long = 0L, dataSource: ItemDao) : ViewModel() {
 
     val database = dataSource
 
@@ -18,17 +18,13 @@ class ItemDetailViewModel(private val itemKey: Long = 0L, dataSource: ItemDao) :
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val item: LiveData<Item>
-    // TODO: Remove after testing.
-    val publicItem
-        get() = item
+    private val _item: LiveData<Item>
+    val item
+        get() = _item
 
     private val _navigateToItemsList = MutableLiveData<Boolean?>()
     val navigateToItemsList: LiveData<Boolean?>
         get() = _navigateToItemsList
-
-    fun getItem() = item
-
 
     /**
      * Check itemKey to either get existing Item or insert a new one.
@@ -36,9 +32,9 @@ class ItemDetailViewModel(private val itemKey: Long = 0L, dataSource: ItemDao) :
     init {
         if (itemKey == -1L) {
             newItem()
-            item = database.getLastItem()
+            _item = database.getLastItem()
         } else {
-            item = database.getItem(itemKey)
+            _item = database.getItem(itemKey)
         }
     }
 

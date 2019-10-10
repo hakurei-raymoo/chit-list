@@ -12,7 +12,9 @@
             tools:layout="@layout/fragment_login" >
         <action
                 android:id="@+id/action_login_fragment_to_home_fragment"
-                app:destination="@id/home_fragment" />
+                app:destination="@id/home_fragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:popEnterAnim="@anim/slide_in_right" />
     </fragment>
 
     <fragment

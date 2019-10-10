@@ -15,10 +15,9 @@ class HomeViewModel(private val accountKey: Long,
 
     private var viewModelJob = Job()
 
-    private val currentAccount = database.getAccount(accountKey)
-    // TODO: Remove after testing.
-    val publicCurrentAccount
-        get() = currentAccount
+    private val _account = database.getAccount(accountKey)
+    val account
+        get() = _account
 
     val accounts = database.getAccounts()
 

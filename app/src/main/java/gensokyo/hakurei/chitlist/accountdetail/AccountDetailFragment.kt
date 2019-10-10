@@ -66,8 +66,8 @@ class AccountDetailFragment : Fragment() {
 
         // Test Observer to report changes on account.
         // TODO: Remove after testing.
-        accountDetailViewModel.publicAccount.observe(viewLifecycleOwner, Observer {
-            Log.i(TAG, "Observed ${accountDetailViewModel.publicAccount.value}")
+        accountDetailViewModel.account.observe(viewLifecycleOwner, Observer {
+            Log.i(TAG, "Observed ${accountDetailViewModel.account.value}")
         })
 
         return binding.root

@@ -15,7 +15,9 @@ class TransactionsListViewModel(
 
     private var viewModelJob = Job()
 
-    val transactions = database.getTransactionsWithChildren()
+    private val _transactions = database.getTransactionsWithChildren()
+    val transactions
+        get() = _transactions
 
     private val _navigateToEditTransaction = MutableLiveData<Long>()
     val navigateToEditTransaction

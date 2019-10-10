@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="16dp"
-                    android:text="@{@string/logged_in_as(homeViewModel.publicCurrentAccount.firstName, homeViewModel.publicCurrentAccount.lastName)}"
+                    android:text="@{@string/logged_in_as(homeViewModel.account.firstName, homeViewModel.account.lastName)}"
                     android:textAllCaps="true"
                     android:textSize="16sp"
                     tools:text="@string/logged_in_as"/>

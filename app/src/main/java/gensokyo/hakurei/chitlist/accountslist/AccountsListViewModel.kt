@@ -12,7 +12,9 @@ class AccountsListViewModel(
     val database: AccountDao, application: Application) : AndroidViewModel(application) {
     private var viewModelJob = Job()
 
-    val accounts = database.getAccounts()
+    private val _accounts = database.getAccounts()
+    val accounts
+        get() = _accounts
 
     private val _navigateToEditAccount = MutableLiveData<Long>()
     val navigateToEditAccount

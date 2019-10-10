@@ -66,8 +66,8 @@ class TransactionDetailFragment : Fragment() {
 
         // Test Observer to report changes on item.
         // TODO: Remove after testing.
-        transactionDetailViewModel.publicTransaction.observe(viewLifecycleOwner, Observer {
-            Log.i(TAG, "Observed ${transactionDetailViewModel.publicTransaction.value}")
+        transactionDetailViewModel.transaction.observe(viewLifecycleOwner, Observer {
+            Log.i(TAG, "Observed ${transactionDetailViewModel.transaction.value}")
         })
 
         return binding.root

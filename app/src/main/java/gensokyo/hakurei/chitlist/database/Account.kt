@@ -17,6 +17,15 @@ data class Account(
     @ColumnInfo(name = "last_name")
     var lastName: String = "",
 
+    @ColumnInfo(name = "location")
+    var location: String = "",
+
+    @ColumnInfo(name = "contact_number")
+    var contactNumber: String = "",
+
+    @ColumnInfo(name = "email_address")
+    var emailAddress: String = "",
+
     @ColumnInfo(name = "password_hash")
     var passwordHash: String = "",
 
@@ -25,6 +34,8 @@ data class Account(
 
     @ColumnInfo(name = "bio_auth")
     var bioAuth: String = "",
+
+    var admin: Boolean = false,
 
     var enabled: Boolean = true
 )

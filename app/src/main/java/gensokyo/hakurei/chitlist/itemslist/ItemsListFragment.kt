@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import gensokyo.hakurei.chitlist.MarginItemDecoration
+import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentItemsListBinding
 
@@ -62,6 +65,14 @@ class ItemsListFragment : Fragment() {
                 itemsListViewModel.onEditItemNavigated()
             }
         })
+
+        val manager = GridLayoutManager(activity, 2)
+        binding.itemsList.layoutManager = manager
+        binding.itemsList.addItemDecoration(
+            MarginItemDecoration(
+                resources.getDimension(R.dimen.grid_spacing_small).toInt()
+            )
+        )
 
         return binding.root
     }

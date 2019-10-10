@@ -23,15 +23,6 @@
         <argument
                 android:name="accountKey"
                 app:argType="long" />
-        <action
-                android:id="@+id/action_home_fragment_to_items_list_fragment"
-                app:destination="@id/items_list_fragment" />
-        <action
-                android:id="@+id/action_home_fragment_to_accounts_list_fragment"
-                app:destination="@id/accounts_list_fragment" />
-        <action
-                android:id="@+id/action_home_fragment_to_transactions_list_fragment"
-                app:destination="@id/transactions_list_fragment" />
     </fragment>
 
     <fragment
@@ -65,10 +56,11 @@
               android:name="gensokyo.hakurei.chitlist.accountslist.AccountsListFragment"
               android:label="AccountsListFragment"
               tools:layout="@layout/fragment_accounts_list">
-        <action android:id="@+id/action_accounts_list_fragment_to_account_detail_fragment"
+        <action
+                android:id="@+id/action_accounts_list_fragment_to_account_detail_fragment"
                 app:destination="@id/account_detail_fragment"
                 app:enterAnim="@anim/slide_in_right"
-                app:popEnterAnim="@anim/slide_in_right"/>
+                app:popEnterAnim="@anim/slide_in_right" />
     </fragment>
 
     <fragment android:id="@+id/account_detail_fragment"

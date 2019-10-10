@@ -13,6 +13,7 @@ import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentTransactionsListBinding
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import gensokyo.hakurei.chitlist.MarginItemDecoration
 import gensokyo.hakurei.chitlist.R
 
 
@@ -77,6 +78,12 @@ class TransactionsListFragment : Fragment() {
                 transactionsListViewModel.onEditTransactionNavigated()
             }
         })
+
+        binding.transactionsList.addItemDecoration(
+            MarginItemDecoration(
+                resources.getDimension(R.dimen.grid_spacing_small).toInt()
+            )
+        )
 
         setHasOptionsMenu(true)
 

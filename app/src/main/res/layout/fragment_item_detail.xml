@@ -28,8 +28,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="16dp"
                     android:text="@{@string/primary_key_equals(itemDetailViewModel.item.itemId)}"
-                    tools:text="@string/primary_key_unknown" />
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    tools:text="@string/primary_key_equals" />
 
             <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -54,9 +57,23 @@
                         android:id="@+id/price_edit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
+                        android:inputType="number"
                         android:maxLines="1"
                         android:text="@={`` + itemDetailViewModel.item.price}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/image">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/image_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textUri"
+                        android:maxLines="1"
+                        android:text="@={itemDetailViewModel.item.image}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Switch

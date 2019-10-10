@@ -14,5 +14,7 @@ data class Item (
 
     var price: Int = 0,
 
+    var image: String = "",
+
     var locked: Boolean = false
 )

@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import gensokyo.hakurei.chitlist.MarginItemDecoration
+import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentAccountsListBinding
 
@@ -62,6 +64,12 @@ class AccountsListFragment : Fragment() {
                 accountsListViewModel.onEditAccountNavigated()
             }
         })
+
+        binding.accountsList.addItemDecoration(
+            MarginItemDecoration(
+                resources.getDimension(R.dimen.grid_spacing_small).toInt()
+            )
+        )
 
         return binding.root
     }

@@ -28,8 +28,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="16dp"
                     android:text="@{@string/primary_key_equals(accountDetailViewModel.account.accountId)}"
-                    tools:text="@string/primary_key_unknown" />
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    tools:text="@string/primary_key_equals" />
 
             <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -104,13 +107,14 @@
             <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/password">
+                    android:hint="@string/password"
+                    app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/password_edit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textVisiblePassword"
+                        android:inputType="textPassword"
                         android:maxLines="1"
                         android:text="@={accountDetailViewModel.account.passwordHash}" />
             </com.google.android.material.textfield.TextInputLayout>

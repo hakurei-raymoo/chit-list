@@ -14,48 +14,47 @@
                 type="gensokyo.hakurei.chitlist.itemslist.ItemListener" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> clickListener.onClick(item)}"
+            app:cardBackgroundColor="@color/colorPrimaryDark"
+            app:cardElevation="2dp"
+            app:cardPreventCornerOverlap="true">
 
-        <TextView
-                android:id="@+id/id_text"
-                android:layout_width="wrap_content"
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{@string/primary_key_equals(item.itemId)}"
-                android:textColor="@{item.locked ? @color/colorAccent : @color/colorPrimaryDark}"
-                app:layout_constraintEnd_toStartOf="@+id/edit_button"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/primary_key_unknown" />
+                android:orientation="vertical">
 
-        <TextView
-                android:id="@+id/name_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{item.name}"
-                app:layout_constraintEnd_toStartOf="@+id/edit_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/name_unknown" />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@{@string/primary_key_equals(item.itemId)}"
+                    android:textColor="@{item.locked ? @color/colorError : @color/colorOnPrimary}"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    tools:text="@string/primary_key_equals" />
 
-        <TextView
-                android:id="@+id/price_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{@string/dollars(item.price)}"
-                app:layout_constraintEnd_toStartOf="@+id/edit_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name_text"
-                tools:text="@string/price_unknown" />
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorSurface"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-        <Button
-                android:id="@+id/edit_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> clickListener.onClick(item)}"
-                android:text="@string/edit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{item.name}"
+                        tools:text="@string/name_equals" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/dollars(item.price)}"
+                        tools:text="@string/price_equals" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

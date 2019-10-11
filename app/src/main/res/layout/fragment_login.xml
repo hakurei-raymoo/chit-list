@@ -44,9 +44,12 @@
             <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/username">
+                    android:hint="@string/username"
+                    android:labelFor="@id/account_autocomplete">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <AutoCompleteTextView
+                        android:id="@+id/account_autocomplete"
+                        style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="@{loginViewModel.enableInput}"

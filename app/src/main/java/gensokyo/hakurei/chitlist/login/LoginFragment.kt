@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -69,6 +71,16 @@ class LoginFragment : Fragment() {
             Log.i(TAG, "Observed ${loginViewModel.account.value}")
             loginViewModel.checkCredentials()
         })
+
+        // Get a reference to the AutoCompleteTextView in the layout.
+        val accountAutocomplete = binding.accountAutocomplete as AutoCompleteTextView
+        // Create the adapter and set it to the AutoCompleteTextView.
+        val accountsAdaptor = ArrayAdapter<String>(
+            requireContext(),
+            android.R.layout.simple_list_item_1,
+            loginViewModel.accountNames
+        )
+        accountAutocomplete.setAdapter(accountsAdaptor)
 
         return binding.root
     }

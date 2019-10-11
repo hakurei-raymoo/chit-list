@@ -10,9 +10,10 @@ import kotlinx.coroutines.*
 
 private const val TAG = "ItemDetailViewModel"
 
-class ItemDetailViewModel(itemKey: Long = 0L, dataSource: ItemDao) : ViewModel() {
-
-    val database = dataSource
+class ItemDetailViewModel(
+    itemKey: Long = 0L,
+    private val database: ItemDao
+) : ViewModel() {
 
     private val viewModelJob = Job()
 
@@ -30,6 +31,8 @@ class ItemDetailViewModel(itemKey: Long = 0L, dataSource: ItemDao) : ViewModel()
      * Check itemKey to either get existing Item or insert a new one.
      */
     init {
+        Log.i(TAG, "Init")
+
         if (itemKey == -1L) {
             newItem()
             _item = database.getLastItem()
@@ -48,7 +51,7 @@ class ItemDetailViewModel(itemKey: Long = 0L, dataSource: ItemDao) : ViewModel()
         }
     }
 
-    fun onSubmitItemDetails() {
+    fun onUpdateClicked() {
         uiScope.launch {
             update()
             _navigateToItemsList.value = true
@@ -57,7 +60,7 @@ class ItemDetailViewModel(itemKey: Long = 0L, dataSource: ItemDao) : ViewModel()
 
     private suspend fun update() {
         withContext(Dispatchers.IO) {
-            // TODO: Transform price between cents to dollars.
+            // TODO: Transform price between cents and dollars.
             database.update(item.value!!)
             Log.i(TAG, "Updated ${item.value!!}")
         }
@@ -67,7 +70,7 @@ class ItemDetailViewModel(itemKey: Long = 0L, dataSource: ItemDao) : ViewModel()
         _navigateToItemsList.value = null
     }
 
-    fun onDeleteItem() {
+    fun onDeleteClicked() {
         uiScope.launch {
             withContext(Dispatchers.IO) {
                 database.delete(item.value!!)

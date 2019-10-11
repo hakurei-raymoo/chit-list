@@ -1,20 +1,18 @@
 package gensokyo.hakurei.chitlist.login
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import gensokyo.hakurei.chitlist.database.Account
-import gensokyo.hakurei.chitlist.database.AccountDao
 import gensokyo.hakurei.chitlist.database.BareAccount
+import gensokyo.hakurei.chitlist.database.LoginDao
 import kotlinx.coroutines.*
-
 
 private const val TAG = "LoginViewModel"
 
 class LoginViewModel(
-    val database: AccountDao, application: Application
-) : AndroidViewModel(application) {
+    private val database: LoginDao
+) : ViewModel() {
 
     private var viewModelJob = Job()
 
@@ -31,11 +29,12 @@ class LoginViewModel(
     val accountNames: List<String>
         get() = _accountNames
 
-    private val _navigateToHome = MutableLiveData<Long>()
+    private val _navigateToHome = MutableLiveData<Boolean>()
     val navigateToHome
         get() = _navigateToHome
 
     init {
+        Log.i(TAG, "Init")
         formatAccounts()
     }
 
@@ -75,7 +74,7 @@ class LoginViewModel(
         Log.i(TAG, "accountId=$accountId, passwordHash=$passwordHash")
 
         if (accountId == -1L) {
-            Log.i(TAG, "Account not found.")
+            Log.i(TAG, "Account not found in accounts list.")
         } else {
             uiScope.launch {
                 withContext(Dispatchers.IO) {
@@ -87,10 +86,11 @@ class LoginViewModel(
 
     fun checkCredentials() {
         if (account.value == null) {
-            loginPassword.value = ""
             Log.i(TAG, "Authentication failed.")
+
+            // Reset password field.
+            loginPassword.value = ""
         } else {
-            _navigateToHome.value = account.value?.accountId
             Log.i(TAG, "Authentication passed.")
 
             // Reset credentials.
@@ -98,6 +98,10 @@ class LoginViewModel(
             loginAccount.value = ""
             loginPassword.value = ""
         }
+    }
+
+    fun onNavigateToHome() {
+        _navigateToHome.value = true
     }
 
     fun onHomeNavigated() {

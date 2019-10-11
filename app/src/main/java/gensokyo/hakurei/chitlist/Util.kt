@@ -16,10 +16,27 @@
 
 package gensokyo.hakurei.chitlist
 
+import android.annotation.SuppressLint
 import java.security.MessageDigest
+import java.text.SimpleDateFormat
 
 fun String.hash() : String {
     val digest = MessageDigest.getInstance("SHA-1")
     val bytes = digest.digest(this.toByteArray(Charsets.UTF_8))
     return bytes.fold("", { str, it -> str + "%02x".format(it) })
+}
+
+/**
+ * Take the Long milliseconds returned by the system and stored in Room,
+ * and convert it to a nicely formatted string for display.
+ *
+ * EEEE - Display the long letter version of the weekday
+ * MMM - Display the letter abbreviation of the nmotny
+ * dd-yyyy - day in month and full year numerically
+ * HH:mm - Hours and minutes in 24hr format
+ */
+@SuppressLint("SimpleDateFormat")
+fun convertLongToDateString(systemTime: Long): String {
+    return SimpleDateFormat("EEEE MMM-dd-yyyy' Time 'HH:mm:ss.SSS")
+        .format(systemTime).toString()
 }

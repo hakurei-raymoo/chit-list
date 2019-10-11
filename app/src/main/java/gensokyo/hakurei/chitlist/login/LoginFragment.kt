@@ -15,12 +15,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import gensokyo.hakurei.chitlist.R
+import gensokyo.hakurei.chitlist.SharedViewModel
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentLoginBinding
 
 private const val TAG = "LoginFragment"
 
 class LoginFragment : Fragment() {
+
+    private lateinit var sharedViewModel: SharedViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,15 +35,18 @@ class LoginFragment : Fragment() {
         val binding: FragmentLoginBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
-        val application = requireNotNull(this.activity).application
+        activity?.let {
+            sharedViewModel = ViewModelProviders.of(it).get(SharedViewModel::class.java)
+        }
 
         // Get a reference to the input method manager to allow hiding the keyboard.
         val inputMethodManager =
             activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         // Create an instance of the ViewModel Factory.
-        val dataSource = AppDatabase.getInstance(application).accountDao
-        val viewModelFactory = LoginViewModelFactory(dataSource, application)
+        val application = requireNotNull(this.activity).application
+        val dataSource = AppDatabase.getInstance(application).loginDao
+        val viewModelFactory = LoginViewModelFactory(dataSource)
 
         // Get a reference to the ViewModel associated with this fragment.
         val loginViewModel =
@@ -60,16 +67,24 @@ class LoginFragment : Fragment() {
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
                 this.findNavController().navigate(
-                    LoginFragmentDirections.actionLoginFragmentToHomeFragment(accountId)
+                    LoginFragmentDirections.actionLoginFragmentToAdminViewPagerFragment()
                 )
                 loginViewModel.onHomeNavigated()
             }
         })
 
+        // Clear login.
+        sharedViewModel.logout()
+
         // Observer to process login attempt once account returned.
         loginViewModel.account.observe(this, Observer {
             Log.i(TAG, "Observed ${loginViewModel.account.value}")
-            loginViewModel.checkCredentials()
+            if (it == null) {
+                Log.i(TAG, "Authentication failed.")
+            } else {
+                sharedViewModel.login(loginViewModel.account.value!!)
+                loginViewModel.onNavigateToHome()
+            }
         })
 
         // Get a reference to the AutoCompleteTextView in the layout.

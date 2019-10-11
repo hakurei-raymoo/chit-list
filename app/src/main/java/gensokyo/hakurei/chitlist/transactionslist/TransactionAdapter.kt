@@ -11,7 +11,6 @@ import gensokyo.hakurei.chitlist.database.TransactionWithChildren
 
 private const val TAG = "TXAdapter"
 
-
 class TransactionAdapter(val clickListener: TransactionListener): RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
     var data =  listOf<TransactionWithChildren>()
     var filteredData =  listOf<TransactionWithChildren>()
@@ -39,7 +38,7 @@ class TransactionAdapter(val clickListener: TransactionListener): RecyclerView.A
                 data.forEach {
                     val fullName = it.account.firstName + " " + it.account.lastName
                     if (fullName.contains(accountName, true)) {
-                        Log.i(TAG, "Added: $it")
+//                        Log.i(TAG, "Added: $it")
                         filteredList.add(it)
                     }
                 }

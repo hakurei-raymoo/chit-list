@@ -33,7 +33,7 @@ interface TransactionDao {
     fun getTransactionsWithChildren(): LiveData<List<TransactionWithChildren>>
 
     @Query("SELECT * FROM accounts_table WHERE account_id = :key")
-    fun getAccount(key: Long): LiveData<BareAccount>
+    fun getAccount(key: Long): BareAccount
 
     @Query("SELECT * FROM items_table WHERE item_id = :key")
     fun getItem(key: Long): Item

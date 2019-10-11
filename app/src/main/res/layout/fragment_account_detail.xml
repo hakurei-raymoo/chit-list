@@ -10,151 +10,191 @@
                 type="gensokyo.hakurei.chitlist.accountdetail.AccountDetailViewModel" />
     </data>
 
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
 
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:orientation="vertical"
-                android:padding="24dp"
-                android:paddingTop="16dp">
+                android:fitsSystemWindows="true">
 
-            <TextView
-                    android:id="@+id/primary_key_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="16dp"
-                    android:text="@{@string/primary_key_equals(accountDetailViewModel.account.accountId)}"
-                    android:textAllCaps="true"
-                    android:textSize="16sp"
-                    tools:text="@string/primary_key_equals" />
-
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/toolbar_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/first_name">
+                    app:layout_scrollFlags="scroll|snap"
+                    app:toolbarId="@id/toolbar">
 
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/first_name_edit"
+                <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                        android:background="@color/colorAccounts"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
-                        android:maxLines="1"
-                        android:text="@={accountDetailViewModel.account.firstName}" />
-            </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_height="?attr/actionBarSize"
+                        app:layout_collapseMode="parallax">
 
-            <com.google.android.material.textfield.TextInputLayout
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/actionBarSize"
+                            android:gravity="center"
+                            android:text="@string/admin"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorOnPrimary"
+                            android:textSize="16sp" />
+
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/last_name">
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_large">
 
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/last_name_edit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
-                        android:maxLines="1"
-                        android:text="@={accountDetailViewModel.account.lastName}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/location">
-
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/location_edit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPostalAddress"
-                        android:maxLines="1"
-                        android:text="@={accountDetailViewModel.account.location}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/contact_number">
-
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/contact_number_edit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="phone"
-                        android:maxLines="1"
-                        android:text="@={accountDetailViewModel.account.contactNumber}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/email_address">
-
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/email_edit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
-                        android:maxLines="1"
-                        android:text="@={accountDetailViewModel.account.emailAddress}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/password"
-                    app:endIconMode="password_toggle">
-
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/password_edit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:maxLines="1"
-                        android:text="@={accountDetailViewModel.account.passwordHash}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <Switch
-                    android:id="@+id/admin_switch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="@={accountDetailViewModel.account.admin}"
-                    android:text="@string/administrator_access" />
-
-            <Switch
-                    android:id="@+id/enabled_switch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="@={accountDetailViewModel.account.enabled}"
-                    android:text="@string/allow_interactive_login" />
-
-            <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                <com.google.android.material.button.MaterialButton
-                        android:id="@+id/submit_button"
+                <TextView
+                        android:id="@+id/primary_key_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:onClick="@{() -> accountDetailViewModel.onSubmitAccountDetails()}"
-                        android:text="@string/submit" />
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/spacing_normal"
+                        android:text="@{@string/primary_key_equals(accountDetailViewModel.account.accountId)}"
+                        android:textAllCaps="true"
+                        android:textSize="16sp"
+                        tools:text="@string/primary_key_equals" />
 
-                <com.google.android.material.button.MaterialButton
-                        android:id="@+id/delete_button"
-                        android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="12dp"
-                        android:layout_toStartOf="@id/submit_button"
-                        android:enabled="false"
-                        android:onClick="@{() -> accountDetailViewModel.onDeleteAccount()}"
-                        android:text="@string/delete" />
-            </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
+                        android:hint="@string/first_name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/first_name_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:maxLines="1"
+                            android:text="@={accountDetailViewModel.account.firstName}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/last_name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/last_name_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:maxLines="1"
+                            android:text="@={accountDetailViewModel.account.lastName}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/location">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/location_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPostalAddress"
+                            android:maxLines="1"
+                            android:text="@={accountDetailViewModel.account.location}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/contact_number">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/contact_number_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone"
+                            android:maxLines="1"
+                            android:text="@={accountDetailViewModel.account.contactNumber}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/email_address">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/email_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:text="@={accountDetailViewModel.account.emailAddress}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/password"
+                        app:endIconMode="password_toggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/password_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            android:text="@={accountDetailViewModel.account.passwordHash}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Switch
+                        android:id="@+id/admin_switch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={accountDetailViewModel.account.admin}"
+                        android:text="@string/allow_administrator_access" />
+
+                <Switch
+                        android:id="@+id/enabled_switch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={accountDetailViewModel.account.enabled}"
+                        android:text="@string/allow_interactive_login" />
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <com.google.android.material.button.MaterialButton
+                            android:id="@+id/update_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:onClick="@{() -> accountDetailViewModel.onUpdateClicked()}"
+                            android:text="@string/update" />
+
+                    <com.google.android.material.button.MaterialButton
+                            android:id="@+id/delete_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/button_spacing"
+                            android:layout_toStartOf="@id/update_button"
+                            android:enabled="false"
+                            android:onClick="@{() -> accountDetailViewModel.onDeleteClicked()}"
+                            android:text="@string/delete" />
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

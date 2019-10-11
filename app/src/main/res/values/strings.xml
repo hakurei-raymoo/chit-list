@@ -1,21 +1,26 @@
 <resources>
     <string name="app_name">Chit List</string>
     <string name="logo_content_description">App logo</string>
-<!--Buttons-->
-    <string name="submit">Submit</string>
+    <!-- Common -->
+    <string name="admin">Admin access</string>
+    <string name="primary_key_equals">key=%d</string>
+    <string name="dollars">$%d</string>
+    <string name="number">%04d</string>
+    <!-- Buttons -->
+    <string name="update">Update</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="search">Search</string>
-<!--Common-->
-    <string name="primary_key_equals">key=%d</string>
-    <string name="dollars">$%d</string>
-    <string name="number">#%d</string>
-<!--Login-->
+    <!-- Login -->
     <string name="login">Login</string>
     <string name="username">Username</string>
-<!--Home-->
-    <string name="logged_in_as">Logged in as: %s %s</string>
-<!--Account-->
+    <!-- Home -->
+    <string name="home">Home</string>
+    <!-- Shop -->
+    <string name="shop">Shop</string>
+    <!-- Checkout -->
+    <string name="checkout">Checkout</string>
+    <!-- Account -->
     <string name="accounts">Accounts</string>
     <string name="account_name">Account name</string>
     <string name="full_name">%s %s</string>
@@ -25,9 +30,9 @@
     <string name="contact_number">Contact number</string>
     <string name="email_address">Email address</string>
     <string name="password">Password</string>
-    <string name="administrator_access">Administrator access?</string>
+    <string name="allow_administrator_access">Allow administrator access?</string>
     <string name="allow_interactive_login">Allow interactive login?</string>
-<!--Item-->
+    <!-- Item -->
     <string name="items">Items</string>
     <string name="name">Name</string>
     <string name="name_equals">name=%s</string>
@@ -35,7 +40,7 @@
     <string name="price_equals">price=%d</string>
     <string name="image">Image</string>
     <string name="locked">Locked</string>
-<!--    Transaction-->
+    <!-- Transaction -->
     <string name="transactions">Transactions</string>
     <string name="time">Time</string>
     <string name="time_equals">time=%d</string>

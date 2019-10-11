@@ -6,8 +6,9 @@ buildscript {
         coroutine_version = '1.0.0'
         gradleVersion = '3.5.1'
         nav_version = "2.2.0-beta01"
-        material_version = "1.1.0-alpha06"
+        material_version = "1.1.0-beta01"
         room_version = '2.2.0'
+        view_pager_version = "1.0.0-beta05"
     }
     repositories {
         google()

@@ -2,11 +2,9 @@ package gensokyo.hakurei.chitlist.transactiondetail
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import gensokyo.hakurei.chitlist.database.TransactionWithChildren
+import gensokyo.hakurei.chitlist.convertLongToDateString
 
-//@BindingAdapter("itemNameFormatted")
-//fun TextView.setItemIdFormatted(transaction: TransactionWithChildren?, item: Item?) {
-//    transaction?.let {
-//        text = transaction.item.name
-//    }
-//}
+@BindingAdapter("timeFormatted")
+fun TextView.setTimeFormatted(time: Long) {
+    text = convertLongToDateString(time)
+}

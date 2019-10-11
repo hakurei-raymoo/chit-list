@@ -1,17 +1,15 @@
 package gensokyo.hakurei.chitlist.transactionslist
 
-import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import gensokyo.hakurei.chitlist.database.Account
-import gensokyo.hakurei.chitlist.database.Transaction
 import gensokyo.hakurei.chitlist.database.TransactionDao
 import kotlinx.coroutines.*
 
 private const val TAG = "TXsListViewModel"
 
 class TransactionsListViewModel(
-    val database: TransactionDao, application: Application) : AndroidViewModel(application) {
+    private val database: TransactionDao
+) : ViewModel() {
 
     private var viewModelJob = Job()
 
@@ -23,16 +21,20 @@ class TransactionsListViewModel(
     val navigateToEditTransaction
         get() = _navigateToEditTransaction
 
+    init {
+        Log.i(TAG, "Init")
+    }
+
     fun onNewTransaction() {
         // TODO: Remove new transaction magic number (-1L).
         _navigateToEditTransaction.value = -1L
     }
 
-    fun onEditTransactionClicked(id: Long) {
+    fun onTransactionClicked(id: Long) {
         _navigateToEditTransaction.value = id
     }
 
-    fun onEditTransactionNavigated() {
+    fun onTransactionNavigated() {
         _navigateToEditTransaction.value = null
     }
 

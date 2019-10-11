@@ -17,22 +17,24 @@
     <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> clickListener.onClick(transaction)}"
             app:cardBackgroundColor="@android:color/white"
             app:cardElevation="2dp"
-            app:cardPreventCornerOverlap="true">
+            app:cardPreventCornerOverlap="false"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Item.AdminCard">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
+                android:layout_height="wrap_content">
 
             <TextView
                     android:id="@+id/id_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorTransactions"
+                    android:padding="@dimen/spacing_normal"
                     android:text="@{@string/number(transaction.transactionId)}"
-                    android:visibility="gone"
+                    android:textColor="@color/colorOnPrimary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -42,9 +44,11 @@
                     android:id="@+id/account_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_small"
+                    android:layout_marginEnd="@dimen/spacing_normal"
                     android:text="@{@string/full_name(transaction.account.firstName,transaction.account.lastName)}"
                     app:layout_constraintBottom_toTopOf="@+id/item_text"
-                    app:layout_constraintEnd_toStartOf="@+id/edit_button"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/id_text"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="@string/account_equals" />
@@ -53,23 +57,14 @@
                     android:id="@+id/item_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_small"
+                    android:layout_marginEnd="@dimen/spacing_normal"
                     android:text="@{transaction.item.name}"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/edit_button"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/id_text"
                     app:layout_constraintTop_toBottomOf="@+id/account_text"
                     tools:text="@string/item_equals" />
-
-            <com.google.android.material.button.MaterialButton
-                    android:id="@+id/edit_button"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> clickListener.onClick(transaction)}"
-                    android:text="@string/edit"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

@@ -15,7 +15,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import gensokyo.hakurei.chitlist.MarginItemDecoration
 import gensokyo.hakurei.chitlist.R
-
+import gensokyo.hakurei.chitlist.adminviewpager.AdminViewPagerFragmentDirections
 
 private const val TAG = "TXsListFragment"
 
@@ -32,15 +32,14 @@ class TransactionsListFragment : Fragment() {
         // Get a reference to the binding object and inflate the fragment views.
         val binding = FragmentTransactionsListBinding.inflate(inflater, container, false)
 
-        val application = requireNotNull(this.activity).application
-
         // Get a reference to the input method manager to allow hiding the keyboard.
         val inputMethodManager =
             activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         // Create an instance of the ViewModel Factory.
+        val application = requireNotNull(this.activity).application
         val dataSource = AppDatabase.getInstance(application).transactionDao
-        val viewModelFactory = TransactionsListViewModelFactory(dataSource, application)
+        val viewModelFactory = TransactionsListViewModelFactory(dataSource)
 
         // Get a reference to the ViewModel associated with this fragment.
         val transactionsListViewModel =
@@ -51,7 +50,7 @@ class TransactionsListFragment : Fragment() {
         binding.transactionsListViewModel = transactionsListViewModel
 
         adapter = TransactionAdapter(TransactionListener { transactionId ->
-            transactionsListViewModel.onEditTransactionClicked(transactionId)
+            transactionsListViewModel.onTransactionClicked(transactionId)
         })
         binding.transactionsList.adapter = adapter
 
@@ -73,15 +72,15 @@ class TransactionsListFragment : Fragment() {
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
                 this.findNavController().navigate(
-                    TransactionsListFragmentDirections.actionTransactionsListFragmentToTransactionDetailFragment(transaction)
+                    AdminViewPagerFragmentDirections.actionAdminViewPagerFragmentToTransactionDetailFragment(transaction)
                 )
-                transactionsListViewModel.onEditTransactionNavigated()
+                transactionsListViewModel.onTransactionNavigated()
             }
         })
 
         binding.transactionsList.addItemDecoration(
             MarginItemDecoration(
-                resources.getDimension(R.dimen.grid_spacing_small).toInt()
+                resources.getDimension(R.dimen.card_margin_linear).toInt()
             )
         )
 
@@ -100,10 +99,10 @@ class TransactionsListFragment : Fragment() {
         searchView.queryHint = getString(R.string.account_name)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item, view!!.findNavController())
-                || super.onOptionsItemSelected(item)
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return NavigationUI.onNavDestinationSelected(item, view!!.findNavController())
+//                || super.onOptionsItemSelected(item)
+//    }
 
     private fun search(searchView: SearchView) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

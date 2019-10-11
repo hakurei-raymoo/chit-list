@@ -10,29 +10,43 @@
                 type="gensokyo.hakurei.chitlist.home.HomeViewModel" />
     </data>
 
-    <ScrollView
+    <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:orientation="vertical"
-                android:padding="24dp"
-                android:paddingTop="16dp">
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="16dp"
-                    android:text="@{@string/logged_in_as(homeViewModel.account.firstName, homeViewModel.account.lastName)}"
+                    android:layout_margin="@dimen/spacing_normal"
+                    android:text="@string/full_name"
                     android:textAllCaps="true"
                     android:textSize="16sp"
-                    tools:text="@string/logged_in_as"/>
+                    tools:text="@string/full_name" />
+<!--        android:text="@{@string/logged_in_as(homeViewModel.login.firstName, homeViewModel.login.lastName)}"-->
 
-        </LinearLayout>
-    </ScrollView>
+<!--                <com.google.android.material.button.MaterialButton-->
+<!--                        android:id="@+id/accounts_button"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center_horizontal"-->
+<!--                        android:onClick="@{() -> homeViewModel.onAccountsClicked()}"-->
+<!--                        android:text="@string/accounts" />-->
+
+<!--                <com.google.android.material.button.MaterialButton-->
+<!--                        android:id="@+id/items_button"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center_horizontal"-->
+<!--                        android:onClick="@{() -> homeViewModel.onItemsClicked()}"-->
+<!--                        android:text="@string/items" />-->
+
+<!--                <com.google.android.material.button.MaterialButton-->
+<!--                        android:id="@+id/transactions_button"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center_horizontal"-->
+<!--                        android:onClick="@{() -> homeViewModel.onTransactionsClicked()}"-->
+<!--                        android:text="@string/transactions" />-->
+    </FrameLayout>
 </layout>

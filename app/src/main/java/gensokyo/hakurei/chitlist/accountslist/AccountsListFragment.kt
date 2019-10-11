@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import gensokyo.hakurei.chitlist.MarginItemDecoration
 import gensokyo.hakurei.chitlist.R
+import gensokyo.hakurei.chitlist.adminviewpager.AdminViewPagerFragmentDirections
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentAccountsListBinding
 
@@ -26,11 +27,10 @@ class AccountsListFragment : Fragment() {
         // Get a reference to the binding object and inflate the fragment views.
         val binding = FragmentAccountsListBinding.inflate(inflater, container, false)
 
-        val application = requireNotNull(this.activity).application
-
         // Create an instance of the ViewModel Factory.
+        val application = requireNotNull(this.activity).application
         val dataSource = AppDatabase.getInstance(application).accountDao
-        val viewModelFactory = AccountsListViewModelFactory(dataSource, application)
+        val viewModelFactory = AccountsListViewModelFactory(dataSource)
 
         // Get a reference to the ViewModel associated with this fragment.
         val accountsListViewModel =
@@ -45,7 +45,7 @@ class AccountsListFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         val adapter = AccountAdapter(AccountListener { accountId ->
-            accountsListViewModel.onEditAccountClicked(accountId)
+            accountsListViewModel.onAccountClicked(accountId)
         })
         binding.accountsList.adapter = adapter
 
@@ -59,15 +59,15 @@ class AccountsListFragment : Fragment() {
         accountsListViewModel.navigateToEditAccount.observe(viewLifecycleOwner, Observer { account ->
             account?.let {
                 this.findNavController().navigate(
-                    AccountsListFragmentDirections.actionAccountsListFragmentToAccountDetailFragment(account)
+                    AdminViewPagerFragmentDirections.actionAdminViewPagerFragmentToAccountDetailFragment(account)
                 )
-                accountsListViewModel.onEditAccountNavigated()
+                accountsListViewModel.onAccountNavigated()
             }
         })
 
         binding.accountsList.addItemDecoration(
             MarginItemDecoration(
-                resources.getDimension(R.dimen.grid_spacing_small).toInt()
+                resources.getDimension(R.dimen.card_margin_linear).toInt()
             )
         )
 

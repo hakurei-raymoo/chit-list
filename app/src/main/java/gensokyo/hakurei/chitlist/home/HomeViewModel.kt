@@ -1,37 +1,39 @@
 package gensokyo.hakurei.chitlist.home
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import gensokyo.hakurei.chitlist.database.AccountDao
+import androidx.lifecycle.ViewModel
+import gensokyo.hakurei.chitlist.database.LoginDao
 import kotlinx.coroutines.Job
-
 
 private const val TAG = "HomeViewModel"
 
-class HomeViewModel(private val accountKey: Long,
-                    val database: AccountDao, application: Application
-) : AndroidViewModel(application) {
+class HomeViewModel(
+    userKey: Long,
+    private val database: LoginDao
+) : ViewModel() {
 
     private var viewModelJob = Job()
 
-    private val _account = database.getAccount(accountKey)
-    val account
-        get() = _account
+    private val _login = database.getAccount(userKey)
+    val login
+        get() = _login
 
-    val accounts = database.getAccounts()
-
-    private val _navigateToHome = MutableLiveData<Long>()
-    val navigateToHome
-        get() = _navigateToHome
-
-    fun onHomeClicked(id: Long) {
-        _navigateToHome.value = id
+    init {
+        Log.i(TAG, "Init")
     }
 
-    fun onHomeNavigated() {
-        _navigateToHome.value = null
-    }
+//    private val _navigateToAdmin = MutableLiveData<Boolean?>()
+//    val navigateToAdmin
+//        get() = _navigateToAdmin
+//
+//    fun onAdminClicked() {
+//        _navigateToAdmin.value = true
+//    }
+//
+//    fun onTransactionsAdmin() {
+//        _navigateToAdmin.value = null
+//    }
 
     override fun onCleared() {
         super.onCleared()

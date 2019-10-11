@@ -18,12 +18,12 @@ interface ItemDao {
     @Delete
     fun delete(item: Item)
 
-    @Query("SELECT * from items_table WHERE id = :key")
+    @Query("SELECT * from items_table WHERE item_id = :key")
     fun getItem(key: Long): LiveData<Item>
 
-    @Query("SELECT * from items_table ORDER BY id DESC LIMIT 1")
+    @Query("SELECT * from items_table ORDER BY item_id DESC LIMIT 1")
     fun getLastItem(): LiveData<Item>
 
-    @Query("SELECT * FROM items_table ORDER BY id DESC")
+    @Query("SELECT * FROM items_table ORDER BY item_id DESC")
     fun getItems(): LiveData<List<Item>>
 }

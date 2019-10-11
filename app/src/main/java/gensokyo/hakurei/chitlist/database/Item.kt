@@ -7,11 +7,14 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "items_table")
 data class Item (
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0L,
+    @ColumnInfo(name = "item_id", index = true)
+    var itemId: Long = 0L,
 
-    @ColumnInfo(name = "name")
     var name: String = "",
 
-    @ColumnInfo(name = "price")
-    var price: Int = 0
+    var price: Int = 0,
+
+    var image: String = "",
+
+    var locked: Boolean = false
 )

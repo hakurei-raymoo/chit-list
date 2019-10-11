@@ -10,7 +10,7 @@ import kotlinx.coroutines.*
 
 private const val TAG = "TXDetailViewModel"
 
-class TransactionDetailViewModel(private val transactionKey: Long = 0L, dataSource: TransactionDao) : ViewModel() {
+class TransactionDetailViewModel(transactionKey: Long = 0L, dataSource: TransactionDao) : ViewModel() {
 
     val database = dataSource
 
@@ -18,17 +18,13 @@ class TransactionDetailViewModel(private val transactionKey: Long = 0L, dataSour
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val transaction: LiveData<Transaction>
-    // TODO: Remove after testing.
-    val publicTransaction
-        get() = transaction
+    private val _transaction: LiveData<Transaction>
+    val transaction
+        get() = _transaction
 
     private val _navigateToTransactionsList = MutableLiveData<Boolean?>()
     val navigateToTransactionsList: LiveData<Boolean?>
         get() = _navigateToTransactionsList
-
-    fun getTransaction() = transaction
-
 
     /**
      * Check transactionKey to either get existing Transaction or insert a new one.
@@ -36,18 +32,17 @@ class TransactionDetailViewModel(private val transactionKey: Long = 0L, dataSour
     init {
         if (transactionKey == -1L) {
             newTransaction()
-            transaction = database.getLastTransaction()
+            _transaction = database.getLastTransaction()
         } else {
-            transaction = database.getTransaction(transactionKey)
+            _transaction = database.getTransaction(transactionKey)
         }
     }
 
     private fun newTransaction() {
         uiScope.launch {
             withContext(Dispatchers.IO) {
-                val newTransaction = Transaction()
-                newTransaction.accountId = 1L
-                newTransaction.itemId = 1L
+                // Transaction must have valid ForeignKeys before insertion to table.
+                val newTransaction = Transaction(accountId = 1L, itemId = 1L)
                 Log.i(TAG, "Attempting $newTransaction")
                 database.insert(newTransaction)
                 Log.i(TAG, "Inserted $newTransaction")
@@ -61,7 +56,6 @@ class TransactionDetailViewModel(private val transactionKey: Long = 0L, dataSour
             _navigateToTransactionsList.value = true
         }
     }
-
 
     private suspend fun update() {
         withContext(Dispatchers.IO) {

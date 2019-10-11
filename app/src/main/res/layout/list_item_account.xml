@@ -14,48 +14,46 @@
                 type="gensokyo.hakurei.chitlist.accountslist.AccountListener" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardElevation="2dp"
+            app:cardPreventCornerOverlap="true">
 
-
-        <TextView
-                android:id="@+id/id_text"
-                android:layout_width="wrap_content"
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{@string/primary_key_equals(account.id)}"
-                app:layout_constraintEnd_toStartOf="@+id/edit_button"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/primary_key_unknown" />
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
 
-        <TextView
-                android:id="@+id/first_name_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{account.firstName}"
-                app:layout_constraintEnd_toStartOf="@+id/edit_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/first_name_unknown" />
+            <TextView
+                    android:id="@+id/id_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/number(account.accountId)}"
+                    android:textColor="@{account.enabled ? @color/colorOnSurface : @color/colorError}"
+                    android:visibility="gone"
+                    tools:text="@string/number" />
 
-        <TextView
-                android:id="@+id/last_name_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{account.lastName}"
-                app:layout_constraintEnd_toStartOf="@+id/edit_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/first_name_text"
-                tools:text="@string/last_name_unknown" />
+            <TextView
+                    android:id="@+id/first_name_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@{@string/full_name(account.firstName, account.lastName)}"
+                    tools:text="@string/full_name" />
 
-        <Button
-                android:id="@+id/edit_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> clickListener.onClick(account)}"
-                android:text="@string/edit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/edit_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> clickListener.onClick(account)}"
+                    android:text="@string/edit" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </layout>

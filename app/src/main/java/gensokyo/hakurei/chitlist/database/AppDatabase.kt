@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import gensokyo.hakurei.chitlist.DATABASE_NAME
 
 private const val TAG = "AppDatabase"
 
@@ -33,7 +34,7 @@ abstract class AppDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         AppDatabase::class.java,
-                        "chit_list-db"
+                        DATABASE_NAME
                     )
                         .fallbackToDestructiveMigration()
                         .build()

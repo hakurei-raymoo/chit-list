@@ -12,7 +12,9 @@ class ItemsListViewModel(
     val database: ItemDao, application: Application) : AndroidViewModel(application) {
     private var viewModelJob = Job()
 
-    val items = database.getItems()
+    private val _items = database.getItems()
+    val items
+        get() = _items
 
     private val _navigateToEditItem = MutableLiveData<Long>()
     val navigateToEditItem

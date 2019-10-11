@@ -7,76 +7,70 @@
 
         <variable
                 name="transaction"
-                type="gensokyo.hakurei.chitlist.database.Transaction" />
+                type="gensokyo.hakurei.chitlist.database.TransactionWithChildren" />
 
         <variable
                 name="clickListener"
                 type="gensokyo.hakurei.chitlist.transactionslist.TransactionListener" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardElevation="2dp"
+            app:cardPreventCornerOverlap="true">
 
-        <TextView
-                android:id="@+id/id_text"
-                android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{@string/primary_key_equals(transaction.id)}"
-                app:layout_constraintEnd_toStartOf="@+id/edit_button"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/primary_key_unknown" />
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
 
-        <TextView
-                android:id="@+id/time_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{@string/time_equals(transaction.time)}"
-                android:visibility="gone"
-                app:layout_constraintEnd_toStartOf="@+id/edit_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/time_unknown" />
+            <TextView
+                    android:id="@+id/id_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/number(transaction.transactionId)}"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/number" />
 
-        <TextView
-                android:id="@+id/account_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{@string/account_id_equals(transaction.accountId)}"
-                app:layout_constraintEnd_toStartOf="@+id/edit_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/time_text"
-                tools:text="@string/account_unknown" />
+            <TextView
+                    android:id="@+id/account_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/full_name(transaction.account.firstName,transaction.account.lastName)}"
+                    app:layout_constraintBottom_toTopOf="@+id/item_text"
+                    app:layout_constraintEnd_toStartOf="@+id/edit_button"
+                    app:layout_constraintStart_toEndOf="@+id/id_text"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/account_equals" />
 
-        <TextView
-                android:id="@+id/item_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{@string/item_id_equals(transaction.itemId)}"
-                app:layout_constraintEnd_toStartOf="@+id/edit_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_text"
-                tools:text="@string/item_unknown" />
+            <TextView
+                    android:id="@+id/item_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{transaction.item.name}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/edit_button"
+                    app:layout_constraintStart_toEndOf="@+id/id_text"
+                    app:layout_constraintTop_toBottomOf="@+id/account_text"
+                    tools:text="@string/item_equals" />
 
-        <TextView
-                android:id="@+id/comments_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{@string/comments_equals(transaction.comments)}"
-                android:visibility="gone"
-                app:layout_constraintEnd_toStartOf="@+id/edit_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_text"
-                tools:text="@string/comments_unknown" />
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/edit_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> clickListener.onClick(transaction)}"
+                    android:text="@string/edit"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-                android:id="@+id/edit_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> clickListener.onClick(transaction)}"
-                android:text="@string/edit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

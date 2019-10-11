@@ -7,12 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentItemDetailBinding
 
@@ -27,9 +25,7 @@ class ItemDetailFragment : Fragment() {
     ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentItemDetailBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_item_detail, container, false
-        )
+        val binding = FragmentItemDetailBinding.inflate(inflater, container, false)
 
         val application = requireNotNull(this.activity).application
         val arguments = ItemDetailFragmentArgs.fromBundle(arguments!!)
@@ -46,10 +42,12 @@ class ItemDetailFragment : Fragment() {
         // give the binding object a reference to it.
         binding.itemDetailViewModel = itemDetailViewModel
 
-        binding.setLifecycleOwner(this)
+        // Specify the current activity as the lifecycle owner of the binding.
+        // This is necessary so that the binding can observe LiveData updates.
+        binding.lifecycleOwner = viewLifecycleOwner
 
         // Add an Observer to the state variable for Navigating when a Submit button is tapped.
-        itemDetailViewModel.navigateToItemsList.observe(this, Observer {
+        itemDetailViewModel.navigateToItemsList.observe(viewLifecycleOwner, Observer {
             if (it == true) { // Observed state is true.
                 val inputMethodManager =
                     activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -68,8 +66,8 @@ class ItemDetailFragment : Fragment() {
 
         // Test Observer to report changes on item.
         // TODO: Remove after testing.
-        itemDetailViewModel.publicItem.observe(this, Observer {
-            Log.i(TAG, "Observed ${itemDetailViewModel.publicItem.value}")
+        itemDetailViewModel.item.observe(viewLifecycleOwner, Observer {
+            Log.i(TAG, "Observed ${itemDetailViewModel.item.value}")
         })
 
         return binding.root

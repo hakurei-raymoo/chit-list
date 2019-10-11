@@ -10,64 +10,101 @@
                 type="gensokyo.hakurei.chitlist.itemdetail.ItemDetailViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".itemdetail.ItemDetailFragment">
+            android:layout_height="wrap_content">
 
-        <TextView
-                android:id="@+id/primary_key_text"
-                android:layout_width="0dp"
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{@string/primary_key_equals(itemDetailViewModel.item.id)}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/primary_key_unknown" />
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:paddingTop="16dp">
 
-        <EditText
-                android:id="@+id/name_edit"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/name"
-                android:importantForAutofill="no"
-                android:inputType="textPersonName"
-                android:text="@={itemDetailViewModel.item.name}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/primary_key_text" />
+            <TextView
+                    android:id="@+id/primary_key_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="16dp"
+                    android:text="@{@string/primary_key_equals(itemDetailViewModel.item.itemId)}"
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    tools:text="@string/primary_key_equals" />
 
-        <EditText
-                android:id="@+id/price_edit"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/price"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:text="@={`` + itemDetailViewModel.item.price}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name_edit" />
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name">
 
-        <Button
-                android:id="@+id/submit_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> itemDetailViewModel.onSubmitItemDetails()}"
-                android:text="@string/submit"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/delete_button"
-                app:layout_constraintStart_toStartOf="parent" />
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:text="@={itemDetailViewModel.item.name}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-                android:id="@+id/delete_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> itemDetailViewModel.onDeleteItem()}"
-                android:text="@string/delete"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/submit_button" />
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/price">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/price_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:text="@={`` + itemDetailViewModel.item.price}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/image">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/image_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textUri"
+                        android:maxLines="1"
+                        android:text="@={itemDetailViewModel.item.image}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Switch
+                    android:id="@+id/locked_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="@={itemDetailViewModel.item.locked}"
+                    android:text="@string/locked" />
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/submit_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:onClick="@{() -> itemDetailViewModel.onSubmitItemDetails()}"
+                        android:text="@string/submit" />
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/delete_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:layout_toStartOf="@id/submit_button"
+                        android:enabled="false"
+                        android:onClick="@{() -> itemDetailViewModel.onDeleteItem()}"
+                        android:text="@string/delete" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 </layout>

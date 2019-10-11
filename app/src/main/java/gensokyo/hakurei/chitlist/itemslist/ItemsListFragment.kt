@@ -1,15 +1,15 @@
 package gensokyo.hakurei.chitlist.itemslist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import gensokyo.hakurei.chitlist.MarginItemDecoration
 import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentItemsListBinding
@@ -25,8 +25,7 @@ class ItemsListFragment : Fragment() {
     ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentItemsListBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_items_list, container, false)
+        val binding = FragmentItemsListBinding.inflate(inflater, container, false)
 
         val application = requireNotNull(this.activity).application
 
@@ -42,10 +41,14 @@ class ItemsListFragment : Fragment() {
         // give the binding object a reference to it.
         binding.itemsListViewModel = itemsListViewModel
 
-        val adapter = ItemAdaptor(ItemListener { itemId ->
+        val adapter = ItemAdapter(ItemListener { itemId ->
             itemsListViewModel.onEditItemClicked(itemId)
         })
         binding.itemsList.adapter = adapter
+
+        // Specify the current activity as the lifecycle owner of the binding.
+        // This is necessary so that the binding can observe LiveData updates.
+        binding.lifecycleOwner = viewLifecycleOwner
 
         itemsListViewModel.items.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -53,12 +56,8 @@ class ItemsListFragment : Fragment() {
             }
         })
 
-        // Specify the current activity as the lifecycle owner of the binding.
-        // This is necessary so that the binding can observe LiveData updates.
-        binding.setLifecycleOwner(this)
-
         // Add an Observer on the state variable for Navigating when EDIT button is pressed.
-        itemsListViewModel.navigateToEditItem.observe(this, Observer { item ->
+        itemsListViewModel.navigateToEditItem.observe(viewLifecycleOwner, Observer { item ->
             item?.let {
                 this.findNavController().navigate(
                     ItemsListFragmentDirections.actionItemsListFragmentToItemDetailFragment(item)
@@ -66,6 +65,14 @@ class ItemsListFragment : Fragment() {
                 itemsListViewModel.onEditItemNavigated()
             }
         })
+
+        val manager = GridLayoutManager(activity, 2)
+        binding.itemsList.layoutManager = manager
+        binding.itemsList.addItemDecoration(
+            MarginItemDecoration(
+                resources.getDimension(R.dimen.grid_spacing_small).toInt()
+            )
+        )
 
         return binding.root
     }

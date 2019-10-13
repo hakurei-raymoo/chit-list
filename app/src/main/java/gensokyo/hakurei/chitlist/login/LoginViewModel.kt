@@ -82,22 +82,9 @@ class LoginViewModel(
                 }
             }
         }
-    }
 
-    fun checkCredentials() {
-        if (account.value == null) {
-            Log.i(TAG, "Authentication failed.")
-
-            // Reset password field.
-            loginPassword.value = ""
-        } else {
-            Log.i(TAG, "Authentication passed.")
-
-            // Reset credentials.
-            account.value = null
-            loginAccount.value = ""
-            loginPassword.value = ""
-        }
+        // Clear the password text.
+        loginPassword.value = ""
     }
 
     fun onNavigateToHome() {
@@ -106,6 +93,11 @@ class LoginViewModel(
 
     fun onHomeNavigated() {
         _navigateToHome.value = null
+
+        // Reset credentials.
+        account.value = null
+        loginAccount.value = ""
+        loginPassword.value = ""
     }
 
     override fun onCleared() {

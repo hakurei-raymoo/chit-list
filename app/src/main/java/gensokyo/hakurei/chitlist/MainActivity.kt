@@ -15,11 +15,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         // Call the superclass implementation.
         super.onCreate(savedInstanceState)
+
         // Associate the activity_main layout with the MainActivity and return the associated binding.
-        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        @Suppress("UNUSED_VARIABLE")
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         // Set up Android Jetpack Navigation.
         navController = findNavController(R.id.nav_host_fragment)
+
 //        // Enable the nav drawer.
 //        NavigationUI.setupWithNavController(binding.navigationView, navController)
 //        // Enable the action bar.

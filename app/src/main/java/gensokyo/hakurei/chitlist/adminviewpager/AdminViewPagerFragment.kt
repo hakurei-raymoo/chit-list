@@ -1,9 +1,7 @@
 package gensokyo.hakurei.chitlist.adminviewpager
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -27,16 +25,6 @@ class AdminViewPagerFragment : Fragment() {
             sharedViewModel = ViewModelProviders.of(it).get(SharedViewModel::class.java)
         }
 
-//        // Create an instance of the ViewModel Factory.
-//        val application = requireNotNull(this.activity).application
-//        val arguments = AdminViewPagerFragmentArgs.fromBundle(arguments!!)
-//        val dataSource = AppDatabase.getInstance(application).loginDao
-//        val viewModelFactory = HomeViewModelFactory(arguments.userKey, dataSource)
-//
-//        // Get a reference to the ViewModel associated with this fragment.
-//        val homeViewModel =
-//            ViewModelProviders.of(this, viewModelFactory).get(HomeViewModel::class.java)
-
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
         binding.sharedViewModel = sharedViewModel
@@ -56,10 +44,35 @@ class AdminViewPagerFragment : Fragment() {
             tab.text = getTabTitle(position)
         }.attach()
 
-        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        (activity as AppCompatActivity).run {
+            setSupportActionBar(binding.toolbar)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            binding.toolbar.setNavigationOnClickListener {
+//                sharedViewModel.logout()
+                onBackPressed()
+            }
+        }
 
         return binding.root
     }
+
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        super.onCreateOptionsMenu(menu, inflater)
+//        inflater.inflate(R.menu.settings_menu, menu)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return when (item.itemId) {
+//            R.id.settings -> {
+//                enableAdminAccess()
+//                true
+//            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//    }
+//
+//    fun enableAdminAccess() {
+//    }
 
 //    private fun getTabIcon(position: Int): Int {
 //        return when (position) {

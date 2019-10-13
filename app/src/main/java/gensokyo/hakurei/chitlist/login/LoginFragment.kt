@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -61,34 +60,33 @@ class LoginFragment : Fragment() {
         binding.setLifecycleOwner(this)
 
         // Add an Observer on the state variable for Navigating when LOGIN button is pressed.
-        loginViewModel.navigateToHome.observe(this, Observer { accountId ->
-            accountId?.let {
+        loginViewModel.navigateToHome.observe(this, Observer {
+            // Observed state is true.
+            if (it == true) {
                 // Hide the keyboard.
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
                 this.findNavController().navigate(
                     LoginFragmentDirections.actionLoginFragmentToAdminViewPagerFragment()
                 )
+
+                // Reset state to make sure we only navigate once.
                 loginViewModel.onHomeNavigated()
             }
         })
 
-        // Clear login.
-        sharedViewModel.logout()
-
         // Observer to process login attempt once account returned.
         loginViewModel.account.observe(this, Observer {
-            Log.i(TAG, "Observed ${loginViewModel.account.value}")
-            if (it == null) {
-                Log.i(TAG, "Authentication failed.")
-            } else {
-                sharedViewModel.login(loginViewModel.account.value!!)
+            Log.i(TAG, "Observed account=$it")
+
+            if (it != null) {
+                sharedViewModel.login(it)
                 loginViewModel.onNavigateToHome()
             }
         })
 
         // Get a reference to the AutoCompleteTextView in the layout.
-        val accountAutocomplete = binding.accountAutocomplete as AutoCompleteTextView
+        val accountAutocomplete = binding.accountAutocomplete
         // Create the adapter and set it to the AutoCompleteTextView.
         val accountsAdaptor = ArrayAdapter<String>(
             requireContext(),

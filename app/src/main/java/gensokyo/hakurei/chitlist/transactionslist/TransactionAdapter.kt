@@ -49,6 +49,7 @@ class TransactionAdapter(val clickListener: TransactionListener): RecyclerView.A
                 return filterResults
             }
 
+            @Suppress("unchecked_cast")
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
                 filteredData = filterResults.values as MutableList<TransactionWithChildren>
                 notifyDataSetChanged()

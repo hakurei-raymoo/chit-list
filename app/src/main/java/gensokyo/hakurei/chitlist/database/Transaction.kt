@@ -21,10 +21,10 @@ data class Transaction (
 
     val time: Long = System.currentTimeMillis(),
 
-    @ColumnInfo(name = "account_id")
+    @ColumnInfo(name = "account_id", index = true)
     var accountId: Long,
 
-    @ColumnInfo(name = "item_id")
+    @ColumnInfo(name = "item_id", index = true)
     var itemId: Long,
 
     var comments: String = ""

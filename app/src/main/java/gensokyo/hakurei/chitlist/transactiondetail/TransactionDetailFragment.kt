@@ -68,13 +68,13 @@ class TransactionDetailFragment : Fragment() {
         })
 
         // Update helper text on edit losing focus.
-        binding.accountEdit.setOnFocusChangeListener { view, hasFocus ->
+        binding.accountEdit.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 transactionDetailViewModel.updateAccountEditHelperText(transactionDetailViewModel.transaction.value?.accountId)
             }
         }
         // Update helper text on edit losing focus.
-        binding.itemEdit.setOnFocusChangeListener { view, hasFocus ->
+        binding.itemEdit.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 transactionDetailViewModel.updateItemEditHelperText(transactionDetailViewModel.transaction.value?.itemId)
             }

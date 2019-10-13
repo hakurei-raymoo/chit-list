@@ -74,22 +74,4 @@ class CheckoutFragment : Fragment() {
 
         return binding.root
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.settings_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.settings -> {
-                enableAdminAccess()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    fun enableAdminAccess() {
-    }
 }

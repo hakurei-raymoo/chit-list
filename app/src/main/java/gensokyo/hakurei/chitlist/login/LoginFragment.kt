@@ -31,8 +31,7 @@ class LoginFragment : Fragment() {
     ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentLoginBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        val binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         activity?.let {
             sharedViewModel = ViewModelProviders.of(it).get(SharedViewModel::class.java)
@@ -67,7 +66,7 @@ class LoginFragment : Fragment() {
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
                 this.findNavController().navigate(
-                    LoginFragmentDirections.actionLoginFragmentToAdminViewPagerFragment()
+                    LoginFragmentDirections.actionLoginFragmentToHomeViewPagerFragment()
                 )
 
                 // Reset state to make sure we only navigate once.

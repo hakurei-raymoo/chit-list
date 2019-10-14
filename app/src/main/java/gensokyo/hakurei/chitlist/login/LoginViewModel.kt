@@ -43,7 +43,7 @@ class LoginViewModel(
         uiScope.launch {
             withContext(Dispatchers.IO) {
                 accounts = database.getBareAccounts().toMutableList()
-                accounts.sortBy {it.firstName}
+                accounts.sortWith(compareBy(String.CASE_INSENSITIVE_ORDER) {String.format("${it.firstName} ${it.lastName}")})
                 Log.i(TAG, "accounts=$accounts")
 
                 accounts.forEach {
@@ -85,6 +85,21 @@ class LoginViewModel(
 
         // Clear the password text.
         loginPassword.value = ""
+    }
+
+    fun onLogoClicked() {
+        uiScope.launch {
+            withContext(Dispatchers.IO) {
+                val admins = database.getAdminAccounts()
+                if (admins.isEmpty()) {
+                    val defaultAdmin = Account(firstName = "admin", lastName = "default", admin = true)
+                    database.insert(defaultAdmin)
+                    Log.i(TAG, "Inserted $defaultAdmin")
+                } else {
+                    Log.i(TAG, "admins=$admins")
+                }
+            }
+        }
     }
 
     fun onNavigateToHome() {

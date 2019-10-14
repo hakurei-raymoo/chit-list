@@ -14,12 +14,13 @@
     <!-- Login -->
     <string name="login">Login</string>
     <string name="username">Username</string>
-    <!-- Home -->
-    <string name="home">Home</string>
     <!-- Shop -->
     <string name="shop">Shop</string>
     <!-- Checkout -->
     <string name="checkout">Checkout</string>
+    <!-- History -->
+    <string name="history">History</string>
+    <string name="amount_item">$%d : %s</string>
     <!-- Account -->
     <string name="accounts">Accounts</string>
     <string name="account_name">Account name</string>
@@ -48,6 +49,8 @@
     <string name="account_equals">account=%s</string>
     <string name="item">Item</string>
     <string name="item_equals">item=%s</string>
+    <string name="amount">Amount</string>
+    <string name="amount_equals">amount=%s</string>
     <string name="comments">Comments</string>
     <string name="comments_equals">comments=%s</string>
 </resources>

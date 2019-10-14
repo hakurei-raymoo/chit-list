@@ -1,17 +1,15 @@
 package gensokyo.hakurei.chitlist.shop
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import gensokyo.hakurei.chitlist.database.ShopDao
 import kotlinx.coroutines.*
 
 private const val TAG = "ShopViewModel"
 
 class ShopViewModel(
-    private val database: ShopDao,
-    application: Application
-) : AndroidViewModel(application) {
+    private val database: ShopDao
+) : ViewModel() {
     private var viewModelJob = Job()
 
     private val _items = database.getItems()

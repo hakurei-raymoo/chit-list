@@ -1,4 +1,4 @@
-package gensokyo.hakurei.chitlist.adminviewpager
+package gensokyo.hakurei.chitlist.homeviewpager
 
 import android.os.Bundle
 import android.util.Log
@@ -6,14 +6,15 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.SharedViewModel
-import gensokyo.hakurei.chitlist.databinding.FragmentAdminViewPagerBinding
+import gensokyo.hakurei.chitlist.databinding.FragmentHomeViewPagerBinding
 
-private const val TAG = "AdminViewPagerFragment"
+private const val TAG = "HomeViewPagerFragment"
 
-class AdminViewPagerFragment : Fragment() {
+class HomeViewPagerFragment : Fragment() {
 
     private lateinit var sharedViewModel: SharedViewModel
 
@@ -22,7 +23,7 @@ class AdminViewPagerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentAdminViewPagerBinding.inflate(inflater, container, false)
+        val binding = FragmentHomeViewPagerBinding.inflate(inflater, container, false)
 
         activity?.let {
             sharedViewModel = ViewModelProviders.of(it).get(SharedViewModel::class.java)
@@ -39,7 +40,7 @@ class AdminViewPagerFragment : Fragment() {
         // Setup view pager.
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager
-        viewPager.adapter = AdminPagerAdapter(this)
+        viewPager.adapter = HomePagerAdapter(this)
 
         // Set the icon and text for each tab
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
@@ -53,6 +54,7 @@ class AdminViewPagerFragment : Fragment() {
             // Add up button.
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             binding.toolbar.setNavigationOnClickListener {
+//                sharedViewModel.logout()
                 onBackPressed()
             }
         }
@@ -62,20 +64,43 @@ class AdminViewPagerFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        if (sharedViewModel.user?.admin == true) {
+            inflater.inflate(R.menu.settings_menu, menu)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.settings -> {
+                adminAccess()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun adminAccess() {
+        Log.i(TAG, "Admin Access.")
+        this.findNavController().navigate(
+            HomeViewPagerFragmentDirections.actionHomeViewPagerFragmentToAdminViewPagerFragment()
+        )
+    }
+
 //    private fun getTabIcon(position: Int): Int {
 //        return when (position) {
-//            ACCOUNTS_LIST_PAGE_INDEX -> R.drawable.accounts_list_tab_selector
-//            ITEMS_LIST_PAGE_INDEX -> R.drawable.items_list_tab_selector
-//            TRANSACTIONS_LIST_PAGE_INDEX -> R.drawable.transactions_list_tab_selector
+//            SHOP_PAGE_INDEX -> R.drawable.shop_tab_selector
+//            CHECKOUT_PAGE_INDEX -> R.drawable.checkout_tab_selector
 //            else -> throw IndexOutOfBoundsException()
 //        }
 //    }
 
     private fun getTabTitle(position: Int): String? {
         return when (position) {
-            ACCOUNTS_LIST_PAGE_INDEX -> getString(R.string.accounts)
-            ITEMS_LIST_PAGE_INDEX -> getString(R.string.items)
-            TRANSACTIONS_LIST_PAGE_INDEX -> getString(R.string.transactions)
+            SHOP_PAGE_INDEX -> getString(R.string.shop)
+            CHECKOUT_PAGE_INDEX -> getString(R.string.checkout)
+            HISTORY_PAGE_INDEX -> getString(R.string.history)
             else -> null
         }
     }

@@ -12,8 +12,8 @@
             android:label="LoginFragment"
             tools:layout="@layout/fragment_login" >
         <action
-                android:id="@+id/action_login_fragment_to_admin_view_pager_fragment"
-                app:destination="@id/admin_view_pager_fragment"
+                android:id="@+id/action_login_fragment_to_home_view_pager_fragment"
+                app:destination="@id/home_view_pager_fragment"
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
@@ -21,10 +21,20 @@
     </fragment>
 
     <fragment
+            android:id="@+id/home_view_pager_fragment"
+            android:name="gensokyo.hakurei.chitlist.homeviewpager.HomeViewPagerFragment"
+            android:label="HomeViewPagerFragment"
+            tools:layout="@layout/fragment_home_view_pager" >
+        <action
+                android:id="@+id/action_home_view_pager_fragment_to_admin_view_pager_fragment"
+                app:destination="@id/admin_view_pager_fragment" />
+    </fragment>
+
+    <fragment
             android:id="@+id/admin_view_pager_fragment"
             android:name="gensokyo.hakurei.chitlist.adminviewpager.AdminViewPagerFragment"
             android:label="AdminViewPagerFragment"
-            tools:layout="@layout/fragment_admin_view_pager" >
+            tools:layout="@layout/fragment_admin_view_pager">
         <action
                 android:id="@+id/action_admin_view_pager_fragment_to_item_detail_fragment"
                 app:destination="@id/item_detail_fragment"

@@ -11,18 +11,18 @@
 
         <variable
                 name="clickListener"
-                type="gensokyo.hakurei.chitlist.itemslist.ItemListener" />
+                type="gensokyo.hakurei.chitlist.shop.ShopListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() -> clickListener.onClick(item)}"
-            app:cardBackgroundColor="@{item.locked ? @color/colorFaded : @color/colorItems}"
+            app:cardBackgroundColor="@{item.locked ? @color/colorFaded : @color/colorPrimary}"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="false"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Item.AdminCard"
-            tools:cardBackgroundColor="@color/colorItems">
+            tools:cardBackgroundColor="@color/colorPrimary">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

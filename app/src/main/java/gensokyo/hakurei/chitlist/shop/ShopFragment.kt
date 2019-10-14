@@ -1,6 +1,7 @@
 package gensokyo.hakurei.chitlist.shop
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -35,7 +36,7 @@ class ShopFragment : Fragment() {
         // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
         val dataSource = AppDatabase.getInstance(application).shopDao
-        val viewModelFactory = ShopViewModelFactory(dataSource, application)
+        val viewModelFactory = ShopViewModelFactory(dataSource)
 
         // Get a reference to the ViewModel associated with this fragment.
         val shopViewModel =
@@ -45,8 +46,8 @@ class ShopFragment : Fragment() {
         // give the binding object a reference to it.
         binding.shopViewModel = shopViewModel
 
-        val adapter = ItemAdapter(ItemListener { itemId ->
-            sharedViewModel.addItem(itemId)
+        val adapter = ShopAdapter(ShopListener {
+            sharedViewModel.addItem(it)
         })
         binding.itemsList.adapter = adapter
 

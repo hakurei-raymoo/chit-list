@@ -1,22 +1,23 @@
-package gensokyo.hakurei.chitlist.shop
+package gensokyo.hakurei.chitlist.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import gensokyo.hakurei.chitlist.SharedViewModel
 import gensokyo.hakurei.chitlist.database.ShopDao
 
-private const val TAG = "ShopVMFactory"
+private const val TAG = "SharedViewModelFactory"
 
 /**
- * Provides the [ShopDao] to the [ShopViewModel].
+ * Provides the [ShopDao] to the [SharedViewModel].
  */
-class ShopViewModelFactory(
+class SharedViewModelFactory(
     private val dataSource: ShopDao
 ) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ShopViewModel::class.java)) {
-            return ShopViewModel(dataSource) as T
+        if (modelClass.isAssignableFrom(SharedViewModel::class.java)) {
+            return SharedViewModel() as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

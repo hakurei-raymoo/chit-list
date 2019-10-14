@@ -32,13 +32,14 @@
                     android:id="@+id/id_text"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="@color/colorAccounts"
+                    android:background="@{account.enabled ? (account.admin ? @color/colorAccent : @color/colorAccounts) : @color/colorFaded}"
                     android:padding="@dimen/spacing_normal"
                     android:text="@{@string/number(account.accountId)}"
-                    android:textColor="@{account.enabled ? @color/colorOnPrimary : @color/colorFaded}"
+                    android:textColor="@color/colorOnPrimary"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/first_name_text"
+                    tools:background="@color/colorAccounts"
                     tools:text="@string/number" />
 
             <TextView

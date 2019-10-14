@@ -46,11 +46,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="?attr/actionBarSize"
                             android:gravity="center"
-                            android:text="@string/admin"
+                            android:text="@{@string/full_name(sharedViewModel.user.firstName, sharedViewModel.user.lastName)}"
                             android:textAllCaps="true"
                             android:textColor="@color/colorOnPrimary"
                             android:textSize="16sp"
-                            tools:text="@string/admin" />
+                            tools:text="@string/username" />
 
                 </androidx.appcompat.widget.Toolbar>
 
@@ -60,7 +60,7 @@
                     android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:tabMode="scrollable" />
+                    app:tabMode="fixed" />
 
         </com.google.android.material.appbar.AppBarLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

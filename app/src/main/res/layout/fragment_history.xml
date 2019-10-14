@@ -6,8 +6,8 @@
     <data>
 
         <variable
-                name="shopViewModel"
-                type="gensokyo.hakurei.chitlist.shop.ShopViewModel" />
+                name="historyViewModel"
+                type="gensokyo.hakurei.chitlist.history.HistoryViewModel" />
     </data>
 
     <FrameLayout
@@ -15,12 +15,11 @@
             android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/items_list"
+                android:id="@+id/transactions_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                app:spanCount="2"
-                tools:listitem="@layout/list_item_shop" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_item_history" />
 
     </FrameLayout>
 </layout>

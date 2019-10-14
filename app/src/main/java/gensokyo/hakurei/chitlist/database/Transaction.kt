@@ -27,6 +27,8 @@ data class Transaction (
     @ColumnInfo(name = "item_id", index = true)
     var itemId: Long,
 
+    var amount: Int = 0,
+
     var comments: String = ""
 )
 
@@ -42,6 +44,8 @@ data class TransactionWithChildren (
 
     @Embedded
     val item: Item,
+
+    var amount: Int = 0,
 
     var comments: String
 )

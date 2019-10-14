@@ -31,12 +31,18 @@ fun String.hash() : String {
  * and convert it to a nicely formatted string for display.
  *
  * EEEE - Display the long letter version of the weekday
- * MMM - Display the letter abbreviation of the nmotny
+ * MMM - Display the letter abbreviation of the month
  * dd-yyyy - day in month and full year numerically
  * HH:mm - Hours and minutes in 24hr format
  */
 @SuppressLint("SimpleDateFormat")
-fun convertLongToDateString(systemTime: Long): String {
+fun convertLongToDateStringExpanded(systemTime: Long): String {
     return SimpleDateFormat("EEEE MMM-dd-yyyy' Time 'HH:mm:ss.SSS")
+        .format(systemTime).toString()
+}
+
+@SuppressLint("SimpleDateFormat")
+fun convertLongToDateStringShort(systemTime: Long): String {
+    return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         .format(systemTime).toString()
 }

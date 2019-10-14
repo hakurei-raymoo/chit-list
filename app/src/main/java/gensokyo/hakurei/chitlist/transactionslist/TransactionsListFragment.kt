@@ -11,11 +11,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentTransactionsListBinding
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import gensokyo.hakurei.chitlist.MarginItemDecoration
-import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.adminviewpager.AdminViewPagerFragmentDirections
+import gensokyo.hakurei.chitlist.R
 
 private const val TAG = "TXsListFragment"
 
@@ -98,11 +96,6 @@ class TransactionsListFragment : Fragment() {
         search(searchView)
         searchView.queryHint = getString(R.string.account_name)
     }
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return NavigationUI.onNavDestinationSelected(item, view!!.findNavController())
-//                || super.onOptionsItemSelected(item)
-//    }
 
     private fun search(searchView: SearchView) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

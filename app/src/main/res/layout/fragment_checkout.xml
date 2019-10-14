@@ -6,8 +6,8 @@
     <data>
 
         <variable
-                name="shopViewModel"
-                type="gensokyo.hakurei.chitlist.shop.ShopViewModel" />
+                name="checkoutViewModel"
+                type="gensokyo.hakurei.chitlist.checkout.CheckoutViewModel" />
     </data>
 
     <FrameLayout
@@ -20,7 +20,15 @@
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                 app:spanCount="2"
-                tools:listitem="@layout/list_item_item" />
+                tools:listitem="@layout/list_item_shop" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:onClick="@{() -> checkoutViewModel.onCheckoutClicked()}"
+                app:srcCompat="@drawable/ic_checkout"/>
 
     </FrameLayout>
 </layout>

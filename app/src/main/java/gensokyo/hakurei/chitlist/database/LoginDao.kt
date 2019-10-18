@@ -20,8 +20,8 @@ interface LoginDao {
     fun getLogin(key: Long, passwordHash: String, enabled: Boolean = true): Account
 
     @Query("SELECT account_id, first_name, last_name FROM accounts_table WHERE enabled = :enabled ORDER BY first_name ASC")
-    fun getBareAccounts(enabled: Boolean = true): List<BareAccount>
+    fun getBareAccounts(enabled: Boolean = true): LiveData<List<BareAccount>>
 
-    @Query("SELECT * FROM accounts_table WHERE admin = :admin AND enabled = :enabled ORDER BY first_name ASC")
-    fun getAdminAccounts(admin: Boolean = true, enabled: Boolean = true): List<Account>
+//    @Query("SELECT * FROM accounts_table WHERE admin = :admin AND enabled = :enabled ORDER BY first_name ASC")
+//    fun getAdminAccounts(admin: Boolean = true, enabled: Boolean = true): List<Account>
 }

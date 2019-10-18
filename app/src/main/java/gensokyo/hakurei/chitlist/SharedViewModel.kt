@@ -15,12 +15,14 @@ class SharedViewModel : ViewModel() {
     val user
         get() = _user
 
-    var balance = MutableLiveData<Int>()
-
     private val _items = mutableListOf<Item>()
     private val _cart = MutableLiveData<List<Item>>()
     val cart: LiveData<List<Item>>
         get()  =_cart
+
+    private val _balance = MutableLiveData<Int>()
+    val balance: LiveData<Int>
+        get() = _balance
 
     init {
         Log.i(TAG, "Init")
@@ -40,11 +42,11 @@ class SharedViewModel : ViewModel() {
         _user = account
         _items.clear()
         _cart.value = null
+        _balance.value = null
         Log.i(TAG, "Logged in as: $user")
     }
 
-    fun logout() {
-        _user = null
-        Log.i(TAG, "Logged out")
+    fun setBalance(balance: Int) {
+        _balance.postValue(balance)
     }
 }

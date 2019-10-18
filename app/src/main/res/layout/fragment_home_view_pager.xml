@@ -56,6 +56,17 @@
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
+            <TextView
+                    android:id="@+id/balance_text"
+                    style="@style/Widget.MaterialComponents.TabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{@string/balance_is(sharedViewModel.balance)}"
+                    android:textAllCaps="true"
+                    android:textSize="12sp"
+                    tools:text="@string/balance_is" />
+
             <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tab_layout"
                     android:layout_width="match_parent"

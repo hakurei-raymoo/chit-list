@@ -3,6 +3,7 @@ package gensokyo.hakurei.chitlist.checkout
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -49,6 +50,7 @@ class CheckoutFragment : Fragment() {
 
         val adapter = ShopAdapter(ShopListener {
             sharedViewModel.removeItem(it)
+            Toast.makeText(activity, "Removed ${it.name} from cart.", Toast.LENGTH_SHORT).show()
         })
         binding.itemsList.adapter = adapter
 
@@ -82,6 +84,8 @@ class CheckoutFragment : Fragment() {
                 resources.getDimension(R.dimen.card_margin_grid).toInt()
             )
         )
+
+        // TODO: Add empty cart icon.
 
         setHasOptionsMenu(true)
 

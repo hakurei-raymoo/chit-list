@@ -74,6 +74,24 @@ class LoginFragment : Fragment() {
             }
         })
 
+        loginViewModel.accounts.observe(this, Observer {
+            Log.i(TAG, "Observed accounts=$it")
+
+            if (it != null) {
+                loginViewModel.formatAccounts(it)
+
+                // Get a reference to the AutoCompleteTextView in the layout.
+                val accountAutocomplete = binding.accountAutocomplete
+                // Create the adapter and set it to the AutoCompleteTextView.
+                val accountsAdaptor = ArrayAdapter<String>(
+                    requireContext(),
+                    android.R.layout.simple_list_item_1,
+                    loginViewModel.accountNames
+                )
+                accountAutocomplete.setAdapter(accountsAdaptor)
+            }
+        })
+
         // Observer to process login attempt once account returned.
         loginViewModel.account.observe(this, Observer {
             Log.i(TAG, "Observed account=$it")
@@ -83,16 +101,6 @@ class LoginFragment : Fragment() {
                 loginViewModel.onNavigateToHome()
             }
         })
-
-        // Get a reference to the AutoCompleteTextView in the layout.
-        val accountAutocomplete = binding.accountAutocomplete
-        // Create the adapter and set it to the AutoCompleteTextView.
-        val accountsAdaptor = ArrayAdapter<String>(
-            requireContext(),
-            android.R.layout.simple_list_item_1,
-            loginViewModel.accountNames
-        )
-        accountAutocomplete.setAdapter(accountsAdaptor)
 
         return binding.root
     }

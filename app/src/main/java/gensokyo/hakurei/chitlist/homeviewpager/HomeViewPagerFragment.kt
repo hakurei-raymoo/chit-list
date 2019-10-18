@@ -5,18 +5,23 @@ import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.SharedViewModel
+import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentHomeViewPagerBinding
+import gensokyo.hakurei.chitlist.history.HistoryViewModel
+import gensokyo.hakurei.chitlist.history.HistoryViewModelFactory
 
 private const val TAG = "HomeViewPagerFragment"
 
 class HomeViewPagerFragment : Fragment() {
 
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var historyViewModel: HistoryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,8 +30,16 @@ class HomeViewPagerFragment : Fragment() {
     ): View? {
         val binding = FragmentHomeViewPagerBinding.inflate(inflater, container, false)
 
+        // Create an instance of the ViewModel Factory.
+        val application = requireNotNull(this.activity).application
+        val dataSource = AppDatabase.getInstance(application).shopDao
+        val viewModelFactory = HistoryViewModelFactory(dataSource)
+
+        // Get a reference to the ViewModel associated with this fragment.
         activity?.let {
             sharedViewModel = ViewModelProviders.of(it).get(SharedViewModel::class.java)
+            historyViewModel =
+                ViewModelProviders.of(it, viewModelFactory).get(HistoryViewModel::class.java)
         }
 
         // To use the View Model with data binding, you have to explicitly
@@ -36,6 +49,22 @@ class HomeViewPagerFragment : Fragment() {
         // Specify the current activity as the lifecycle owner of the binding.
         // This is necessary so that the binding can observe LiveData updates.
         binding.lifecycleOwner = viewLifecycleOwner
+
+        historyViewModel.updateAccount(sharedViewModel.user?.accountId!!)
+
+        historyViewModel.history?.observe(viewLifecycleOwner, Observer {
+            Log.i(TAG, "Observed history=$it")
+            it?.let {
+                historyViewModel.updateBalance()
+            }
+        })
+
+        historyViewModel.balance.observe(viewLifecycleOwner, Observer {
+            Log.i(TAG, "Observed balance=$it")
+            it.let {
+                sharedViewModel.setBalance(it)
+            }
+        })
 
         // Setup view pager.
         val tabLayout = binding.tabLayout

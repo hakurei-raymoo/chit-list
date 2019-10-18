@@ -1,6 +1,7 @@
 package gensokyo.hakurei.chitlist.login
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import gensokyo.hakurei.chitlist.database.Account
@@ -24,7 +25,8 @@ class LoginViewModel(
     var account = MutableLiveData<Account>()
 
     // Autocomplete parameters
-    private var accounts = mutableListOf<BareAccount>()
+    val accounts = database.getBareAccounts()
+    private var accountsList = mutableListOf<BareAccount>()
     private val _accountNames = mutableListOf<String>()
     val accountNames: List<String>
         get() = _accountNames
@@ -35,34 +37,30 @@ class LoginViewModel(
 
     init {
         Log.i(TAG, "Init")
-        formatAccounts()
     }
 
     // Populate accounts and accountNames for use by AutoCompleteTextView.
-    private fun formatAccounts() {
-        uiScope.launch {
-            withContext(Dispatchers.IO) {
-                accounts = database.getBareAccounts().toMutableList()
-                accounts.sortWith(compareBy(String.CASE_INSENSITIVE_ORDER) {String.format("${it.firstName} ${it.lastName}")})
-                Log.i(TAG, "accounts=$accounts")
+    fun formatAccounts(accounts: List<BareAccount>) {
+        accountsList = accounts.toMutableList()
+        accountsList.sortWith(compareBy(String.CASE_INSENSITIVE_ORDER) {String.format("${it.firstName} ${it.lastName}")})
+        Log.i(TAG, "accountsList=$accountsList")
 
-                accounts.forEach {
-                    _accountNames.add(String.format("${it.firstName} ${it.lastName}"))
-                }
-                Log.i(TAG, "accountNames=$accountNames")
-            }
+        _accountNames.clear()
+        accountsList.forEach {
+            _accountNames.add(String.format("${it.firstName} ${it.lastName}"))
         }
+        Log.i(TAG, "accountNames=$accountNames")
     }
 
     // Find index of account by matching full name with accounts list then return the id.
     private fun loginAccountToAccountId(loginAccount: String): Long {
-        val accountIndex = accounts.binarySearch {
+        val accountIndex = accountsList.binarySearch {
             val fullName = String.format("${it.firstName} ${it.lastName}")
             String.CASE_INSENSITIVE_ORDER.compare(fullName, loginAccount)
         }
 
         if (accountIndex >= 0L) {
-            return accounts[accountIndex].accountId
+            return accountsList[accountIndex].accountId
         } else {
             return -1L
         }
@@ -88,18 +86,18 @@ class LoginViewModel(
     }
 
     fun onLogoClicked() {
-        uiScope.launch {
-            withContext(Dispatchers.IO) {
-                val admins = database.getAdminAccounts()
-                if (admins.isEmpty()) {
-                    val defaultAdmin = Account(firstName = "admin", lastName = "default", admin = true)
-                    database.insert(defaultAdmin)
-                    Log.i(TAG, "Inserted $defaultAdmin")
-                } else {
-                    Log.i(TAG, "admins=$admins")
-                }
-            }
-        }
+//        uiScope.launch {
+//            withContext(Dispatchers.IO) {
+//                val admins = database.getAdminAccounts()
+//                if (admins.isEmpty()) {
+//                    val defaultAdmin = Account(firstName = "admin", lastName = "default", admin = true)
+//                    database.insert(defaultAdmin)
+//                    Log.i(TAG, "Inserted $defaultAdmin")
+//                } else {
+//                    Log.i(TAG, "admins=$admins")
+//                }
+//            }
+//        }
     }
 
     fun onNavigateToHome() {

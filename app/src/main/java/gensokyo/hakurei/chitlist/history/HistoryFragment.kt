@@ -19,6 +19,7 @@ private const val TAG = "HistoryFragment"
 class HistoryFragment : Fragment() {
 
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var historyViewModel: HistoryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,18 +30,18 @@ class HistoryFragment : Fragment() {
         // Get a reference to the binding object and inflate the fragment views.
         val binding = FragmentHistoryBinding.inflate(inflater, container, false)
 
-        activity?.let {
-            sharedViewModel = ViewModelProviders.of(it).get(SharedViewModel::class.java)
-        }
-
         // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
         val dataSource = AppDatabase.getInstance(application).shopDao
         val viewModelFactory = HistoryViewModelFactory(dataSource)
 
         // Get a reference to the ViewModel associated with this fragment.
-        val historyViewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(HistoryViewModel::class.java)
+
+        activity?.let {
+            sharedViewModel = ViewModelProviders.of(it).get(SharedViewModel::class.java)
+            historyViewModel =
+                ViewModelProviders.of(it, viewModelFactory).get(HistoryViewModel::class.java)
+        }
 
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
@@ -55,20 +56,9 @@ class HistoryFragment : Fragment() {
         })
         binding.transactionsList.adapter = adapter
 
-        historyViewModel.updateAccount(sharedViewModel.user?.accountId!!)
-
-        historyViewModel.accountId.observe(viewLifecycleOwner, Observer {
-            Log.i(TAG, "accountId=$it")
+        historyViewModel.history?.observe(viewLifecycleOwner, Observer {
+            Log.i(TAG, "Observed history=$it")
             it?.let {
-                historyViewModel.updateHistory()
-            }
-        })
-
-        historyViewModel.history.observe(viewLifecycleOwner, Observer {
-            Log.i(TAG, "Observed cart=$it")
-            it?.let {
-                historyViewModel.updateBalance()
-                sharedViewModel.balance.postValue(historyViewModel.balance.value)
                 adapter.submitList(it)
             }
         })

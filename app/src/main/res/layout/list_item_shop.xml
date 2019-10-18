@@ -18,11 +18,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() -> clickListener.onClick(item)}"
-            app:cardBackgroundColor="@{item.locked ? @color/colorFaded : @color/colorPrimary}"
+            app:cardBackgroundColor="@color/colorPrimary"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="false"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.Item.AdminCard"
-            tools:cardBackgroundColor="@color/colorPrimary">
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Item.AdminCard">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

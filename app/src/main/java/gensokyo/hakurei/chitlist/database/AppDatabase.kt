@@ -5,7 +5,12 @@ import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import gensokyo.hakurei.chitlist.DATABASE_NAME
+import gensokyo.hakurei.chitlist.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.util.concurrent.Executors
 
 private const val TAG = "AppDatabase"
 
@@ -39,6 +44,33 @@ abstract class AppDatabase : RoomDatabase() {
                         DATABASE_NAME
                     )
                         .fallbackToDestructiveMigration()
+                        .addCallback(object : Callback() {
+                            override fun onCreate(db: SupportSQLiteDatabase) {
+                                super.onCreate(db)
+
+                                Executors.newSingleThreadScheduledExecutor()
+                                    .execute(object : Runnable {
+                                        override fun run() {
+                                            getInstance(context).accountDao
+                                                .insert(
+                                                    Account(
+                                                        firstName = "admin",
+                                                        lastName = "default",
+                                                        admin = true
+                                                    )
+                                                )
+                                            getInstance(context).itemDao
+                                                .insert(
+                                                    Item(
+                                                        name = "Cash",
+                                                        enabled = false
+                                                    )
+                                                )
+                                        }
+                                    })
+
+                            }
+                        })
                         .build()
                     INSTANCE = instance
                 }

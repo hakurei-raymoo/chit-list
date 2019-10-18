@@ -116,11 +116,11 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Switch
-                        android:id="@+id/locked_switch"
+                        android:id="@+id/enabled_switch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="@={itemDetailViewModel.item.locked}"
-                        android:text="@string/locked" />
+                        android:checked="@={itemDetailViewModel.item.enabled}"
+                        android:text="@string/enabled" />
 
                 <RelativeLayout
                         android:layout_width="match_parent"

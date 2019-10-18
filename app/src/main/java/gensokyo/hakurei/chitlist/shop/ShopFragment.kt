@@ -3,6 +3,7 @@ package gensokyo.hakurei.chitlist.shop
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -48,6 +49,7 @@ class ShopFragment : Fragment() {
 
         val adapter = ShopAdapter(ShopListener {
             sharedViewModel.addItem(it)
+            Toast.makeText(activity, "Added ${it.name} to cart.", Toast.LENGTH_SHORT).show()
         })
         binding.itemsList.adapter = adapter
 

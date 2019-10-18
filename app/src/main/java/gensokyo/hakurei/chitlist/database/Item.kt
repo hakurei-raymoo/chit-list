@@ -16,5 +16,5 @@ data class Item (
 
     var image: String = "",
 
-    var locked: Boolean = false
+    var enabled: Boolean = true
 )

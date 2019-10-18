@@ -4,6 +4,7 @@
     <!-- Common -->
     <string name="admin">Admin access</string>
     <string name="primary_key_equals">key=%d</string>
+    <string name="balance_is">Balance is $%d</string>
     <string name="dollars">$%d</string>
     <string name="number">%04d</string>
     <!-- Buttons -->
@@ -40,7 +41,7 @@
     <string name="price">Price</string>
     <string name="price_equals">price=%d</string>
     <string name="image">Image</string>
-    <string name="locked">Locked</string>
+    <string name="enabled">Enabled</string>
     <!-- Transaction -->
     <string name="transactions">Transactions</string>
     <string name="time">Time</string>

@@ -31,10 +31,10 @@ class PrepopulateItems {
             .fallbackToDestructiveMigration()
             .build()
 
-        initItems()
+        initItems(items)
     }
 
-    private fun initItems() {
+    private fun initItems(items: MutableList<Item>) {
         items.add(Item(name = "Coffee", price = 350))
         items.add(Item(name = "Tea", price = 200))
         items.add(Item(name = "Water", price = 100))
@@ -57,12 +57,8 @@ class PrepopulateItems {
     fun insertItemData() {
         items.forEach {
             database.itemDao.insert(it)
+            val retrievedItem = database.itemDao.getLastItem()
+            assert(retrievedItem.value == it)
         }
-    }
-
-    @Test
-    fun getItemData() {
-        val retrievedItems = database.itemDao.getItems()
-        assert(retrievedItems.value == items)
     }
 }

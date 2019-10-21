@@ -2,6 +2,7 @@ package gensokyo.hakurei.chitlist
 
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.observe
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -43,10 +44,10 @@ class PrepopulateTransactions {
             .fallbackToDestructiveMigration()
             .build()
 
-        initTransactions()
+        initTransactions(transactions)
     }
 
-    fun initTransactions() {
+    private fun initTransactions(transactions: MutableList<Transaction>) {
         val accounts = database.accountDao.getAccounts()
         val items = database.itemDao.getItems()
         accounts.observeForever{}
@@ -54,11 +55,13 @@ class PrepopulateTransactions {
         numAccounts =  accounts.value?.size!!
         numItems = items.value?.size!!
         val random = Random()
-        val itemsList = items.value
 
+        val itemsList = items.value
         itemsList?.forEach {
+            // Get a random number from 5 to 20.
             val numTransactions = random.nextInt(15) + 5
             for (i in 1..numTransactions) {
+                // Get a random accountId that is not admin default.
                 val accountId = random.nextInt(numAccounts - 1).toLong() + 2L
                 transactions.add(
                     Transaction(
@@ -82,12 +85,8 @@ class PrepopulateTransactions {
     fun insertTransactionData() {
         transactions.forEach {
             database.transactionDao.insert(it)
+            val retrievedTransaction = database.transactionDao.getLastTransaction()
+            assert(retrievedTransaction.value == it)
         }
-    }
-
-    @Test
-    fun getTransactionData() {
-//        val retrievedTransactions = database.accountDao.getBareAccounts()
-//        assert(retrievedTransactions == transactions.sortedWith(sortedWith(compareBy({it}, {it}))))
     }
 }

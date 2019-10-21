@@ -31,10 +31,10 @@ class PrepopulateAccounts {
             .fallbackToDestructiveMigration()
             .build()
 
-        initAccounts()
+        initAccounts(accounts)
     }
 
-    private fun initAccounts() {
+    private fun initAccounts(accounts: MutableList<Account>) {
         accounts.add(Account(firstName = "Sarah", lastName = "Connor", passwordHash = "skynet"))
         accounts.add(Account(firstName = "Jack", lastName = "Sparrow", passwordHash = "blackpearl"))
         accounts.add(Account(firstName = "Luke", lastName = "Skywalker", passwordHash = "theforce"))
@@ -62,12 +62,8 @@ class PrepopulateAccounts {
     fun insertAccountData() {
         accounts.forEach {
             database.accountDao.insert(it)
+            val retrievedAccount = database.accountDao.getLastAccount()
+            assert(retrievedAccount.value == it)
         }
-    }
-
-    @Test
-    fun getAccountData() {
-        val retrievedAccounts = database.accountDao.getAccounts()
-        assert(retrievedAccounts == accounts.sortedWith(compareBy({ String.format("${it.firstName} ${it.lastName}") }, { String.format("${it.firstName} ${it.lastName}") })))
     }
 }

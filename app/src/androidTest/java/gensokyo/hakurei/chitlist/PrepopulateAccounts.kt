@@ -3,13 +3,11 @@ package gensokyo.hakurei.chitlist
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import gensokyo.hakurei.chitlist.database.Account
 import gensokyo.hakurei.chitlist.database.AppDatabase
-import org.junit.After
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
-import org.junit.Before
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -32,10 +30,11 @@ class PrepopulateAccounts {
         )
             .fallbackToDestructiveMigration()
             .build()
+
+        initAccounts()
     }
 
-    @Before
-    fun initAccounts() {
+    private fun initAccounts() {
         accounts.add(Account(firstName = "Sarah", lastName = "Connor", passwordHash = "skynet"))
         accounts.add(Account(firstName = "Jack", lastName = "Sparrow", passwordHash = "blackpearl"))
         accounts.add(Account(firstName = "Luke", lastName = "Skywalker", passwordHash = "theforce"))
@@ -46,7 +45,7 @@ class PrepopulateAccounts {
         accounts.add(Account(firstName = "Frodo", lastName = "Baggins", passwordHash = "shire"))
         accounts.add(Account(firstName = "Tony", lastName = "Montana", passwordHash = "money"))
         accounts.add(Account(firstName = "Harry", lastName = "Potter", passwordHash = "hogwarts"))
-        accounts.add(Account(firstName = "Snake", lastName = "Plissken", passwordHash = "la"))
+        accounts.add(Account(firstName = "Snake", lastName = "Plissken", passwordHash = "nyc"))
         accounts.add(Account(firstName = "Forrest", lastName = "Gump", passwordHash = "chocolate"))
         accounts.add(Account(firstName = "Travis", lastName = "Bickle", passwordHash = "scum"))
         accounts.add(Account(firstName = "Tyler", lastName = "Durden", passwordHash = "fightclub"))
@@ -68,7 +67,7 @@ class PrepopulateAccounts {
 
     @Test
     fun getAccountData() {
-        val retrievedAccounts = database.accountDao.getBareAccounts()
+        val retrievedAccounts = database.accountDao.getAccounts()
         assert(retrievedAccounts == accounts.sortedWith(compareBy({ String.format("${it.firstName} ${it.lastName}") }, { String.format("${it.firstName} ${it.lastName}") })))
     }
 }

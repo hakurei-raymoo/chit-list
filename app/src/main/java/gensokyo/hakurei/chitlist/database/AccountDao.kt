@@ -25,7 +25,4 @@ interface AccountDao {
 
     @Query("SELECT * FROM accounts_table ORDER BY account_id DESC")
     fun getAccounts(): LiveData<List<Account>>
-
-    @Query("SELECT account_id, first_name, last_name FROM accounts_table ORDER BY first_name DESC")
-    fun getBareAccounts(): List<BareAccount>
 }

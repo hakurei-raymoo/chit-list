@@ -3,13 +3,11 @@ package gensokyo.hakurei.chitlist
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.database.Item
-import org.junit.After
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
-import org.junit.Before
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -32,10 +30,11 @@ class PrepopulateItems {
         )
             .fallbackToDestructiveMigration()
             .build()
+
+        initItems()
     }
 
-    @Before
-    fun initItems() {
+    private fun initItems() {
         items.add(Item(name = "Coffee", price = 350))
         items.add(Item(name = "Tea", price = 200))
         items.add(Item(name = "Water", price = 100))
@@ -63,7 +62,7 @@ class PrepopulateItems {
 
     @Test
     fun getItemData() {
-        val retrievedAccounts = database.itemDao.getItems()
-        assert(retrievedAccounts == items.sortedWith(compareBy({it.name}, {it.name})))
+        val retrievedItems = database.itemDao.getItems()
+        assert(retrievedItems.value == items)
     }
 }

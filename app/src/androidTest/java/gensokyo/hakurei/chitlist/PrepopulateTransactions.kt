@@ -1,10 +1,10 @@
 package gensokyo.hakurei.chitlist
 
 import android.content.Context
-import androidx.lifecycle.LiveData
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.database.Transaction
 import org.junit.After
@@ -12,6 +12,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.Before
 import java.util.*
+import org.junit.rules.TestRule
+import org.junit.Rule
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -21,9 +23,12 @@ import java.util.*
 @RunWith(AndroidJUnit4::class)
 class PrepopulateTransactions {
 
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
+
     private lateinit var database: AppDatabase
     private var numAccounts = 0
-    private var items = database.itemDao.getItems()
     private var numItems = 0
     private var transactions = mutableListOf<Transaction>()
 
@@ -37,17 +42,24 @@ class PrepopulateTransactions {
         )
             .fallbackToDestructiveMigration()
             .build()
+
+        initTransactions()
     }
 
-    @Before
     fun initTransactions() {
-        numAccounts = database.accountDao.getBareAccounts().size
+        val accounts = database.accountDao.getAccounts()
+        val items = database.itemDao.getItems()
+        accounts.observeForever{}
+        items.observeForever{}
+        numAccounts =  accounts.value?.size!!
         numItems = items.value?.size!!
         val random = Random()
         val itemsList = items.value
+
         itemsList?.forEach {
-            for (i in 1..5) {
-                val accountId = random.nextInt(numAccounts).toLong()
+            val numTransactions = random.nextInt(15) + 5
+            for (i in 1..numTransactions) {
+                val accountId = random.nextInt(numAccounts - 1).toLong() + 2L
                 transactions.add(
                     Transaction(
                         accountId = accountId,
@@ -57,6 +69,7 @@ class PrepopulateTransactions {
                 )
             }
         }
+
         transactions.shuffle()
     }
 

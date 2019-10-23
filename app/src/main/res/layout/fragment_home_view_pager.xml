@@ -8,6 +8,8 @@
         <variable
                 name="sharedViewModel"
                 type="gensokyo.hakurei.chitlist.SharedViewModel" />
+
+        <import type="gensokyo.hakurei.chitlist.Converter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -62,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{@string/balance_is(sharedViewModel.balance)}"
+                    android:text="@{@string/balance_is(Converter.addDecimal(sharedViewModel.balance))}"
                     android:textAllCaps="true"
                     android:textSize="12sp"
                     tools:text="@string/balance_is" />
@@ -74,5 +76,15 @@
                     app:tabMode="fixed" />
 
         </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/checkout_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                app:srcCompat="@drawable/ic_checkout"
+                app:tint="@color/colorOnPrimary" />
+<!--        android:onClick="@{() -> checkoutViewModel.onCheckoutClicked()}"-->
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -22,13 +22,5 @@
                 app:spanCount="2"
                 tools:listitem="@layout/list_item_item" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:onClick="@{() -> itemsListViewModel.onNewItem()}"
-                app:srcCompat="@drawable/ic_add_black_24dp" />
-
     </FrameLayout>
 </layout>

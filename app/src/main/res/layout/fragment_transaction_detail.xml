@@ -8,6 +8,8 @@
         <variable
                 name="transactionDetailViewModel"
                 type="gensokyo.hakurei.chitlist.transactiondetail.TransactionDetailViewModel" />
+
+        <import type="gensokyo.hakurei.chitlist.Converter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -125,9 +127,9 @@
                             android:id="@+id/amount_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="numberSigned"
+                            android:inputType="numberDecimal|numberSigned"
                             android:maxLines="1"
-                            android:text="@={`` + transactionDetailViewModel.transaction.amount}" />
+                            android:text="@={Converter.addDecimal(transactionDetailViewModel.transaction.amount)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout

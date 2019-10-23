@@ -63,5 +63,39 @@
                     app:tabMode="scrollable" />
 
         </com.google.android.material.appbar.AppBarLayout>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/accounts_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                app:backgroundTint="@color/colorAccounts"
+                app:srcCompat="@drawable/ic_add_black_24dp"
+                app:tint="@color/colorOnPrimary" />
+        <!--        android:onClick="@{() -> accountsListViewModel.onNewAccount()}"-->
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/items_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                app:backgroundTint="@color/colorItems"
+                app:srcCompat="@drawable/ic_add_black_24dp"
+                app:tint="@color/colorOnPrimary" />
+        <!--                android:onClick="@{() -> itemsListViewModel.onNewItem()}"-->
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/transactions_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                app:backgroundTint="@color/colorTransactions"
+                app:srcCompat="@drawable/ic_add_black_24dp"
+                app:tint="@color/colorOnPrimary" />
+        <!--        android:onClick="@{() -> transactionsListViewModel.onNewTransaction()}"-->
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

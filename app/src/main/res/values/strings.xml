@@ -4,8 +4,8 @@
     <!-- Common -->
     <string name="admin">Admin access</string>
     <string name="primary_key_equals">key=%d</string>
-    <string name="balance_is">Balance is $%d</string>
-    <string name="dollars">$%d</string>
+    <string name="balance_is">Balance is $%s</string>
+    <string name="dollars">$%s</string>
     <string name="number">%04d</string>
     <!-- Buttons -->
     <string name="update">Update</string>
@@ -19,9 +19,11 @@
     <string name="shop">Shop</string>
     <!-- Checkout -->
     <string name="checkout">Checkout</string>
+    <string name="your_cart_is_empty">Your cart is empty</string>
+    <string name="add_items">Add item(s)</string>
     <!-- History -->
     <string name="history">History</string>
-    <string name="amount_item">$%d : %s</string>
+    <string name="amount_item">$%s : %s</string>
     <!-- Account -->
     <string name="accounts">Accounts</string>
     <string name="account_name">Account name</string>

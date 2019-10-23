@@ -9,12 +9,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
-import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.SharedViewModel
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentHomeViewPagerBinding
 import gensokyo.hakurei.chitlist.history.HistoryViewModel
 import gensokyo.hakurei.chitlist.history.HistoryViewModelFactory
+import kotlinx.android.synthetic.main.fragment_home_view_pager.*
+import androidx.viewpager2.widget.ViewPager2
 
 private const val TAG = "HomeViewPagerFragment"
 
@@ -77,6 +78,13 @@ class HomeViewPagerFragment : Fragment() {
             tab.text = getTabTitle(position)
         }.attach()
 
+        // Hide and show FABs depending on page.
+        viewPager.registerOnPageChangeCallback((object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                animateFab(position)
+            }
+        }))
+
         (activity as AppCompatActivity).run {
             setSupportActionBar(binding.toolbar)
 
@@ -96,13 +104,13 @@ class HomeViewPagerFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         if (sharedViewModel.user?.admin == true) {
-            inflater.inflate(R.menu.settings_menu, menu)
+            inflater.inflate(gensokyo.hakurei.chitlist.R.menu.settings_menu, menu)
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.settings -> {
+            gensokyo.hakurei.chitlist.R.id.settings -> {
                 adminAccess()
                 true
             }
@@ -127,10 +135,21 @@ class HomeViewPagerFragment : Fragment() {
 
     private fun getTabTitle(position: Int): String? {
         return when (position) {
-            SHOP_PAGE_INDEX -> getString(R.string.shop)
-            CHECKOUT_PAGE_INDEX -> getString(R.string.checkout)
-            HISTORY_PAGE_INDEX -> getString(R.string.history)
+            SHOP_PAGE_INDEX -> getString(gensokyo.hakurei.chitlist.R.string.shop)
+            CHECKOUT_PAGE_INDEX -> getString(gensokyo.hakurei.chitlist.R.string.checkout)
+            HISTORY_PAGE_INDEX -> getString(gensokyo.hakurei.chitlist.R.string.history)
             else -> null
+        }
+    }
+
+    private fun animateFab(position: Int) {
+        when (position) {
+            1 -> {
+                checkout_fab.show()
+            }
+            else -> {
+                checkout_fab.hide()
+            }
         }
     }
 }

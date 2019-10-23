@@ -8,6 +8,8 @@
         <variable
                 name="itemDetailViewModel"
                 type="gensokyo.hakurei.chitlist.itemdetail.ItemDetailViewModel" />
+
+        <import type="gensokyo.hakurei.chitlist.Converter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -98,7 +100,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="number"
                             android:maxLines="1"
-                            android:text="@={`` + itemDetailViewModel.item.price}" />
+                            android:text="@={Converter.addDecimal(itemDetailViewModel.item.price)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout

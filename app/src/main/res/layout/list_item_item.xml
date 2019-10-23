@@ -12,6 +12,8 @@
         <variable
                 name="clickListener"
                 type="gensokyo.hakurei.chitlist.itemslist.ItemListener" />
+
+        <import type="gensokyo.hakurei.chitlist.Converter" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -21,7 +23,7 @@
             app:cardBackgroundColor="@{item.enabled ? @color/colorItems : @color/colorFaded}"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="false"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.Item.AdminCard"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.AdminCard"
             tools:cardBackgroundColor="@color/colorItems">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,7 +70,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{@string/dollars(item.price)}"
+                        android:text="@{@string/dollars(Converter.addDecimal(item.price))}"
                         android:textAlignment="center"
                         tools:text="@string/price_equals" />
             </LinearLayout>

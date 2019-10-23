@@ -8,11 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import gensokyo.hakurei.chitlist.GridMarginItemDecoration
 import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.SharedViewModel
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentCheckoutBinding
+import gensokyo.hakurei.chitlist.homeviewpager.SHOP_PAGE_INDEX
 import gensokyo.hakurei.chitlist.shop.ShopAdapter
 import gensokyo.hakurei.chitlist.shop.ShopListener
 
@@ -59,6 +61,8 @@ class CheckoutFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         sharedViewModel.cart.observe(viewLifecycleOwner, Observer {
+            // Show layout if not null or empty.
+            binding.hasItems = !it.isNullOrEmpty()
             it?.let {
                 it.forEach {
                     Log.i(TAG, "Observed cart=$it")
@@ -67,6 +71,10 @@ class CheckoutFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         })
+
+        binding.addItem.setOnClickListener {
+            navigateToShopPage()
+        }
 
         // Add an Observer on the state variable for Navigating when EDIT button is pressed.
         checkoutViewModel.navigateToCheckout.observe(viewLifecycleOwner, Observer {
@@ -85,10 +93,12 @@ class CheckoutFragment : Fragment() {
             )
         )
 
-        // TODO: Add empty cart icon.
-
         setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    private fun navigateToShopPage() {
+        requireActivity().findViewById<ViewPager2>(R.id.view_pager).currentItem = SHOP_PAGE_INDEX
     }
 }

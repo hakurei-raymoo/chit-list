@@ -12,6 +12,8 @@
         <variable
                 name="clickListener"
                 type="gensokyo.hakurei.chitlist.history.HistoryListener" />
+
+        <import type="gensokyo.hakurei.chitlist.Converter" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -21,7 +23,7 @@
             app:cardBackgroundColor="@android:color/white"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="false"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.Item.AdminCard">
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.ShopCard">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -59,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_small"
                     android:layout_marginEnd="@dimen/spacing_normal"
-                    android:text="@{@string/amount_item(transaction.amount,transaction.item.name)}"
+                    android:text="@{@string/amount_item(Converter.addDecimal(transaction.amount),transaction.item.name)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/id_text"

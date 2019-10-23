@@ -26,7 +26,6 @@ class ItemsListViewModel(
     }
 
     fun onNewItem() {
-        // TODO: Remove new item magic number (-1L).
         _navigateToEditItem.value = -1L
     }
 

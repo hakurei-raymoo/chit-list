@@ -58,6 +58,8 @@ class HistoryFragment : Fragment() {
 
         historyViewModel.history?.observe(viewLifecycleOwner, Observer {
             Log.i(TAG, "Observed history=$it")
+            // Show empty history layout if not null or empty.
+            binding.hasHistory = !it.isNullOrEmpty()
             it?.let {
                 adapter.submitList(it)
             }

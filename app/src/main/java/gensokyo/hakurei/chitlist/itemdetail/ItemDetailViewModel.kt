@@ -60,7 +60,6 @@ class ItemDetailViewModel(
 
     private suspend fun update() {
         withContext(Dispatchers.IO) {
-            // TODO: Transform price between cents and dollars.
             database.update(item.value!!)
             Log.i(TAG, "Updated ${item.value!!}")
         }

@@ -9,6 +9,10 @@
                 name="sharedViewModel"
                 type="gensokyo.hakurei.chitlist.SharedViewModel" />
 
+        <variable
+                name="checkoutViewModel"
+                type="gensokyo.hakurei.chitlist.checkout.CheckoutViewModel" />
+
         <import type="gensokyo.hakurei.chitlist.Converter" />
     </data>
 
@@ -39,7 +43,7 @@
 
                 <androidx.appcompat.widget.Toolbar
                         android:id="@+id/toolbar"
-                        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                        style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
                         app:layout_collapseMode="parallax">
@@ -83,8 +87,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
+                android:onClick="@{() -> checkoutViewModel.onCheckoutClicked()}"
                 app:srcCompat="@drawable/ic_checkout"
                 app:tint="@color/colorOnPrimary" />
-<!--        android:onClick="@{() -> checkoutViewModel.onCheckoutClicked()}"-->
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

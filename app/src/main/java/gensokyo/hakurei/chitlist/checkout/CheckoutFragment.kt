@@ -23,6 +23,7 @@ private const val TAG = "CheckoutFragment"
 class CheckoutFragment : Fragment() {
 
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var checkoutViewModel: CheckoutViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,18 +34,17 @@ class CheckoutFragment : Fragment() {
         // Get a reference to the binding object and inflate the fragment views.
         val binding = FragmentCheckoutBinding.inflate(inflater, container, false)
 
-        activity?.let {
-            sharedViewModel = ViewModelProviders.of(it).get(SharedViewModel::class.java)
-        }
-
         // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
         val dataSource = AppDatabase.getInstance(application).shopDao
         val viewModelFactory = CheckoutViewModelFactory(dataSource)
 
-        // Get a reference to the ViewModel associated with this fragment.
-        val checkoutViewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(CheckoutViewModel::class.java)
+        // Get a reference to the ViewModels associated with this fragment.
+        activity?.let {
+            sharedViewModel = ViewModelProviders.of(it).get(SharedViewModel::class.java)
+            checkoutViewModel =
+                ViewModelProviders.of(it, viewModelFactory).get(CheckoutViewModel::class.java)
+        }
 
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
@@ -61,12 +61,9 @@ class CheckoutFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         sharedViewModel.cart.observe(viewLifecycleOwner, Observer {
-            // Show layout if not null or empty.
+            // Show empty cart layout if not null or empty.
             binding.hasItems = !it.isNullOrEmpty()
             it?.let {
-                it.forEach {
-                    Log.i(TAG, "Observed cart=$it")
-                }
                 adapter.submitList(it)
                 adapter.notifyDataSetChanged()
             }
@@ -84,6 +81,8 @@ class CheckoutFragment : Fragment() {
                 this.findNavController().navigateUp()
 
                 checkoutViewModel.onCheckoutNavigated()
+
+                Toast.makeText(activity, "Checked out ${sharedViewModel.cart.value?.size} items.", Toast.LENGTH_SHORT).show()
             }
         })
 

@@ -8,12 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import androidx.databinding.DataBindingUtil
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.SharedViewModel
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentLoginBinding
@@ -99,6 +98,7 @@ class LoginFragment : Fragment() {
             if (it != null) {
                 sharedViewModel.login(it)
                 loginViewModel.onNavigateToHome()
+                Toast.makeText(activity, "Logged in as ${it.firstName} ${it.lastName}.", Toast.LENGTH_SHORT).show()
             }
         })
 

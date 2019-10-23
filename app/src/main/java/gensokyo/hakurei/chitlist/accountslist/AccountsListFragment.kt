@@ -18,6 +18,8 @@ private const val TAG = "AccountsListFragment"
 
 class AccountsListFragment : Fragment() {
 
+    private lateinit var accountsListViewModel: AccountsListViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,8 +35,10 @@ class AccountsListFragment : Fragment() {
         val viewModelFactory = AccountsListViewModelFactory(dataSource)
 
         // Get a reference to the ViewModel associated with this fragment.
-        val accountsListViewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(AccountsListViewModel::class.java)
+        activity?.let {
+            accountsListViewModel =
+                ViewModelProviders.of(it, viewModelFactory).get(AccountsListViewModel::class.java)
+        }
 
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.

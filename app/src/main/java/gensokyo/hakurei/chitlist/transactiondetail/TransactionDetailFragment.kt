@@ -80,8 +80,6 @@ class TransactionDetailFragment : Fragment() {
             }
         }
 
-        // TODO: Add up navigation to tool bar.
-
         return binding.root
     }
 }

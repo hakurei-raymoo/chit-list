@@ -26,7 +26,7 @@ class TransactionsListViewModel(
     }
 
     fun onNewTransaction() {
-        // TODO: Remove new transaction magic number (-1L).
+        Log.i(TAG, "_navigateToEditTransaction = ${_navigateToEditTransaction.value}")
         _navigateToEditTransaction.value = -1L
     }
 

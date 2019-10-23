@@ -10,7 +10,14 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.SharedViewModel
+import gensokyo.hakurei.chitlist.accountslist.AccountsListViewModel
+import gensokyo.hakurei.chitlist.accountslist.AccountsListViewModelFactory
+import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentAdminViewPagerBinding
+import gensokyo.hakurei.chitlist.itemslist.ItemsListViewModel
+import gensokyo.hakurei.chitlist.itemslist.ItemsListViewModelFactory
+import gensokyo.hakurei.chitlist.transactionslist.TransactionsListViewModel
+import gensokyo.hakurei.chitlist.transactionslist.TransactionsListViewModelFactory
 import kotlinx.android.synthetic.main.fragment_admin_view_pager.*
 
 private const val TAG = "AdminViewPagerFragment"
@@ -18,6 +25,9 @@ private const val TAG = "AdminViewPagerFragment"
 class AdminViewPagerFragment : Fragment() {
 
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var accountsListViewModel: AccountsListViewModel
+    private lateinit var itemsListViewModel: ItemsListViewModel
+    private lateinit var transactionsListViewModel: TransactionsListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,13 +36,34 @@ class AdminViewPagerFragment : Fragment() {
     ): View? {
         val binding = FragmentAdminViewPagerBinding.inflate(inflater, container, false)
 
+        // Create an instance of the ViewModel Factory.
+        val application = requireNotNull(this.activity).application
+        val accountDao = AppDatabase.getInstance(application).accountDao
+        val itemDao = AppDatabase.getInstance(application).itemDao
+        val transactionDao = AppDatabase.getInstance(application).transactionDao
+        val accountsListViewModelFactory = AccountsListViewModelFactory(accountDao)
+        val itemsListViewModelFactory = ItemsListViewModelFactory(itemDao)
+        val transactionsListViewModelFactory = TransactionsListViewModelFactory(transactionDao)
+
         activity?.let {
             sharedViewModel = ViewModelProviders.of(it).get(SharedViewModel::class.java)
+            accountsListViewModel =
+                ViewModelProviders.of(it, accountsListViewModelFactory).get(
+                    AccountsListViewModel::class.java)
+            itemsListViewModel =
+                ViewModelProviders.of(it, itemsListViewModelFactory).get(
+                    ItemsListViewModel::class.java)
+            transactionsListViewModel =
+                ViewModelProviders.of(it, transactionsListViewModelFactory).get(
+                    TransactionsListViewModel::class.java)
         }
 
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
         binding.sharedViewModel = sharedViewModel
+        binding.accountsListViewModel = accountsListViewModel
+        binding.itemsListViewModel = itemsListViewModel
+        binding.transactionsListViewModel = transactionsListViewModel
 
         // Specify the current activity as the lifecycle owner of the binding.
         // This is necessary so that the binding can observe LiveData updates.

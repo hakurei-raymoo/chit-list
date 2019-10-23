@@ -26,7 +26,6 @@ class AccountsListViewModel(
     }
 
     fun onNewAccount() {
-        // TODO: Remove new account magic number (-1L).
         _navigateToEditAccount.value = -1L
     }
 

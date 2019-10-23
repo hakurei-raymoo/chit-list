@@ -3,6 +3,7 @@ package gensokyo.hakurei.chitlist.homeviewpager
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,12 +17,15 @@ import gensokyo.hakurei.chitlist.history.HistoryViewModel
 import gensokyo.hakurei.chitlist.history.HistoryViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home_view_pager.*
 import androidx.viewpager2.widget.ViewPager2
+import gensokyo.hakurei.chitlist.checkout.CheckoutViewModel
+import gensokyo.hakurei.chitlist.checkout.CheckoutViewModelFactory
 
 private const val TAG = "HomeViewPagerFragment"
 
 class HomeViewPagerFragment : Fragment() {
 
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var checkoutViewModel: CheckoutViewModel
     private lateinit var historyViewModel: HistoryViewModel
 
     override fun onCreateView(
@@ -34,18 +38,22 @@ class HomeViewPagerFragment : Fragment() {
         // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
         val dataSource = AppDatabase.getInstance(application).shopDao
-        val viewModelFactory = HistoryViewModelFactory(dataSource)
+        val checkoutViewModelFactory = CheckoutViewModelFactory(dataSource)
+        val historyViewModelFactory = HistoryViewModelFactory(dataSource)
 
-        // Get a reference to the ViewModel associated with this fragment.
+        // Get a reference to the ViewModels associated with this fragment.
         activity?.let {
             sharedViewModel = ViewModelProviders.of(it).get(SharedViewModel::class.java)
+            checkoutViewModel =
+                ViewModelProviders.of(it, checkoutViewModelFactory).get(CheckoutViewModel::class.java)
             historyViewModel =
-                ViewModelProviders.of(it, viewModelFactory).get(HistoryViewModel::class.java)
+                ViewModelProviders.of(it, historyViewModelFactory).get(HistoryViewModel::class.java)
         }
 
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
         binding.sharedViewModel = sharedViewModel
+        binding.checkoutViewModel = checkoutViewModel
 
         // Specify the current activity as the lifecycle owner of the binding.
         // This is necessary so that the binding can observe LiveData updates.
@@ -91,6 +99,7 @@ class HomeViewPagerFragment : Fragment() {
             // Add up button.
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             binding.toolbar.setNavigationOnClickListener {
+                Toast.makeText(activity, "${sharedViewModel.user?.firstName} ${sharedViewModel.user?.lastName} logged out.", Toast.LENGTH_SHORT).show()
 //                sharedViewModel.logout()
                 onBackPressed()
             }

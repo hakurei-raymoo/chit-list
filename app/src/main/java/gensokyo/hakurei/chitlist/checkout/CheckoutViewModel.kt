@@ -1,6 +1,7 @@
 package gensokyo.hakurei.chitlist.checkout
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import gensokyo.hakurei.chitlist.database.Account
@@ -20,7 +21,7 @@ class CheckoutViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private val _navigateToCheckout = MutableLiveData<Boolean>()
-    val navigateToCheckout
+    val navigateToCheckout: LiveData<Boolean>
         get() = _navigateToCheckout
 
     init {

@@ -19,7 +19,16 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
-    <style name="ShapeAppearance.Button.Add" parent="ShapeAppearance.MaterialComponents">
+    <style name="ShapeAppearance.Button.Center" parent="ShapeAppearance.MaterialComponents">
+        <item name="cornerFamily">cut</item>
+
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">@dimen/button_corner_radius</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">@dimen/button_corner_radius</item>
+    </style>
+
+    <style name="ShapeAppearance.Button.Admin" parent="ShapeAppearance.MaterialComponents">
         <item name="cornerFamily">cut</item>
 
         <item name="cornerSizeTopLeft">0dp</item>

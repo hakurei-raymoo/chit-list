@@ -38,7 +38,7 @@
                     android:tint="@color/colorFaded"
                     android:layout_marginBottom="@dimen/spacing_normal"
                     app:srcCompat="@drawable/ic_receipt"
-                    android:contentDescription="@string/no_image_icon" />
+                    android:contentDescription="@string/no_transactions_icon" />
 
             <TextView
                     android:layout_width="wrap_content"

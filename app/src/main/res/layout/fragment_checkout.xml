@@ -39,7 +39,7 @@
                     android:tint="@color/colorFaded"
                     android:layout_marginBottom="@dimen/spacing_normal"
                     app:srcCompat="@drawable/ic_basket"
-                    android:contentDescription="@string/no_image_icon" />
+                    android:contentDescription="@string/no_items_icon" />
 
             <TextView
                     android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_items"
-                    app:shapeAppearance="@style/ShapeAppearance.Button.Add" />
+                    app:shapeAppearance="@style/ShapeAppearance.Button.Center" />
 
         </LinearLayout>
     </FrameLayout>

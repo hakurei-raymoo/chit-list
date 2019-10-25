@@ -8,9 +8,9 @@
     <dimen name="card_margin_linear">8dp</dimen>
     <dimen name="card_margin_grid">4dp</dimen>
 
-    <dimen name="card_corner_radius">8dp</dimen>
+    <dimen name="card_corner_radius">12dp</dimen>
 
-    <dimen name="button_corner_radius">12dp</dimen>
+    <dimen name="button_corner_radius">8dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="button_spacing">12dp</dimen>

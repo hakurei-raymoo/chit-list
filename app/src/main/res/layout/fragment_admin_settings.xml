@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="adminSettingsViewModel"
+                type="gensokyo.hakurei.chitlist.adminsettings.AdminSettingsViewModel" />
+    </data>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_large">
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/path">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/path_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textUri"
+                        android:maxLines="1"
+                        android:text="@={adminSettingsViewModel.path}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/export_balances"
+                    android:onClick="@{() -> adminSettingsViewModel.onExportBalancesClicked()}"
+                    app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+            <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/export_items"
+                    android:onClick="@{() -> adminSettingsViewModel.onExportItemsClicked()}"
+                    app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+            <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/export_transactions"
+                    android:onClick="@{() -> adminSettingsViewModel.onExportTransactionsClicked()}"
+                    app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+            <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/backup_database"
+                    android:onClick="@{() -> adminSettingsViewModel.onBackupDatabaseClicked()}"
+                    app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+            <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/restore_database"
+                    android:onClick="@{() -> adminSettingsViewModel.onRestoreDatabaseClicked()}"
+                    app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+            <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exit_application"
+                    android:onClick="@{() -> adminSettingsViewModel.onExitAppClicked()}"
+                    app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </FrameLayout>
+</layout>

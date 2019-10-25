@@ -7,9 +7,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import gensokyo.hakurei.chitlist.DATABASE_NAME
-import gensokyo.hakurei.chitlist.R
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.util.concurrent.Executors
 
 private const val TAG = "AppDatabase"
@@ -23,6 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract val loginDao: LoginDao
     abstract val shopDao: ShopDao
+    abstract val adminDao: AdminDao
     abstract val accountDao: AccountDao
     abstract val itemDao: ItemDao
     abstract val transactionDao: TransactionDao

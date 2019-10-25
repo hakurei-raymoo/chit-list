@@ -2,7 +2,7 @@
     <string name="app_name">Chit List</string>
     <string name="logo_content_description">App logo</string>
     <!-- Common -->
-    <string name="admin">Admin access</string>
+    <string name="admin">Admin Settings</string>
     <string name="primary_key_equals">key=%d</string>
     <string name="balance_is">Balance is $%s</string>
     <string name="dollars">$%s</string>
@@ -19,11 +19,23 @@
     <string name="shop">Shop</string>
     <!-- Checkout -->
     <string name="checkout">Checkout</string>
+    <string name="no_items_icon">No items icon</string>
     <string name="your_cart_is_empty">Your cart is empty</string>
     <string name="add_items">Add item(s)</string>
     <!-- History -->
     <string name="history">History</string>
     <string name="amount_item">$%s : %s</string>
+    <string name="no_transactions_icon">No transactions icon</string>
+    <string name="you_have_zero_transactions_recorded">You have zero transactions recorded.</string>
+    <!-- Settings -->
+    <string name="admin_settings">Settings</string>
+    <string name="path">Path</string>
+    <string name="export_balances">Export balances</string>
+    <string name="export_items">Export items</string>
+    <string name="export_transactions">Export transactions</string>
+    <string name="backup_database">Backup database</string>
+    <string name="restore_database">Restore database</string>
+    <string name="exit_application">Exit application</string>
     <!-- Account -->
     <string name="accounts">Accounts</string>
     <string name="account_name">Account name</string>
@@ -56,6 +68,4 @@
     <string name="amount_equals">amount=%s</string>
     <string name="comments">Comments</string>
     <string name="comments_equals">comments=%s</string>
-    <string name="no_image_icon">No image icon</string>
-    <string name="you_have_zero_transactions_recorded">You have zero transactions recorded.</string>
 </resources>

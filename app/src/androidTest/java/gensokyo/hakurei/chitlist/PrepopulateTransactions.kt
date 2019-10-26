@@ -2,7 +2,6 @@ package gensokyo.hakurei.chitlist
 
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.observe
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -58,8 +57,8 @@ class PrepopulateTransactions {
 
         val itemsList = items.value
         itemsList?.forEach {
-            // Get a random number from 5 to 20.
-            val numTransactions = random.nextInt(15) + 5
+            // Get a random number from 100 to 200.
+            val numTransactions = random.nextInt(100) + 100
             for (i in 1..numTransactions) {
                 // Get a random accountId that is not admin default.
                 val accountId = random.nextInt(numAccounts - 1).toLong() + 2L

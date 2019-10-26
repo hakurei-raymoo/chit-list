@@ -28,7 +28,6 @@ class ItemsListFragment : Fragment() {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding = FragmentItemsListBinding.inflate(inflater, container, false)
-
         // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
         val dataSource = AppDatabase.getInstance(application).itemDao

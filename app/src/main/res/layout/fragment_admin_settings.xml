@@ -27,61 +27,62 @@
                 android:orientation="vertical"
                 android:padding="@dimen/spacing_large">
 
-            <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/path">
-
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/path_edit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textUri"
-                        android:maxLines="1"
-                        android:text="@={adminSettingsViewModel.path}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
             <com.google.android.material.button.MaterialButton
+                    android:id="@+id/export_balances_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/export_balances"
-                    android:onClick="@{() -> adminSettingsViewModel.onExportBalancesClicked()}"
+                    android:visibility="gone"
                     app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
 
             <com.google.android.material.button.MaterialButton
+                    android:id="@+id/export_items_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/export_items"
-                    android:onClick="@{() -> adminSettingsViewModel.onExportItemsClicked()}"
+                    android:visibility="gone"
                     app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
 
             <com.google.android.material.button.MaterialButton
+                    android:id="@+id/export_transactions_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/export_transactions"
-                    android:onClick="@{() -> adminSettingsViewModel.onExportTransactionsClicked()}"
                     app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
 
             <com.google.android.material.button.MaterialButton
+                    android:id="@+id/backup_database_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/backup_database"
-                    android:onClick="@{() -> adminSettingsViewModel.onBackupDatabaseClicked()}"
                     app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
 
             <com.google.android.material.button.MaterialButton
+                    android:id="@+id/restore_database_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/restore_database"
-                    android:onClick="@{() -> adminSettingsViewModel.onRestoreDatabaseClicked()}"
                     app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
 
             <com.google.android.material.button.MaterialButton
+                    android:id="@+id/exit_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/exit_application"
-                    android:onClick="@{() -> adminSettingsViewModel.onExitAppClicked()}"
                     app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textAppearance="?attr/textAppearanceHeadline4"
+                    android:text="@string/log" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{adminSettingsViewModel.log}"
+                    tools:text="\@{adminSettingsViewModel.log}" />
         </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

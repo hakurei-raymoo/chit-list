@@ -141,7 +141,8 @@
                             android:id="@+id/comments_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textMultiLine"
+                            android:inputType="text"
+                            android:maxLines="1"
                             android:text="@={transactionDetailViewModel.transaction.comments}" />
                 </com.google.android.material.textfield.TextInputLayout>
 

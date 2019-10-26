@@ -1,6 +1,8 @@
 package gensokyo.hakurei.chitlist.database
 
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
+import androidx.room.RawQuery
 
 /**
  * The Data Access Object for Admin functions.
@@ -21,4 +23,7 @@ interface AdminDao {
             " LEFT JOIN items_table ON transactions_table.item_id = items_table.item_id" +
             " GROUP BY transaction_id ORDER BY transaction_id ASC")
     fun getTransactionsWithChildren(): List<TransactionWithChildren>
+
+    @RawQuery
+    fun checkpoint(supportSQLiteQuery: SupportSQLiteQuery): Int
 }

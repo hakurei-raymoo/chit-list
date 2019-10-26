@@ -36,6 +36,7 @@
     <string name="backup_database">Backup database</string>
     <string name="restore_database">Restore database</string>
     <string name="exit_application">Exit application</string>
+    <string name="log">Log:</string>
     <!-- Account -->
     <string name="accounts">Accounts</string>
     <string name="account_name">Account name</string>

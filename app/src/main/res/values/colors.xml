@@ -9,7 +9,8 @@
     <color name="colorOnSecondary">#000000</color>
     <color name="colorOnSurface">#000000</color>
     <color name="colorSurface">#FFFFFF</color>
-    <color name="colorAccounts">#E0E0E0</color>
-    <color name="colorItems">#E0E0E0</color>
-    <color name="colorTransactions">#E0E0E0</color>
+    <color name="colorAccounts">#0336FF</color>
+    <color name="colorItems">#FFDE03</color>
+    <color name="colorTransactions">#FF0266</color>
+    <color name="colorFaded">#9E9E9E</color>
 </resources>

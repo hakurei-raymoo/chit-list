@@ -4,15 +4,15 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import gensokyo.hakurei.chitlist.database.Transaction
-import gensokyo.hakurei.chitlist.database.TransactionDao
+import gensokyo.hakurei.chitlist.database.*
 import kotlinx.coroutines.*
 
 private const val TAG = "TXDetailViewModel"
 
-class TransactionDetailViewModel(transactionKey: Long = 0L, dataSource: TransactionDao) : ViewModel() {
-
-    val database = dataSource
+class TransactionDetailViewModel(
+    transactionKey: Long,
+    private val database: TransactionDao
+) : ViewModel() {
 
     private val viewModelJob = Job()
 
@@ -22,6 +22,11 @@ class TransactionDetailViewModel(transactionKey: Long = 0L, dataSource: Transact
     val transaction
         get() = _transaction
 
+    var linkedAccount = MutableLiveData<BareAccount>()
+    private var _linkedItem = MutableLiveData<Item>()
+    val linkedItem: LiveData<Item>
+        get() = _linkedItem
+
     private val _navigateToTransactionsList = MutableLiveData<Boolean?>()
     val navigateToTransactionsList: LiveData<Boolean?>
         get() = _navigateToTransactionsList
@@ -30,6 +35,7 @@ class TransactionDetailViewModel(transactionKey: Long = 0L, dataSource: Transact
      * Check transactionKey to either get existing Transaction or insert a new one.
      */
     init {
+        Log.i(TAG, "Init")
         if (transactionKey == -1L) {
             newTransaction()
             _transaction = database.getLastTransaction()
@@ -50,7 +56,7 @@ class TransactionDetailViewModel(transactionKey: Long = 0L, dataSource: Transact
         }
     }
 
-    fun onSubmitTransactionDetails() {
+    fun onUpdateClicked() {
         uiScope.launch {
             update()
             _navigateToTransactionsList.value = true
@@ -59,7 +65,7 @@ class TransactionDetailViewModel(transactionKey: Long = 0L, dataSource: Transact
 
     private suspend fun update() {
         withContext(Dispatchers.IO) {
-            // TODO: Ensure accountId and itemId exist.
+            // TODO: Throw error if accountId or itemId do not exist.
             database.update(transaction.value!!)
             Log.i(TAG, "Updated ${transaction.value!!}")
         }
@@ -69,13 +75,33 @@ class TransactionDetailViewModel(transactionKey: Long = 0L, dataSource: Transact
         _navigateToTransactionsList.value = null
     }
 
-    fun onDeleteTransaction() {
+    fun onDeleteClicked() {
         uiScope.launch {
             withContext(Dispatchers.IO) {
                 database.delete(transaction.value!!)
                 Log.i(TAG, "Deleted ${transaction.value!!}")
             }
             _navigateToTransactionsList.value = true
+        }
+    }
+
+    fun updateAccountEditHelperText(accountId: Long?) {
+        if (accountId != null) {
+            uiScope.launch {
+                withContext(Dispatchers.IO) {
+                    linkedAccount.postValue(database.getAccount(accountId))
+                }
+            }
+        }
+    }
+
+    fun updateItemEditHelperText(itemId: Long?) {
+        if (itemId != null) {
+            uiScope.launch {
+                withContext(Dispatchers.IO) {
+                    _linkedItem.postValue(database.getItem(itemId))
+                }
+            }
         }
     }
 

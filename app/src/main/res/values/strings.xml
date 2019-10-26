@@ -1,21 +1,43 @@
 <resources>
     <string name="app_name">Chit List</string>
     <string name="logo_content_description">App logo</string>
-<!--Buttons-->
-    <string name="submit">Submit</string>
+    <!-- Common -->
+    <string name="admin">Admin Settings</string>
+    <string name="primary_key_equals">key=%d</string>
+    <string name="balance_is">Balance is $%s</string>
+    <string name="dollars">$%s</string>
+    <string name="number">%04d</string>
+    <!-- Buttons -->
+    <string name="update">Update</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="search">Search</string>
-<!--Common-->
-    <string name="primary_key_equals">key=%d</string>
-    <string name="dollars">$%d</string>
-    <string name="number">#%d</string>
-<!--Login-->
+    <!-- Login -->
     <string name="login">Login</string>
     <string name="username">Username</string>
-<!--Home-->
-    <string name="logged_in_as">Logged in as: %s %s</string>
-<!--Account-->
+    <!-- Shop -->
+    <string name="shop">Shop</string>
+    <!-- Checkout -->
+    <string name="checkout">Checkout</string>
+    <string name="no_items_icon">No items icon</string>
+    <string name="your_cart_is_empty">Your cart is empty</string>
+    <string name="add_items">Add item(s)</string>
+    <!-- History -->
+    <string name="history">History</string>
+    <string name="amount_item">$%s : %s</string>
+    <string name="no_transactions_icon">No transactions icon</string>
+    <string name="you_have_zero_transactions_recorded">You have zero transactions recorded.</string>
+    <!-- Settings -->
+    <string name="admin_settings">Settings</string>
+    <string name="path">Path</string>
+    <string name="export_balances">Export balances</string>
+    <string name="export_items">Export items</string>
+    <string name="export_transactions">Export transactions</string>
+    <string name="backup_database">Backup database</string>
+    <string name="restore_database">Restore database</string>
+    <string name="exit_application">Exit application</string>
+    <string name="log">Log:</string>
+    <!-- Account -->
     <string name="accounts">Accounts</string>
     <string name="account_name">Account name</string>
     <string name="full_name">%s %s</string>
@@ -25,17 +47,17 @@
     <string name="contact_number">Contact number</string>
     <string name="email_address">Email address</string>
     <string name="password">Password</string>
-    <string name="administrator_access">Administrator access?</string>
+    <string name="allow_administrator_access">Allow administrator access?</string>
     <string name="allow_interactive_login">Allow interactive login?</string>
-<!--Item-->
+    <!-- Item -->
     <string name="items">Items</string>
     <string name="name">Name</string>
     <string name="name_equals">name=%s</string>
     <string name="price">Price</string>
     <string name="price_equals">price=%d</string>
     <string name="image">Image</string>
-    <string name="locked">Locked</string>
-<!--    Transaction-->
+    <string name="enabled">Enabled</string>
+    <!-- Transaction -->
     <string name="transactions">Transactions</string>
     <string name="time">Time</string>
     <string name="time_equals">time=%d</string>
@@ -43,6 +65,8 @@
     <string name="account_equals">account=%s</string>
     <string name="item">Item</string>
     <string name="item_equals">item=%s</string>
+    <string name="amount">Amount</string>
+    <string name="amount_equals">amount=%s</string>
     <string name="comments">Comments</string>
     <string name="comments_equals">comments=%s</string>
 </resources>

@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentItemDetailBinding
@@ -17,6 +18,8 @@ import gensokyo.hakurei.chitlist.databinding.FragmentItemDetailBinding
 private const val TAG = "ItemDetailFragment"
 
 class ItemDetailFragment : Fragment() {
+
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,10 +30,9 @@ class ItemDetailFragment : Fragment() {
         // Get a reference to the binding object and inflate the fragment views.
         val binding = FragmentItemDetailBinding.inflate(inflater, container, false)
 
+        // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
         val arguments = ItemDetailFragmentArgs.fromBundle(arguments!!)
-
-        // Create an instance of the ViewModel Factory.
         val dataSource = AppDatabase.getInstance(application).itemDao
         val viewModelFactory = ItemDetailViewModelFactory(arguments.itemKey, dataSource)
 
@@ -48,26 +50,18 @@ class ItemDetailFragment : Fragment() {
 
         // Add an Observer to the state variable for Navigating when a Submit button is tapped.
         itemDetailViewModel.navigateToItemsList.observe(viewLifecycleOwner, Observer {
-            if (it == true) { // Observed state is true.
+            // Observed state is true.
+            if (it == true) {
+                // Hide the keyboard.
                 val inputMethodManager =
                     activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-                // Hide the keyboard.
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
-                this.findNavController().navigate(
-                    ItemDetailFragmentDirections.actionItemDetailFragmentToItemsListFragment()
-                )
-                // Reset state to make sure we only navigate once, even if the device
-                // has a configuration change.
+                this.findNavController().navigateUp()
+
+                // Reset state to make sure we only navigate once.
                 itemDetailViewModel.doneNavigating()
             }
-        })
-
-        // Test Observer to report changes on item.
-        // TODO: Remove after testing.
-        itemDetailViewModel.item.observe(viewLifecycleOwner, Observer {
-            Log.i(TAG, "Observed ${itemDetailViewModel.item.value}")
         })
 
         return binding.root

@@ -27,10 +27,9 @@ class TransactionDetailFragment : Fragment() {
         // Get a reference to the binding object and inflate the fragment views.
         val binding = FragmentTransactionDetailBinding.inflate(inflater, container, false)
 
+        // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
         val arguments = TransactionDetailFragmentArgs.fromBundle(arguments!!)
-
-        // Create an instance of the ViewModel Factory.
         val dataSource = AppDatabase.getInstance(application).transactionDao
         val viewModelFactory = TransactionDetailViewModelFactory(arguments.transactionKey, dataSource)
 
@@ -48,27 +47,38 @@ class TransactionDetailFragment : Fragment() {
 
         // Add an Observer to the state variable for Navigating when a Submit button is tapped.
         transactionDetailViewModel.navigateToTransactionsList.observe(viewLifecycleOwner, Observer {
-            if (it == true) { // Observed state is true.
+            // Observed state is true.
+            if (it == true) {
+                // Hide the keyboard.
                 val inputMethodManager =
                     activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-                // Hide the keyboard.
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
-                this.findNavController().navigate(
-                    TransactionDetailFragmentDirections.actionTransactionDetailFragmentToTransactionsListFragment()
-                )
-                // Reset state to make sure we only navigate once, even if the device
-                // has a configuration change.
+                this.findNavController().navigateUp()
+
+                // Reset state to make sure we only navigate once.
                 transactionDetailViewModel.doneNavigating()
             }
         })
 
-        // Test Observer to report changes on item.
-        // TODO: Remove after testing.
+        // Update helper text on onCreateView.
         transactionDetailViewModel.transaction.observe(viewLifecycleOwner, Observer {
-            Log.i(TAG, "Observed ${transactionDetailViewModel.transaction.value}")
+            transactionDetailViewModel.updateAccountEditHelperText(transactionDetailViewModel.transaction.value?.accountId)
+            transactionDetailViewModel.updateItemEditHelperText(transactionDetailViewModel.transaction.value?.itemId)
         })
+
+        // Update helper text on edit losing focus.
+        binding.accountEdit.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                transactionDetailViewModel.updateAccountEditHelperText(transactionDetailViewModel.transaction.value?.accountId)
+            }
+        }
+        // Update helper text on edit losing focus.
+        binding.itemEdit.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                transactionDetailViewModel.updateItemEditHelperText(transactionDetailViewModel.transaction.value?.itemId)
+            }
+        }
 
         return binding.root
     }

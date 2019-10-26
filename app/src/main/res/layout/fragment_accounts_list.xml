@@ -10,7 +10,7 @@
                 type="gensokyo.hakurei.chitlist.accountslist.AccountsListViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -21,13 +21,5 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_account" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="16dp"
-                android:onClick="@{() -> accountsListViewModel.onNewAccount()}"
-                app:srcCompat="@drawable/ic_plus"/>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </FrameLayout>
 </layout>

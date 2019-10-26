@@ -12,52 +12,68 @@
         <variable
                 name="clickListener"
                 type="gensokyo.hakurei.chitlist.itemslist.ItemListener" />
+
+        <import type="gensokyo.hakurei.chitlist.Converter" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() -> clickListener.onClick(item)}"
-            app:cardBackgroundColor="@color/colorPrimaryDark"
+            app:cardBackgroundColor="@{item.enabled ? @color/colorItems : @color/colorFaded}"
             app:cardElevation="2dp"
-            app:cardPreventCornerOverlap="true">
+            app:cardPreventCornerOverlap="false"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.AdminCard"
+            tools:cardBackgroundColor="@color/colorItems">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
             <TextView
+                    android:id="@+id/primary_key_text"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@{@string/primary_key_equals(item.itemId)}"
-                    android:textColor="@{item.locked ? @color/colorError : @color/colorOnPrimary}"
-                    android:padding="16dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/number(item.itemId)}"
+                    android:textColor="@color/colorOnPrimary"
+                    android:padding="@dimen/spacing_large"
                     android:gravity="center"
-                    tools:text="@string/primary_key_equals" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/info_layout"
+                    tools:text="@string/number" />
 
             <LinearLayout
+                    android:id="@+id/info_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorSurface"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:paddingStart="@dimen/spacing_normal"
+                    android:paddingTop="@dimen/spacing_extra_small"
+                    android:paddingEnd="@dimen/spacing_normal"
+                    android:paddingBottom="@dimen/spacing_extra_small"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
                         android:text="@{item.name}"
                         android:textStyle="bold"
+                        android:textAlignment="center"
                         tools:text="@string/name_equals" />
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:text="@{@string/dollars(item.price)}"
+                        android:text="@{@string/dollars(Converter.addDecimal(item.price))}"
+                        android:textAlignment="center"
                         tools:text="@string/price_equals" />
             </LinearLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

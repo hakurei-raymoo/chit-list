@@ -1,8 +1,5 @@
 package gensokyo.hakurei.chitlist
 
 const val DATABASE_NAME = "chit_list-db"
-
-/**
- * Prevents accounts from being deleted.
- */
-const val STRICT_ACCOUNTING = true
+const val CURRENCY_SEPARATOR_SYMBOL = "."
+const val CURRENCY_SEPARATOR_OFFSET = 2

@@ -10,10 +10,12 @@ import kotlinx.coroutines.*
 
 private const val TAG = "AccountDetailViewModel"
 
-class AccountDetailViewModel(accountKey: Long = 0L, dataSource: AccountDao) :
-    ViewModel() {
+class AccountDetailViewModel(
+    accountKey: Long = 0L,
+    private val dataSource: AccountDao
+) : ViewModel() {
 
-    val database = dataSource
+    private val database = dataSource
 
     private val viewModelJob = Job()
 
@@ -31,6 +33,7 @@ class AccountDetailViewModel(accountKey: Long = 0L, dataSource: AccountDao) :
      * Check accountKey to either get existing Account or insert a new one.
      */
     init {
+        Log.i(TAG, "Init")
         if (accountKey == -1L) {
             newAccount()
             _account = database.getLastAccount()
@@ -49,7 +52,7 @@ class AccountDetailViewModel(accountKey: Long = 0L, dataSource: AccountDao) :
         }
     }
 
-    fun onSubmitAccountDetails() {
+    fun onUpdateClicked() {
         uiScope.launch {
             update()
             _navigateToAccountsList.value = true
@@ -58,6 +61,7 @@ class AccountDetailViewModel(accountKey: Long = 0L, dataSource: AccountDao) :
 
     private suspend fun update() {
         withContext(Dispatchers.IO) {
+            // TODO: Throw error if name is same as an existing name.
             // TODO: Hash password.
             database.update(account.value!!)
             Log.i(TAG, "Updated ${account.value!!}")
@@ -68,7 +72,7 @@ class AccountDetailViewModel(accountKey: Long = 0L, dataSource: AccountDao) :
         _navigateToAccountsList.value = null
     }
 
-    fun onDeleteAccount() {
+    fun onDeleteClicked() {
         uiScope.launch {
             withContext(Dispatchers.IO) {
                 database.delete(account.value!!)

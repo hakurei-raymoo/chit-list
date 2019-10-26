@@ -27,10 +27,9 @@ class AccountDetailFragment : Fragment() {
         // Get a reference to the binding object and inflate the fragment views.
         val binding = FragmentAccountDetailBinding.inflate(inflater, container, false)
 
+        // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
         val arguments = AccountDetailFragmentArgs.fromBundle(arguments!!)
-
-        // Create an instance of the ViewModel Factory.
         val dataSource = AppDatabase.getInstance(application).accountDao
         val viewModelFactory = AccountDetailViewModelFactory(arguments.accountKey, dataSource)
 
@@ -48,26 +47,18 @@ class AccountDetailFragment : Fragment() {
 
         // Add an Observer to the state variable for Navigating when a Submit button is tapped.
         accountDetailViewModel.navigateToAccountsList.observe(viewLifecycleOwner, Observer {
-            if (it == true) { // Observed state is true.
+            // Observed state is true.
+            if (it == true) {
+                // Hide the keyboard.
                 val inputMethodManager =
                     activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-                // Hide the keyboard.
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
-                this.findNavController().navigate(
-                    AccountDetailFragmentDirections.actionAccountDetailFragmentToAccountsListFragment()
-                )
-                // Reset state to make sure we only navigate once, even if the device
-                // has a configuration change.
+                this.findNavController().navigateUp()
+
+                // Reset state to make sure we only navigate once.
                 accountDetailViewModel.doneNavigating()
             }
-        })
-
-        // Test Observer to report changes on account.
-        // TODO: Remove after testing.
-        accountDetailViewModel.account.observe(viewLifecycleOwner, Observer {
-            Log.i(TAG, "Observed ${accountDetailViewModel.account.value}")
         })
 
         return binding.root

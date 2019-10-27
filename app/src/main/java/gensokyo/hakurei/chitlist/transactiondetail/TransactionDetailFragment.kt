@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -77,6 +78,16 @@ class TransactionDetailFragment : Fragment() {
         binding.itemEdit.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 transactionDetailViewModel.updateItemEditHelperText(transactionDetailViewModel.transaction.value?.itemId)
+            }
+        }
+
+        (activity as AppCompatActivity).run {
+            setSupportActionBar(binding.toolbar)
+
+            // Add up button to toolbar.
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            binding.toolbar.setNavigationOnClickListener {
+                onBackPressed()
             }
         }
 

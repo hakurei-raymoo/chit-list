@@ -47,8 +47,9 @@ class TransactionDetailViewModel(
     private fun newTransaction() {
         uiScope.launch {
             withContext(Dispatchers.IO) {
+                // TODO: Add creator of transaction.
                 // Transaction must have valid ForeignKeys before insertion to table.
-                val newTransaction = Transaction(accountId = 1L, itemId = 1L)
+                val newTransaction = Transaction(accountId = 1L, itemId = 1L, comments="")
                 Log.i(TAG, "Attempting $newTransaction")
                 database.insert(newTransaction)
                 Log.i(TAG, "Inserted $newTransaction")

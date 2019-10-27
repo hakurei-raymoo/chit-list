@@ -35,14 +35,14 @@ class HomeViewPagerFragment : Fragment() {
     ): View? {
         val binding = FragmentHomeViewPagerBinding.inflate(inflater, container, false)
 
-        // Create an instance of the ViewModel Factory.
-        val application = requireNotNull(this.activity).application
-        val dataSource = AppDatabase.getInstance(application).shopDao
-        val checkoutViewModelFactory = CheckoutViewModelFactory(dataSource)
-        val historyViewModelFactory = HistoryViewModelFactory(dataSource)
-
-        // Get a reference to the ViewModels associated with this fragment.
         activity?.let {
+            // Create an instance of the ViewModel Factory.
+            val application = requireNotNull(this.activity).application
+            val dataSource = AppDatabase.getInstance(application).shopDao
+            val checkoutViewModelFactory = CheckoutViewModelFactory(dataSource)
+            val historyViewModelFactory = HistoryViewModelFactory(dataSource)
+
+            // Get a reference to the ViewModels associated with this fragment.
             sharedViewModel = ViewModelProviders.of(it).get(SharedViewModel::class.java)
             checkoutViewModel =
                 ViewModelProviders.of(it, checkoutViewModelFactory).get(CheckoutViewModel::class.java)
@@ -59,7 +59,8 @@ class HomeViewPagerFragment : Fragment() {
         // This is necessary so that the binding can observe LiveData updates.
         binding.lifecycleOwner = viewLifecycleOwner
 
-        historyViewModel.updateAccount(sharedViewModel.user?.accountId!!)
+        // Set accountId which triggers switchMap for updating history.
+        historyViewModel.updateHistory(sharedViewModel.user?.accountId!!)
 
         historyViewModel.history?.observe(viewLifecycleOwner, Observer {
             Log.i(TAG, "Observed history=$it")
@@ -70,7 +71,7 @@ class HomeViewPagerFragment : Fragment() {
 
         historyViewModel.balance.observe(viewLifecycleOwner, Observer {
             Log.i(TAG, "Observed balance=$it")
-            it.let {
+            it?.let {
                 sharedViewModel.setBalance(it)
             }
         })
@@ -96,11 +97,10 @@ class HomeViewPagerFragment : Fragment() {
         (activity as AppCompatActivity).run {
             setSupportActionBar(binding.toolbar)
 
-            // Add up button.
+            // Add up button to toolbar.
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             binding.toolbar.setNavigationOnClickListener {
                 Toast.makeText(activity, "${sharedViewModel.user?.firstName} ${sharedViewModel.user?.lastName} logged out.", Toast.LENGTH_SHORT).show()
-//                sharedViewModel.logout()
                 onBackPressed()
             }
         }

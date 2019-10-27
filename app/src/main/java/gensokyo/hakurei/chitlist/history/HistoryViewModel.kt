@@ -22,6 +22,7 @@ class HistoryViewModel(
     val balance: LiveData<Int>
         get() = _balance
 
+    // Gets data when accountId is changed.
     private var _history = Transformations.switchMap(accountId) { database.getHistory(it) }
     val history: LiveData<List<TransactionWithChildren>>?
         get()  =_history
@@ -30,7 +31,7 @@ class HistoryViewModel(
         Log.i(TAG, "Init")
     }
 
-    fun updateAccount(accountId: Long) {
+    fun updateHistory(accountId: Long) {
         _accountId.value = accountId
     }
 

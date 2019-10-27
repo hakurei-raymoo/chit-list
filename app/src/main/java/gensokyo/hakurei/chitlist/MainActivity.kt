@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // TODO: Setup kiosk mode.
         // Call the superclass implementation.
         super.onCreate(savedInstanceState)
 

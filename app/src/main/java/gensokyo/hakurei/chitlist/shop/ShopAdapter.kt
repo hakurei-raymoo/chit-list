@@ -1,5 +1,6 @@
 package gensokyo.hakurei.chitlist.shop
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,12 +8,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import gensokyo.hakurei.chitlist.database.Item
 import gensokyo.hakurei.chitlist.databinding.ListItemShopBinding
+import gensokyo.hakurei.chitlist.getDrawableId
 
 private const val TAG = "ShopAdapter"
 
 class ShopAdapter(val clickListener: ShopListener) :
     ListAdapter<Item, ShopAdapter.ViewHolder>(ShopDiffCallback()) {
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position)!!, clickListener)
@@ -29,6 +30,10 @@ class ShopAdapter(val clickListener: ShopListener) :
             binding.item = item
             binding.clickListener = clickListener
             binding.executePendingBindings()
+            val name = item.image
+            val id = getDrawableId(name)
+            if (id != -1) binding.image.setImageResource(id)
+            Log.i(TAG, "id=$id")
         }
 
         companion object {

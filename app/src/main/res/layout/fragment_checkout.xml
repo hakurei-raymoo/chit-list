@@ -38,7 +38,7 @@
                     android:layout_height="120dp"
                     android:tint="@color/colorFaded"
                     android:layout_marginBottom="@dimen/spacing_normal"
-                    app:srcCompat="@drawable/ic_basket"
+                    app:srcCompat="@drawable/ic_basket_black_120dp"
                     android:contentDescription="@string/no_items_icon" />
 
             <TextView

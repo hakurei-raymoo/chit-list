@@ -75,3 +75,14 @@ fun convertLongToDateStringShort(systemTime: Long): String {
     return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         .format(systemTime).toString()
 }
+
+fun getDrawableId(resourceName: String): Int {
+    try {
+        val res = R.drawable::class.java
+        val field = res.getField(resourceName)
+        return field.getInt(null)
+    } catch (e: Exception) {
+        Log.e(TAG, "Failure to get drawable id.", e)
+        return -1
+    }
+}

@@ -89,7 +89,7 @@ class AdminViewPagerFragment : Fragment() {
         (activity as AppCompatActivity).run {
             setSupportActionBar(binding.toolbar)
 
-            // Add up button.
+            // Add up button to toolbar.
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             binding.toolbar.setNavigationOnClickListener {
                 onBackPressed()

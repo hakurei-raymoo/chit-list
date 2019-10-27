@@ -51,6 +51,7 @@
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="?attr/actionBarSize"
+                            android:layout_marginRight="@dimen/spacing_normal"
                             android:gravity="center"
                             android:text="@{@string/full_name(sharedViewModel.user.firstName, sharedViewModel.user.lastName)}"
                             android:textAllCaps="true"
@@ -89,7 +90,7 @@
                 android:layout_margin="@dimen/fab_margin"
                 android:text="@string/checkout"
                 android:onClick="@{() -> checkoutViewModel.onCheckoutClicked()}"
-                app:icon="@drawable/ic_checkout"
+                app:icon="@drawable/ic_checkout_white_24dp"
                 app:tint="@color/colorOnPrimary" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -62,6 +62,7 @@ class AccountDetailViewModel(
     private suspend fun update() {
         withContext(Dispatchers.IO) {
             // TODO: Throw error if name is same as an existing name.
+            // TODO: Throw error if last admin account is removed.
             // TODO: Hash password.
             database.update(account.value!!)
             Log.i(TAG, "Updated ${account.value!!}")

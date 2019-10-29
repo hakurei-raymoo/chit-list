@@ -1,7 +1,6 @@
 package gensokyo.hakurei.chitlist.login
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import gensokyo.hakurei.chitlist.database.Account
@@ -92,7 +91,6 @@ class LoginViewModel(
     }
 
     fun onHomeNavigated() {
-        enableInput.value = true
         _navigateToHome.value = null
 
         // Reset credentials.

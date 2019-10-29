@@ -18,42 +18,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() -> clickListener.onClick(account)}"
-            app:cardBackgroundColor="@color/colorSurface"
+            app:cardBackgroundColor="@{account.enabled ? (account.admin ? @color/colorAccent : @color/colorAccounts) : @color/colorFaded}"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="false"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.AdminCard">
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.LeftCutCard">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-            <TextView
-                    android:id="@+id/id_text"
+            <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@{account.enabled ? (account.admin ? @color/colorAccent : @color/colorAccounts) : @color/colorFaded}"
-                    android:padding="@dimen/spacing_normal"
-                    android:text="@{@string/number(account.accountId)}"
-                    android:textColor="@color/colorOnPrimary"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/first_name_text"
-                    tools:background="@color/colorAccounts"
-                    tools:text="@string/number" />
-
-            <TextView
-                    android:id="@+id/first_name_text"
-                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/spacing_normal"
-                    android:layout_weight="1"
-                    android:text="@{@string/full_name(account.firstName, account.lastName)}"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/id_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:text="@string/full_name" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_gravity="center"
+                    android:padding="@dimen/spacing_normal">
 
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/number(account.accountId)}"
+                        android:textColor="@color/colorOnPrimary"
+                        tools:text="@string/number" />
+            </FrameLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorSurface"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/spacing_normal"
+                    android:paddingTop="@dimen/spacing_extra_small"
+                    android:paddingEnd="@dimen/spacing_normal"
+                    android:paddingBottom="@dimen/spacing_extra_small">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="@{@string/full_name(account.firstName, account.lastName)}"
+                        tools:text="@string/full_name" />
+            </LinearLayout>
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

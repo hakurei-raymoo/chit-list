@@ -23,48 +23,55 @@
             app:cardBackgroundColor="@{item.enabled ? @color/colorItems : @color/colorFaded}"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="false"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.AdminCard"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.RightCutCard"
             tools:cardBackgroundColor="@color/colorItems">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            <TextView
-                    android:id="@+id/primary_key_text"
-                    android:layout_width="match_parent"
+            <FrameLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{@string/number(item.itemId)}"
-                    android:textColor="@color/colorOnPrimary"
-                    android:padding="@dimen/spacing_large"
-                    android:gravity="center"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/info_layout"
-                    tools:text="@string/number" />
+                    android:layout_gravity="center"
+                    android:padding="@dimen/spacing_normal">
+
+                <ImageView
+                        android:id="@+id/image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/no_items_icon"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/ic_add_white_24dp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@{@string/number(item.itemId)}"
+                        android:textColor="@color/colorOnPrimary"
+                        tools:text="@string/number" />
+            </FrameLayout>
 
             <LinearLayout
-                    android:id="@+id/info_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@color/colorSurface"
                     android:orientation="vertical"
+                    android:gravity="center"
                     android:paddingStart="@dimen/spacing_normal"
                     android:paddingTop="@dimen/spacing_extra_small"
                     android:paddingEnd="@dimen/spacing_normal"
-                    android:paddingBottom="@dimen/spacing_extra_small"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
+                    android:paddingBottom="@dimen/spacing_extra_small">
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{item.name}"
-                        android:textStyle="bold"
                         android:textAlignment="center"
+                        android:textStyle="bold"
                         tools:text="@string/name_equals" />
 
                 <TextView
@@ -74,6 +81,6 @@
                         android:textAlignment="center"
                         tools:text="@string/price_equals" />
             </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

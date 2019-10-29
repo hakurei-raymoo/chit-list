@@ -88,7 +88,8 @@
                 android:layout_margin="@dimen/fab_margin"
                 android:onClick="@{() -> checkoutViewModel.onCheckoutClicked()}"
                 android:text="@string/checkout"
+                android:textColor="@color/colorOnPrimary"
                 app:icon="@drawable/ic_checkout_white_24dp"
-                app:tint="@color/colorOnPrimary" />
+                app:iconTint="@color/colorOnPrimary" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

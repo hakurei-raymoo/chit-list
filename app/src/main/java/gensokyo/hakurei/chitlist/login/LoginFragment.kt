@@ -100,6 +100,7 @@ class LoginFragment : Fragment() {
                 loginViewModel.onNavigateToHome()
                 Toast.makeText(activity, "Logged in as ${it.firstName} ${it.lastName}.", Toast.LENGTH_SHORT).show()
             }
+            loginViewModel.enableInput.value = true
         })
 
         return binding.root

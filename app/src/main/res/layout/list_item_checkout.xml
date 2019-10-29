@@ -11,7 +11,7 @@
 
         <variable
                 name="clickListener"
-                type="gensokyo.hakurei.chitlist.shop.ShopListener" />
+                type="gensokyo.hakurei.chitlist.checkout.CheckoutListener" />
 
         <import type="gensokyo.hakurei.chitlist.Converter" />
     </data>
@@ -23,12 +23,12 @@
             app:cardBackgroundColor="@color/colorPrimary"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="false"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.RightCutCard">
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.LeftCutCard">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
             <FrameLayout
                     android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/colorSurface"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:gravity="center"
                     android:paddingStart="@dimen/spacing_normal"
                     android:paddingTop="@dimen/spacing_extra_small"
@@ -68,16 +68,18 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="@{item.name}"
-                        android:textAlignment="center"
+                        android:gravity="start"
                         android:textStyle="bold"
                         tools:text="@string/name_equals" />
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
                         android:text="@{@string/dollars(Converter.addDecimal(item.price))}"
-                        android:textAlignment="center"
                         tools:text="@string/price_equals" />
             </LinearLayout>
         </LinearLayout>

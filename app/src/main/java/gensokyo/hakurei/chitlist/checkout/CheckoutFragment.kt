@@ -15,8 +15,6 @@ import gensokyo.hakurei.chitlist.SharedViewModel
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentCheckoutBinding
 import gensokyo.hakurei.chitlist.homeviewpager.SHOP_PAGE_INDEX
-import gensokyo.hakurei.chitlist.shop.ShopAdapter
-import gensokyo.hakurei.chitlist.shop.ShopListener
 
 private const val TAG = "CheckoutFragment"
 
@@ -50,7 +48,7 @@ class CheckoutFragment : Fragment() {
         // give the binding object a reference to it.
         binding.checkoutViewModel = checkoutViewModel
 
-        val adapter = ShopAdapter(ShopListener {
+        val adapter = CheckoutAdapter(CheckoutListener {
             sharedViewModel.removeItem(it)
             Toast.makeText(activity, "Removed ${it.name} from cart.", Toast.LENGTH_SHORT).show()
         })

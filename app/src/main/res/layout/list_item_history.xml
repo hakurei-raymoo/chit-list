@@ -20,63 +20,78 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() -> clickListener.onClick(transaction)}"
-            app:cardBackgroundColor="@android:color/white"
+            app:cardBackgroundColor="@color/colorPrimary"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="false"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.ShopCard">
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.LeftCutCard">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <TextView
-                    android:id="@+id/id_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:background="@color/colorPrimary"
-                    android:padding="@dimen/spacing_normal"
-                    android:text="@{@string/number(transaction.transactionId)}"
-                    android:textColor="@color/colorOnPrimary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="@string/number" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
             <LinearLayout
-                    android:id="@+id/sub_item"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_small"
+                    android:layout_gravity="center"
                     android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/id_text"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:padding="@dimen/spacing_normal">
+
+                <ImageView
+                        android:id="@+id/image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/no_items_icon"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/ic_add_white_24dp" />
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:timeFormattedShort="@{transaction.time}"
+                        android:layout_gravity="center"
+                        android:text="@{@string/number(transaction.transactionId)}"
+                        android:textColor="@color/colorOnPrimary"
+                        tools:text="@string/number" />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorSurface"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/spacing_normal"
+                    android:paddingTop="@dimen/spacing_extra_small"
+                    android:paddingEnd="@dimen/spacing_normal"
+                    android:paddingBottom="@dimen/spacing_extra_small">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/amount_item(transaction.item.name, Converter.addDecimal(transaction.amount))}"
+                        tools:text="@string/amount_item" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Converter.convertLongToDateStringShort(transaction.time)}"
                         tools:text="@string/time_equals" />
 
                 <TextView
+                        android:id="@+id/creator_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{@string/creator_equals(transaction.creatorId)}"
                         tools:text="@string/creator_equals" />
 
                 <TextView
+                        android:id="@+id/comments_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{@string/amount_item(Converter.addDecimal(transaction.amount),transaction.item.name)}"
-                        tools:text="@string/amount_item" />
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{transaction.comments}"
+                        android:text="@{@string/comments_equals(transaction.comments)}"
                         tools:text="@string/comments_equals" />
             </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -41,7 +41,7 @@
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="?attr/actionBarSize"
-                            android:gravity="center"
+                            android:gravity="center_vertical"
                             android:text="@string/admin"
                             android:textAllCaps="true"
                             android:textColor="@color/colorOnPrimary"
@@ -82,7 +82,7 @@
                         android:layout_marginBottom="@dimen/spacing_normal"
                         android:textAllCaps="true"
                         android:textSize="12sp"
-                        app:timeFormattedExpanded="@{transactionDetailViewModel.transaction.time}"
+                        android:text="@{Converter.convertLongToDateStringExpanded(transactionDetailViewModel.transaction.time)}"
                         tools:text="@string/time_equals" />
 
                 <com.google.android.material.textfield.TextInputLayout

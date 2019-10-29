@@ -28,7 +28,9 @@
     <string name="add_items">Add item(s)</string>
     <!-- History -->
     <string name="history">History</string>
-    <string name="amount_item">$%s : %s</string>
+    <string name="amount_item">%s: $%s</string>
+    <string name="you">(you)</string>
+    <string name="none">(none)</string>
     <string name="no_transactions_icon">No transactions icon</string>
     <string name="you_have_zero_transactions_recorded">You have zero transactions recorded.</string>
     <!-- Settings -->

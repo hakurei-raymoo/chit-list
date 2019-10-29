@@ -44,6 +44,29 @@ object Converter {
         // Insert currency separator at offset from right of string.
         return StringBuilder(string).insert(length - CURRENCY_SEPARATOR_OFFSET, CURRENCY_SEPARATOR_SYMBOL).toString()
     }
+
+    /**
+     * Take the Long milliseconds returned by the system and stored in Room,
+     * and convert it to a nicely formatted string for display.
+     *
+     * EEEE - Display the long letter version of the weekday
+     * MMM - Display the letter abbreviation of the month
+     * dd-yyyy - day in month and full year numerically
+     * HH:mm - Hours and minutes in 24hr format
+     */
+    @JvmStatic
+    @SuppressLint("SimpleDateFormat")
+    fun convertLongToDateStringExpanded(systemTime: Long): String {
+        return SimpleDateFormat("EEEE MMM-dd-yyyy' Time 'HH:mm:ss.SSS")
+            .format(systemTime).toString()
+    }
+
+    @JvmStatic
+    @SuppressLint("SimpleDateFormat")
+    fun convertLongToDateStringShort(systemTime: Long): String {
+        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            .format(systemTime).toString()
+    }
 }
 
 @BindingAdapter("isGone")
@@ -53,27 +76,6 @@ fun bindIsGone(view: View, isGone: Boolean) {
     } else {
         View.VISIBLE
     }
-}
-
-/**
- * Take the Long milliseconds returned by the system and stored in Room,
- * and convert it to a nicely formatted string for display.
- *
- * EEEE - Display the long letter version of the weekday
- * MMM - Display the letter abbreviation of the month
- * dd-yyyy - day in month and full year numerically
- * HH:mm - Hours and minutes in 24hr format
- */
-@SuppressLint("SimpleDateFormat")
-fun convertLongToDateStringExpanded(systemTime: Long): String {
-    return SimpleDateFormat("EEEE MMM-dd-yyyy' Time 'HH:mm:ss.SSS")
-        .format(systemTime).toString()
-}
-
-@SuppressLint("SimpleDateFormat")
-fun convertLongToDateStringShort(systemTime: Long): String {
-    return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        .format(systemTime).toString()
 }
 
 fun getDrawableId(resourceName: String): Int {

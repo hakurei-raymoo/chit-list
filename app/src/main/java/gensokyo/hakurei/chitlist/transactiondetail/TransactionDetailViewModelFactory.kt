@@ -12,14 +12,15 @@ private const val TAG = "TXDetailVMFactory"
  * Provides the key for the [Transaction] and the [TransactionDao] to the [TransactionDetailViewModel].
  */
 class TransactionDetailViewModelFactory(
+    private val creatorId: Long,
     private val transactionKey: Long,
     private val dataSource: TransactionDao
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TransactionDetailViewModel::class.java)) {
-            Log.i(TAG, "TransactionDetailViewModel created with transactionKey=$transactionKey")
-            return TransactionDetailViewModel(transactionKey, dataSource) as T
+            Log.i(TAG, "TransactionDetailViewModel created with creatorId=$creatorId, transactionKey=$transactionKey")
+            return TransactionDetailViewModel(creatorId, transactionKey, dataSource) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

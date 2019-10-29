@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import gensokyo.hakurei.chitlist.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +21,8 @@ class MainActivity : AppCompatActivity() {
 
         // Set up Android Jetpack Navigation.
         navController = findNavController(R.id.nav_host_fragment)
+
+//        startLockTask()
     }
 
 //    override fun onSupportNavigateUp(): Boolean {

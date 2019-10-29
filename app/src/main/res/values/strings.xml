@@ -7,9 +7,11 @@
     <string name="balance_is">Balance is $%s</string>
     <string name="dollars">$%s</string>
     <string name="number">%04d</string>
+    <string name="invalid_input">Invalid input</string>
     <!-- Buttons -->
     <string name="update">Update</string>
     <string name="delete">Delete</string>
+    <string name="back">Back</string>
     <string name="edit">Edit</string>
     <string name="search">Search</string>
     <!-- Login -->
@@ -63,6 +65,8 @@
     <string name="time_equals">time=%d</string>
     <string name="account">Account</string>
     <string name="account_equals">account=%s</string>
+    <string name="creator">Creator</string>
+    <string name="creator_equals">creator=%s</string>
     <string name="item">Item</string>
     <string name="item_equals">item=%s</string>
     <string name="amount">Amount</string>

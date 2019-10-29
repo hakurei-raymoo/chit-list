@@ -29,7 +29,6 @@
                     android:layout_marginTop="@dimen/spacing_large"
                     android:layout_marginBottom="@dimen/spacing_normal"
                     android:contentDescription="@string/logo_content_description"
-                    android:onClick="@{() -> loginViewModel.onLogoClicked()}"
                     app:srcCompat="@android:drawable/sym_def_app_icon" />
 
             <TextView
@@ -53,7 +52,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="@{loginViewModel.enableInput}"
-                        android:inputType="text"
+                        android:inputType="textAutoComplete"
                         android:maxLines="1"
                         android:text="@={loginViewModel.loginAccount}" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -84,6 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
+                        android:enabled="@{loginViewModel.enableInput}"
                         android:text="@string/login"
                         android:onClick="@{() -> loginViewModel.onLoginClicked()}" />
 

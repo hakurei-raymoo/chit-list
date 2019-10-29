@@ -14,11 +14,13 @@ import gensokyo.hakurei.chitlist.databinding.FragmentTransactionsListBinding
 import gensokyo.hakurei.chitlist.MarginItemDecoration
 import gensokyo.hakurei.chitlist.adminviewpager.AdminViewPagerFragmentDirections
 import gensokyo.hakurei.chitlist.R
+import gensokyo.hakurei.chitlist.SharedViewModel
 
 private const val TAG = "TXsListFragment"
 
 class TransactionsListFragment : Fragment() {
 
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var transactionsListViewModel: TransactionsListViewModel
 
     lateinit var adapter: TransactionAdapter
@@ -43,6 +45,7 @@ class TransactionsListFragment : Fragment() {
 
         // Get a reference to the ViewModel associated with this fragment.
         activity?.let {
+            sharedViewModel = ViewModelProviders.of(it).get(SharedViewModel::class.java)
             transactionsListViewModel =
                 ViewModelProviders.of(it, viewModelFactory).get(TransactionsListViewModel::class.java)
         }
@@ -74,7 +77,7 @@ class TransactionsListFragment : Fragment() {
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
                 this.findNavController().navigate(
-                    AdminViewPagerFragmentDirections.actionAdminViewPagerFragmentToTransactionDetailFragment(transaction)
+                    AdminViewPagerFragmentDirections.actionAdminViewPagerFragmentToTransactionDetailFragment(sharedViewModel.user?.accountId!!, transaction)
                 )
                 transactionsListViewModel.onTransactionNavigated()
             }

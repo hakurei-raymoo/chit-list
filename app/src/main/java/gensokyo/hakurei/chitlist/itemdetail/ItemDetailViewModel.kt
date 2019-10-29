@@ -65,23 +65,16 @@ class ItemDetailViewModel(
         }
     }
 
-    fun doneNavigating() {
-        _navigateToItemsList.value = null
+    fun onBackClicked() {
+        _navigateToItemsList.value = true
     }
 
-    fun onDeleteClicked() {
-        uiScope.launch {
-            withContext(Dispatchers.IO) {
-                database.delete(item.value!!)
-                Log.i(TAG, "Deleted ${item.value!!}")
-            }
-            _navigateToItemsList.value = true
-        }
+    fun doneNavigating() {
+        _navigateToItemsList.value = null
     }
 
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }
-
 }

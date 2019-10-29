@@ -32,7 +32,12 @@ class CheckoutViewModel(
         if (cart != null) {
             if (cart.isNotEmpty()) {
                 cart.forEach {
-                    val transaction = Transaction(accountId = account.accountId, itemId = it.itemId, amount = it.price)
+                    val transaction = Transaction(
+                        accountId = account.accountId,
+                        creatorId = account.accountId,
+                        itemId = it.itemId,
+                        amount = it.price
+                    )
                     Log.i(TAG, "Checkout: $transaction")
 
                     uiScope.launch {

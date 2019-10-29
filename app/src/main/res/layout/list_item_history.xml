@@ -32,7 +32,7 @@
             <TextView
                     android:id="@+id/id_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:background="@color/colorPrimary"
                     android:padding="@dimen/spacing_normal"
                     android:text="@{@string/number(transaction.transactionId)}"
@@ -42,32 +42,41 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="@string/number" />
 
-            <TextView
-                    android:id="@+id/time_text"
+            <LinearLayout
+                    android:id="@+id/sub_item"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_small"
-                    android:layout_marginEnd="@dimen/spacing_normal"
-                    app:layout_constraintBottom_toTopOf="@+id/item_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/id_text"
-                    app:layout_constraintTop_toTopOf="@+id/id_text"
-                    app:timeFormattedShort="@{transaction.time}"
-                    tools:text="@string/time_equals" />
-
-            <TextView
-                    android:id="@+id/item_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_small"
-                    android:layout_marginEnd="@dimen/spacing_normal"
-                    android:text="@{@string/amount_item(Converter.addDecimal(transaction.amount),transaction.item.name)}"
+                    android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/id_text"
-                    app:layout_constraintTop_toBottomOf="@+id/time_text"
-                    tools:text="@string/amount_item" />
+                    app:layout_constraintTop_toTopOf="parent">
 
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:timeFormattedShort="@{transaction.time}"
+                        tools:text="@string/time_equals" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/creator_equals(transaction.creatorId)}"
+                        tools:text="@string/creator_equals" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/amount_item(Converter.addDecimal(transaction.amount),transaction.item.name)}"
+                        tools:text="@string/amount_item" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{transaction.comments}"
+                        tools:text="@string/comments_equals" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

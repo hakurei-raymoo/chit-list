@@ -17,6 +17,8 @@
     <!-- Login -->
     <string name="login">Login</string>
     <string name="username">Username</string>
+    <string name="logout">Logout</string>
+    <string name="change_password">Change password</string>
     <!-- Shop -->
     <string name="shop">Shop</string>
     <!-- Checkout -->

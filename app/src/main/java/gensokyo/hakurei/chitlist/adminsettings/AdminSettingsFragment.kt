@@ -14,6 +14,9 @@ import androidx.lifecycle.ViewModelProviders
 import gensokyo.hakurei.chitlist.DATABASE_NAME
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentAdminSettingsBinding
+import android.content.pm.PackageManager
+
+
 
 private const val TAG = "AdminSettingsFragment"
 

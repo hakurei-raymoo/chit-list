@@ -30,9 +30,12 @@ class ShopAdapter(val clickListener: ShopListener) :
             binding.item = item
             binding.clickListener = clickListener
             binding.executePendingBindings()
+            // Get the image id and set it.
             val name = item.image
             val id = getDrawableId(name)
-            if (id != -1) binding.image.setImageResource(id)
+            val defaultId = getDrawableId("ic_add_white_24dp")
+            // Setting default image required to prevent incorrect image display on view recycling.
+            if (id != -1) binding.image.setImageResource(id) else binding.image.setImageResource(defaultId)
             Log.i(TAG, "id=$id")
         }
 

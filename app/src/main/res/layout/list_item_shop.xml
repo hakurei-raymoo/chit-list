@@ -36,12 +36,12 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/no_items_icon"
                     android:gravity="center"
-                    android:padding="@dimen/spacing_large"
+                    android:padding="@dimen/spacing_small"
                     app:layout_constraintBottom_toTopOf="@+id/info_layout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_add_black_24dp" />
+                    app:srcCompat="@drawable/ic_add_white_24dp" />
 
             <TextView
                     android:id="@+id/primary_key_text"

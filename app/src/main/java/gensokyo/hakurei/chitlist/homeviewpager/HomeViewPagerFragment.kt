@@ -17,6 +17,7 @@ import gensokyo.hakurei.chitlist.history.HistoryViewModel
 import gensokyo.hakurei.chitlist.history.HistoryViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home_view_pager.*
 import androidx.viewpager2.widget.ViewPager2
+import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.checkout.CheckoutViewModel
 import gensokyo.hakurei.chitlist.checkout.CheckoutViewModelFactory
 
@@ -100,8 +101,7 @@ class HomeViewPagerFragment : Fragment() {
             // Add up button to toolbar.
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             binding.toolbar.setNavigationOnClickListener {
-                Toast.makeText(activity, "${sharedViewModel.user?.firstName} ${sharedViewModel.user?.lastName} logged out.", Toast.LENGTH_SHORT).show()
-                onBackPressed()
+                logout()
             }
         }
 
@@ -112,15 +112,24 @@ class HomeViewPagerFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        if (sharedViewModel.user?.admin == true) {
-            inflater.inflate(gensokyo.hakurei.chitlist.R.menu.settings_menu, menu)
-        }
+        inflater.inflate(R.menu.home_menu, menu)
+        // Show admin settings only if User is an admin.
+        menu.findItem(R.id.admin_settings_item).isVisible = sharedViewModel.user?.admin == true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            gensokyo.hakurei.chitlist.R.id.settings -> {
+            R.id.admin_settings_item -> {
                 adminAccess()
+                true
+            }
+            R.id.change_password_item -> {
+                // TODO: Implement change password.
+                Toast.makeText(activity, "Not yet implemented. Contact an administrator to change passwords.", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.logout_item -> {
+                logout()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -134,6 +143,13 @@ class HomeViewPagerFragment : Fragment() {
         )
     }
 
+    private fun logout() {
+        Toast.makeText(activity, "${sharedViewModel.user?.firstName} ${sharedViewModel.user?.lastName} logged out.", Toast.LENGTH_SHORT).show()
+        (activity as AppCompatActivity).run {
+            onBackPressed()
+        }
+    }
+
 //    private fun getTabIcon(position: Int): Int {
 //        return when (position) {
 //            SHOP_PAGE_INDEX -> R.drawable.shop_tab_selector
@@ -144,9 +160,9 @@ class HomeViewPagerFragment : Fragment() {
 
     private fun getTabTitle(position: Int): String? {
         return when (position) {
-            SHOP_PAGE_INDEX -> getString(gensokyo.hakurei.chitlist.R.string.shop)
-            CHECKOUT_PAGE_INDEX -> getString(gensokyo.hakurei.chitlist.R.string.checkout)
-            HISTORY_PAGE_INDEX -> getString(gensokyo.hakurei.chitlist.R.string.history)
+            SHOP_PAGE_INDEX -> getString(R.string.shop)
+            CHECKOUT_PAGE_INDEX -> getString(R.string.checkout)
+            HISTORY_PAGE_INDEX -> getString(R.string.history)
             else -> null
         }
     }

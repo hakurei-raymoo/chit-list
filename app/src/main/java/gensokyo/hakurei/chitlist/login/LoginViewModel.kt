@@ -67,12 +67,14 @@ class LoginViewModel(
     }
 
     fun onLoginClicked() {
+        enableInput.value = false
         val accountId = loginAccountToAccountId(loginAccount.value!!)
         val passwordHash = loginPassword.value!! // TODO: Hash password.
         Log.i(TAG, "accountId=$accountId, passwordHash=$passwordHash")
 
         if (accountId == -1L) {
             Log.i(TAG, "Account not found in accounts list.")
+            enableInput.value = true
         } else {
             uiScope.launch {
                 withContext(Dispatchers.IO) {
@@ -85,26 +87,12 @@ class LoginViewModel(
         loginPassword.value = ""
     }
 
-    fun onLogoClicked() {
-//        uiScope.launch {
-//            withContext(Dispatchers.IO) {
-//                val admins = database.getAdminAccounts()
-//                if (admins.isEmpty()) {
-//                    val defaultAdmin = Account(firstName = "admin", lastName = "default", admin = true)
-//                    database.insert(defaultAdmin)
-//                    Log.i(TAG, "Inserted $defaultAdmin")
-//                } else {
-//                    Log.i(TAG, "admins=$admins")
-//                }
-//            }
-//        }
-    }
-
     fun onNavigateToHome() {
         _navigateToHome.value = true
     }
 
     fun onHomeNavigated() {
+        enableInput.value = true
         _navigateToHome.value = null
 
         // Reset credentials.

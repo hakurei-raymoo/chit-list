@@ -83,6 +83,9 @@
             android:label="TransactionDetailFragment"
             tools:layout="@layout/fragment_transaction_detail">
         <argument
+                android:name="creatorId"
+                app:argType="long" />
+        <argument
                 android:name="transactionKey"
                 app:argType="long" />
     </fragment>

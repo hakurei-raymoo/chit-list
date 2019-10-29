@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import gensokyo.hakurei.chitlist.database.AdminDao
 
-private const val TAG = "AdminSettingsModelFactory"
+private const val TAG = "AdminSettingsViewModelFactory"
 
 /**
- * Provides the [AdminDao] and context to the [AdminSettingsModelFactory].
+ * Provides the [AdminDao] and context to the [AdminSettingsViewModel].
  */
 class AdminSettingsViewModelFactory(
     private val dataSource: AdminDao,

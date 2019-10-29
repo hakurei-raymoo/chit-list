@@ -137,14 +137,14 @@
                             android:text="@string/update" />
 
                     <com.google.android.material.button.MaterialButton
-                            android:id="@+id/delete_button"
+                            android:id="@+id/back_button"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/button_spacing"
                             android:layout_toStartOf="@id/update_button"
-                            android:enabled="false"
-                            android:onClick="@{() -> itemDetailViewModel.onDeleteClicked()}"
-                            android:text="@string/delete" />
+                            android:onClick="@{() -> itemDetailViewModel.onBackClicked()}"
+                            android:text="@string/back" />
                 </RelativeLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

@@ -62,30 +62,23 @@ class AccountDetailViewModel(
     private suspend fun update() {
         withContext(Dispatchers.IO) {
             // TODO: Throw error if name is same as an existing name.
-            // TODO: Throw error if last admin account is removed.
+            // TODO: Throw error if last admin account disabled.
             // TODO: Hash password.
             database.update(account.value!!)
             Log.i(TAG, "Updated ${account.value!!}")
         }
     }
 
-    fun doneNavigating() {
-        _navigateToAccountsList.value = null
+    fun onBackClicked() {
+        _navigateToAccountsList.value = true
     }
 
-    fun onDeleteClicked() {
-        uiScope.launch {
-            withContext(Dispatchers.IO) {
-                database.delete(account.value!!)
-                Log.i(TAG, "Deleted ${account.value!!}")
-            }
-            _navigateToAccountsList.value = true
-        }
+    fun doneNavigating() {
+        _navigateToAccountsList.value = null
     }
 
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }
-
 }

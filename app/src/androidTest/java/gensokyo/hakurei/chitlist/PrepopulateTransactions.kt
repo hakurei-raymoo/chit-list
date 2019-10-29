@@ -65,6 +65,7 @@ class PrepopulateTransactions {
                 transactions.add(
                     Transaction(
                         accountId = accountId,
+                        creatorId = accountId,
                         itemId = it.itemId,
                         amount = it.price
                     )

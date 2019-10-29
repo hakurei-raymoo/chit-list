@@ -10,6 +10,7 @@ import kotlinx.coroutines.*
 private const val TAG = "TXDetailViewModel"
 
 class TransactionDetailViewModel(
+    private val creatorId: Long,
     transactionKey: Long,
     private val database: TransactionDao
 ) : ViewModel() {
@@ -22,10 +23,22 @@ class TransactionDetailViewModel(
     val transaction
         get() = _transaction
 
-    var linkedAccount = MutableLiveData<BareAccount>()
+    private var _linkedAccount = MutableLiveData<BareAccount>()
+    val linkedAccount: LiveData<BareAccount>
+        get() = _linkedAccount
+
+    private var _linkedCreator = MutableLiveData<BareAccount>()
+    val linkedCreator: LiveData<BareAccount>
+        get() = _linkedCreator
+
     private var _linkedItem = MutableLiveData<Item>()
     val linkedItem: LiveData<Item>
         get() = _linkedItem
+
+    // Enable/disable the submit button.
+    private var _enableInput = MutableLiveData<Boolean>()
+    val enableInput: LiveData<Boolean>
+        get() = _enableInput
 
     private val _navigateToTransactionsList = MutableLiveData<Boolean?>()
     val navigateToTransactionsList: LiveData<Boolean?>
@@ -47,9 +60,8 @@ class TransactionDetailViewModel(
     private fun newTransaction() {
         uiScope.launch {
             withContext(Dispatchers.IO) {
-                // TODO: Add creator of transaction.
                 // Transaction must have valid ForeignKeys before insertion to table.
-                val newTransaction = Transaction(accountId = 1L, itemId = 1L, comments="")
+                val newTransaction = Transaction(accountId = 1L, creatorId = creatorId, itemId = 1L)
                 Log.i(TAG, "Attempting $newTransaction")
                 database.insert(newTransaction)
                 Log.i(TAG, "Inserted $newTransaction")
@@ -58,46 +70,63 @@ class TransactionDetailViewModel(
     }
 
     fun onUpdateClicked() {
-        uiScope.launch {
-            update()
-            _navigateToTransactionsList.value = true
+        if (linkedAccount.value == null || linkedCreator.value == null || linkedItem.value == null) {
+            Log.i(TAG, "Invalid input.")
+        } else {
+            uiScope.launch {
+                update()
+                _navigateToTransactionsList.value = true
+            }
         }
     }
 
     private suspend fun update() {
         withContext(Dispatchers.IO) {
-            // TODO: Throw error if accountId or itemId do not exist.
             database.update(transaction.value!!)
             Log.i(TAG, "Updated ${transaction.value!!}")
         }
+    }
+
+    fun onBackClicked() {
+        _navigateToTransactionsList.value = true
     }
 
     fun doneNavigating() {
         _navigateToTransactionsList.value = null
     }
 
-    fun onDeleteClicked() {
-        uiScope.launch {
-            withContext(Dispatchers.IO) {
-                database.delete(transaction.value!!)
-                Log.i(TAG, "Deleted ${transaction.value!!}")
+    fun updateAccountEditHelperText(accountId: Long?) {
+        // Clear value if input cannot be cast to Long. Else perform database lookup.
+        if (accountId == null) {
+            _linkedAccount.postValue(null)
+        } else {
+            uiScope.launch {
+                withContext(Dispatchers.IO) {
+                    val account = database.getAccount(accountId)
+                    _linkedAccount.postValue(account)
+                }
             }
-            _navigateToTransactionsList.value = true
         }
     }
 
-    fun updateAccountEditHelperText(accountId: Long?) {
-        if (accountId != null) {
+    fun updateCreatorEditHelperText(creatorId: Long?) {
+        // Clear value if input cannot be cast to Long. Else perform database lookup.
+        if (creatorId == null) {
+            _linkedCreator.postValue(null)
+        } else {
             uiScope.launch {
                 withContext(Dispatchers.IO) {
-                    linkedAccount.postValue(database.getAccount(accountId))
+                    _linkedCreator.postValue(database.getAccount(creatorId))
                 }
             }
         }
     }
 
     fun updateItemEditHelperText(itemId: Long?) {
-        if (itemId != null) {
+        // Clear value if input cannot be cast to Long. Else perform database lookup.
+        if (itemId == null) {
+            _linkedItem.postValue(null)
+        } else {
             uiScope.launch {
                 withContext(Dispatchers.IO) {
                     _linkedItem.postValue(database.getItem(itemId))
@@ -106,9 +135,13 @@ class TransactionDetailViewModel(
         }
     }
 
+    // Switch when all ForeignKey inputs are not null.
+    fun updateEnableInput() {
+        _enableInput.postValue(linkedAccount.value != null && linkedCreator.value != null && linkedItem.value != null)
+    }
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }
-
 }

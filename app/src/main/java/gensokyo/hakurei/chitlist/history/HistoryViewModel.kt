@@ -3,6 +3,7 @@ package gensokyo.hakurei.chitlist.history
 import android.util.Log
 import androidx.lifecycle.*
 import gensokyo.hakurei.chitlist.database.ShopDao
+import gensokyo.hakurei.chitlist.database.Transaction
 import gensokyo.hakurei.chitlist.database.TransactionWithChildren
 import kotlinx.coroutines.*
 
@@ -18,14 +19,15 @@ class HistoryViewModel(
     val accountId: LiveData<Long>
         get() = _accountId
 
-    private val _balance = MutableLiveData<Int>()
+    // Get all transactions matching the users accountId.
+    private val _history = Transformations.switchMap(accountId) { database.getHistory(it) }
+    val history: LiveData<List<TransactionWithChildren>>
+        get()  =_history
+
+    // Sum all transactions matching the users accountId.
+    private val _balance = Transformations.map(history) { sumTransactions(it) }
     val balance: LiveData<Int>
         get() = _balance
-
-    // Gets data when accountId is changed.
-    private var _history = Transformations.switchMap(accountId) { database.getHistory(it) }
-    val history: LiveData<List<TransactionWithChildren>>?
-        get()  =_history
 
     init {
         Log.i(TAG, "Init")
@@ -35,12 +37,16 @@ class HistoryViewModel(
         _accountId.value = accountId
     }
 
-    fun updateBalance() {
+    private fun sumTransactions(transactions: List<TransactionWithChildren>): Int {
         var sum = 0
-        history?.value?.forEach {
+        transactions.forEach {
             sum += it.amount
         }
-        _balance.postValue(sum)
+        return sum
+    }
+
+    fun onHistoryClicked(transactionId: Long) {
+
     }
 
     override fun onCleared() {

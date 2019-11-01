@@ -48,11 +48,11 @@ class LoginViewModel(
     private fun formatAccounts(accounts: List<BareAccount>): List<String> {
         val mutableList = accounts.toMutableList()
         val stringList = mutableListOf<String>()
-        mutableList.sortWith(compareBy(String.CASE_INSENSITIVE_ORDER) {String.format("${it.accountId} ${it.firstName} ${it.lastName}")})
+        mutableList.sortWith(compareBy(String.CASE_INSENSITIVE_ORDER) {String.format("%04d: %s %s", it.accountId, it.firstName, it.lastName)})
         Log.i(TAG, "mutableList=$mutableList")
 
         mutableList.forEach {
-            stringList.add(String.format("%04d %s %s", it.accountId, it.firstName, it.lastName))
+            stringList.add(String.format("%04d: %s %s", it.accountId, it.firstName, it.lastName))
         }
         Log.i(TAG, "stringList=$stringList")
         return stringList

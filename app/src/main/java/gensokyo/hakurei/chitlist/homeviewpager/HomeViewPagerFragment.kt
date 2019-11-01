@@ -60,15 +60,8 @@ class HomeViewPagerFragment : Fragment() {
         // This is necessary so that the binding can observe LiveData updates.
         binding.lifecycleOwner = viewLifecycleOwner
 
-        // Set accountId which triggers switchMap for updating history.
+        // Set accountId which triggers switchMap for updating history and map for updating balance.
         historyViewModel.updateHistory(sharedViewModel.user?.accountId!!)
-
-        historyViewModel.history?.observe(viewLifecycleOwner, Observer {
-            Log.i(TAG, "Observed history=$it")
-            it?.let {
-                historyViewModel.updateBalance()
-            }
-        })
 
         historyViewModel.balance.observe(viewLifecycleOwner, Observer {
             Log.i(TAG, "Observed balance=$it")

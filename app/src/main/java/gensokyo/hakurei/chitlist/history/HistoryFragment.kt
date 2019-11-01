@@ -52,11 +52,12 @@ class HistoryFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         val adapter = HistoryAdapter(HistoryListener {
-//            historyViewModel.onHistoryClicked(transactionId)
+            historyViewModel.onHistoryClicked(it)
+            Log.i(TAG, "clicked $it")
         })
         binding.transactionsList.adapter = adapter
 
-        historyViewModel.history?.observe(viewLifecycleOwner, Observer {
+        historyViewModel.history.observe(viewLifecycleOwner, Observer {
             Log.i(TAG, "Observed history=$it")
             // Show empty history layout if not null or empty.
             binding.hasHistory = !it.isNullOrEmpty()

@@ -15,7 +15,8 @@ class SharedViewModel : ViewModel() {
     val user
         get() = _user
 
-    private val _items = mutableListOf<Item>()
+    // List of items in cart and LiveData version of same list.
+    private val _cartList = mutableListOf<Item>()
     private val _cart = MutableLiveData<List<Item>>()
     val cart: LiveData<List<Item>>
         get()  =_cart
@@ -29,18 +30,18 @@ class SharedViewModel : ViewModel() {
     }
 
     fun addItem(item: Item) {
-        _items.add(item)
-        _cart.value = _items
+        _cartList.add(item)
+        _cart.value = _cartList
     }
 
     fun removeItem(item: Item) {
-        _items.remove(item)
-        _cart.value = _items
+        _cartList.remove(item)
+        _cart.value = _cartList
     }
 
     fun login(account: Account) {
         _user = account
-        _items.clear()
+        _cartList.clear()
         _cart.value = null
         _balance.value = null
         Log.i(TAG, "Logged in as: $user")

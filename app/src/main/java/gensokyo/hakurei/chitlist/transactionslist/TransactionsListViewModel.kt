@@ -18,7 +18,7 @@ class TransactionsListViewModel(
         get() = _transactions
 
     private val _navigateToEditTransaction = MutableLiveData<Long>()
-    val navigateToEditTransaction
+    val navigateToEditTransaction: LiveData<Long>
         get() = _navigateToEditTransaction
 
     init {

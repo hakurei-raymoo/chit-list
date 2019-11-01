@@ -9,7 +9,6 @@ import androidx.room.RawQuery
  */
 @Dao
 interface AdminDao {
-
     @Query("SELECT * FROM accounts_table ORDER BY account_id ASC")
     fun getAccounts(): List<Account>
 

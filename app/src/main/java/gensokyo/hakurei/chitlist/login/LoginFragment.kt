@@ -55,7 +55,7 @@ class LoginFragment : Fragment() {
 
         // Specify the current activity as the lifecycle owner of the binding.
         // This is necessary so that the binding can observe LiveData updates.
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = viewLifecycleOwner
 
         // Add an Observer on the state variable for Navigating when LOGIN button is pressed.
         loginViewModel.navigateToHome.observe(this, Observer {
@@ -73,34 +73,30 @@ class LoginFragment : Fragment() {
             }
         })
 
-        loginViewModel.accounts.observe(this, Observer {
+        // Populate AutoCompleteTextView with accounts.
+        loginViewModel.accountsList.observe(this, Observer {
             Log.i(TAG, "Observed accounts=$it")
 
             if (it != null) {
-                loginViewModel.formatAccounts(it)
-
                 // Get a reference to the AutoCompleteTextView in the layout.
                 val accountAutocomplete = binding.accountAutocomplete
                 // Create the adapter and set it to the AutoCompleteTextView.
                 val accountsAdaptor = ArrayAdapter<String>(
                     requireContext(),
                     android.R.layout.simple_list_item_1,
-                    loginViewModel.accountNames
+                    it
                 )
                 accountAutocomplete.setAdapter(accountsAdaptor)
             }
         })
 
-        // Observer to process login attempt once account returned.
-        loginViewModel.account.observe(this, Observer {
-            Log.i(TAG, "Observed account=$it")
-
-            if (it != null) {
+        // Observer to process login attempt once credentials returned.
+        loginViewModel.credentials.observe(this, Observer {
+            it?.let {
                 sharedViewModel.login(it)
                 loginViewModel.onNavigateToHome()
                 Toast.makeText(activity, "Logged in as ${it.firstName} ${it.lastName}.", Toast.LENGTH_SHORT).show()
             }
-            loginViewModel.enableInput.value = true
         })
 
         return binding.root

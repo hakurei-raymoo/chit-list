@@ -1,6 +1,7 @@
 package gensokyo.hakurei.chitlist.accountslist
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import gensokyo.hakurei.chitlist.database.AccountDao
@@ -18,7 +19,7 @@ class AccountsListViewModel(
         get() = _accounts
 
     private val _navigateToEditAccount = MutableLiveData<Long>()
-    val navigateToEditAccount
+    val navigateToEditAccount: LiveData<Long>
         get() = _navigateToEditAccount
 
     init {

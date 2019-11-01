@@ -1,7 +1,9 @@
 package gensokyo.hakurei.chitlist.login
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import gensokyo.hakurei.chitlist.database.Account
 import gensokyo.hakurei.chitlist.database.BareAccount
@@ -19,71 +21,69 @@ class LoginViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     val enableInput = MutableLiveData<Boolean>(true)
-    var loginAccount = MutableLiveData<String>("")
-    var loginPassword = MutableLiveData<String>("")
-    var account = MutableLiveData<Account>()
+    val loginAccount = MutableLiveData<String>("")
+    val loginPassword = MutableLiveData<String>("")
 
-    // Autocomplete parameters
-    val accounts = database.getBareAccounts()
-    private var accountsList = mutableListOf<BareAccount>()
-    private val _accountNames = mutableListOf<String>()
-    val accountNames: List<String>
-        get() = _accountNames
+    // AutoCompleteTextView adapter list.
+    private val _accountsList = Transformations.map(database.getBareAccounts()) { accounts ->
+        formatAccounts(accounts)
+    }
+    val accountsList: LiveData<List<String>>
+        get() = _accountsList
+
+    // Account that is passed to SharedViewModel as current user.
+    private val _credentials = MutableLiveData<Account>()
+    val credentials: LiveData<Account>
+        get() = _credentials
 
     private val _navigateToHome = MutableLiveData<Boolean>()
-    val navigateToHome
+    val navigateToHome: LiveData<Boolean>
         get() = _navigateToHome
 
     init {
         Log.i(TAG, "Init")
     }
 
-    // Populate accounts and accountNames for use by AutoCompleteTextView.
-    fun formatAccounts(accounts: List<BareAccount>) {
-        accountsList = accounts.toMutableList()
-        accountsList.sortWith(compareBy(String.CASE_INSENSITIVE_ORDER) {String.format("${it.firstName} ${it.lastName}")})
-        Log.i(TAG, "accountsList=$accountsList")
+    /* Convert List<BareAccount> to List<String> for AutoCompeteTextView. */
+    private fun formatAccounts(accounts: List<BareAccount>): List<String> {
+        val mutableList = accounts.toMutableList()
+        val stringList = mutableListOf<String>()
+        mutableList.sortWith(compareBy(String.CASE_INSENSITIVE_ORDER) {String.format("${it.accountId} ${it.firstName} ${it.lastName}")})
+        Log.i(TAG, "mutableList=$mutableList")
 
-        _accountNames.clear()
-        accountsList.forEach {
-            _accountNames.add(String.format("${it.firstName} ${it.lastName}"))
+        mutableList.forEach {
+            stringList.add(String.format("%04d %s %s", it.accountId, it.firstName, it.lastName))
         }
-        Log.i(TAG, "accountNames=$accountNames")
+        Log.i(TAG, "stringList=$stringList")
+        return stringList
     }
 
-    // Find index of account by matching full name with accounts list then return the id.
-    private fun loginAccountToAccountId(loginAccount: String): Long {
-        val accountIndex = accountsList.binarySearch {
-            val fullName = String.format("${it.firstName} ${it.lastName}")
-            String.CASE_INSENSITIVE_ORDER.compare(fullName, loginAccount)
-        }
+    /* Returns the first four characters of the string as a long. */
+    private fun loginStringToAccountId(string: String): Long? {
+        return string.substring(0..3).toLongOrNull()
+    }
 
-        if (accountIndex >= 0L) {
-            return accountsList[accountIndex].accountId
-        } else {
-            return -1L
+    private fun tryLogin(accountId: Long, passwordHash: String) {
+        Log.i(TAG, "Trying credentials: account_id=$accountId, password_hash=$passwordHash")
+
+        uiScope.launch {
+            withContext(Dispatchers.IO) {
+                _credentials.postValue(database.getLogin(accountId, passwordHash))
+            }
         }
     }
 
     fun onLoginClicked() {
         enableInput.value = false
-        val accountId = loginAccountToAccountId(loginAccount.value!!)
+        val accountId = loginStringToAccountId(loginAccount.value!!)
         val passwordHash = loginPassword.value!! // TODO: Hash password.
-        Log.i(TAG, "accountId=$accountId, passwordHash=$passwordHash")
-
-        if (accountId == -1L) {
-            Log.i(TAG, "Account not found in accounts list.")
-            enableInput.value = true
-        } else {
-            uiScope.launch {
-                withContext(Dispatchers.IO) {
-                    account.postValue(database.getLogin(accountId, passwordHash))
-                }
-            }
+        if (accountId != null) {
+            tryLogin(accountId, passwordHash)
         }
 
-        // Clear the password text.
+        // Re-enable input.
         loginPassword.value = ""
+        enableInput.value = true
     }
 
     fun onNavigateToHome() {
@@ -93,8 +93,8 @@ class LoginViewModel(
     fun onHomeNavigated() {
         _navigateToHome.value = null
 
-        // Reset credentials.
-        account.value = null
+        // Clear credentials.
+        _credentials.value = null
         loginAccount.value = ""
         loginPassword.value = ""
     }

@@ -54,7 +54,7 @@ class AdminSettingsFragment : Fragment() {
 
         // Specify the current activity as the lifecycle owner of the binding.
         // This is necessary so that the binding can observe LiveData updates.
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.exportBalancesButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {

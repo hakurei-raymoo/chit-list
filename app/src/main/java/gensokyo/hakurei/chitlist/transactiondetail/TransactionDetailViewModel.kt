@@ -23,6 +23,9 @@ class TransactionDetailViewModel(
     val transaction
         get() = _transaction
 
+    val accounts = database.getBareAccounts()
+    val items = database.getBareItems()
+
     private var _linkedAccount = MutableLiveData<BareAccount>()
     val linkedAccount: LiveData<BareAccount>
         get() = _linkedAccount
@@ -31,8 +34,8 @@ class TransactionDetailViewModel(
     val linkedCreator: LiveData<BareAccount>
         get() = _linkedCreator
 
-    private var _linkedItem = MutableLiveData<Item>()
-    val linkedItem: LiveData<Item>
+    private var _linkedItem = MutableLiveData<BareItem>()
+    val linkedItem: LiveData<BareItem>
         get() = _linkedItem
 
     // Enable/disable the submit button.

@@ -1,6 +1,7 @@
 package gensokyo.hakurei.chitlist.itemslist
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import gensokyo.hakurei.chitlist.database.ItemDao
@@ -18,7 +19,7 @@ class ItemsListViewModel(
         get() = _items
 
     private val _navigateToEditItem = MutableLiveData<Long>()
-    val navigateToEditItem
+    val navigateToEditItem: LiveData<Long>
         get() = _navigateToEditItem
 
     init {

@@ -11,9 +11,9 @@
 
         <variable
                 name="clickListener"
-                type="gensokyo.hakurei.chitlist.checkout.CheckoutListener" />
+                type="gensokyo.hakurei.chitlist.adapters.CheckoutListener" />
 
-        <import type="gensokyo.hakurei.chitlist.Converter" />
+        <import type="gensokyo.hakurei.chitlist.utilities.Converter" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

@@ -9,7 +9,7 @@
                 name="itemDetailViewModel"
                 type="gensokyo.hakurei.chitlist.itemdetail.ItemDetailViewModel" />
 
-        <import type="gensokyo.hakurei.chitlist.Converter" />
+        <import type="gensokyo.hakurei.chitlist.utilities.Converter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

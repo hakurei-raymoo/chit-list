@@ -7,7 +7,7 @@
 
         <variable
                 name="loginViewModel"
-                type="gensokyo.hakurei.chitlist.login.LoginViewModel" />
+                type="gensokyo.hakurei.chitlist.viewmodels.LoginViewModel" />
     </data>
 
     <ScrollView
@@ -52,8 +52,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="@{loginViewModel.enableInput}"
+                        android:imeOptions="actionNext"
                         android:inputType="textNoSuggestions|textVisiblePassword"
-                        android:maxLines="1"
                         android:text="@={loginViewModel.loginAccount}" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,6 +70,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="@{loginViewModel.enableInput}"
+                        android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:text="@={loginViewModel.loginPassword}" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -84,8 +85,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:enabled="@{loginViewModel.enableInput}"
-                        android:text="@string/login"
-                        android:onClick="@{() -> loginViewModel.onLoginClicked()}" />
+                        android:onClick="@{() -> loginViewModel.onLoginClicked()}"
+                        android:text="@string/login" />
 
             </RelativeLayout>
         </LinearLayout>

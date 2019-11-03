@@ -6,7 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import gensokyo.hakurei.chitlist.DATABASE_NAME
+import gensokyo.hakurei.chitlist.utilities.DATABASE_NAME
 import java.util.concurrent.Executors
 
 private const val TAG = "AppDatabase"
@@ -21,6 +21,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val loginDao: LoginDao
     abstract val shopDao: ShopDao
     abstract val adminDao: AdminDao
+    abstract val adminHomeDao: AdminHomeDao
     abstract val accountDao: AccountDao
     abstract val itemDao: ItemDao
     abstract val transactionDao: TransactionDao
@@ -46,33 +47,34 @@ abstract class AppDatabase : RoomDatabase() {
                             override fun onCreate(db: SupportSQLiteDatabase) {
                                 super.onCreate(db)
 
-                                Executors.newSingleThreadScheduledExecutor()
-                                    .execute(object : Runnable {
-                                        override fun run() {
-                                            getInstance(context).accountDao
-                                                .insert(
-                                                    Account(
-                                                        firstName = "admin",
-                                                        lastName = "default",
-                                                        admin = true
-                                                    )
-                                                )
-                                            getInstance(context).itemDao
-                                                .insert(
-                                                    Item(
-                                                        name = "Cash",
-                                                        enabled = false
-                                                    )
-                                                )
-                                        }
-                                    })
-
+                                prepopulate(context)
                             }
                         })
                         .build()
                     INSTANCE = instance
                 }
                 return instance
+            }
+        }
+
+        private fun prepopulate(context: Context) {
+            Executors.newSingleThreadScheduledExecutor().execute {
+                getInstance(context).accountDao
+                    .insert(
+                        Account(
+                            firstName = "admin",
+                            lastName = "default",
+                            passwordHash = "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+                            admin = true
+                        )
+                    )
+                getInstance(context).itemDao
+                    .insert(
+                        Item(
+                            name = "Cash",
+                            enabled = false
+                        )
+                    )
             }
         }
     }

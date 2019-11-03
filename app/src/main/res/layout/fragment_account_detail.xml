@@ -146,14 +146,13 @@
                 <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/password"
-                        app:endIconMode="password_toggle">
+                        android:hint="@string/password_hash">
 
                     <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/password_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textPassword"
+                            android:inputType="textVisiblePassword"
                             android:maxLines="1"
                             android:text="@={accountDetailViewModel.account.passwordHash}" />
                 </com.google.android.material.textfield.TextInputLayout>

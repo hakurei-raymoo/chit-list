@@ -11,7 +11,7 @@
 
         <variable
                 name="clickListener"
-                type="gensokyo.hakurei.chitlist.accountslist.AccountListener" />
+                type="gensokyo.hakurei.chitlist.adapters.AccountListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

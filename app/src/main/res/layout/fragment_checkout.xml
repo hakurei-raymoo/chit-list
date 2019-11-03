@@ -6,10 +6,6 @@
     <data>
 
         <variable
-                name="checkoutViewModel"
-                type="gensokyo.hakurei.chitlist.checkout.CheckoutViewModel" />
-
-        <variable
                 name="hasItems"
                 type="boolean" />
     </data>

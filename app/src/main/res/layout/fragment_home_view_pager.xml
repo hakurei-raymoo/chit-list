@@ -6,14 +6,10 @@
     <data>
 
         <variable
-                name="sharedViewModel"
-                type="gensokyo.hakurei.chitlist.SharedViewModel" />
+                name="homeViewModel"
+                type="gensokyo.hakurei.chitlist.viewmodels.HomeViewModel" />
 
-        <variable
-                name="checkoutViewModel"
-                type="gensokyo.hakurei.chitlist.checkout.CheckoutViewModel" />
-
-        <import type="gensokyo.hakurei.chitlist.Converter" />
+        <import type="gensokyo.hakurei.chitlist.utilities.Converter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -55,7 +51,7 @@
                         android:layout_marginEnd="@dimen/spacing_extra_large"
                         android:layout_marginStart="@dimen/spacing_extra_large"
                         android:gravity="center"
-                        android:text="@{@string/full_name(sharedViewModel.user.firstName, sharedViewModel.user.lastName)}"
+                        android:text="@{@string/full_name(homeViewModel.user.firstName, homeViewModel.user.lastName)}"
                         android:textAllCaps="true"
                         android:textColor="@color/colorOnPrimary"
                         android:textSize="16sp"
@@ -69,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{@string/balance_is(Converter.addDecimal(sharedViewModel.balance))}"
+                    android:text="@{@string/balance_is(Converter.addDecimal(homeViewModel.balance))}"
                     android:textAllCaps="true"
                     android:textSize="14sp"
                     tools:text="@string/balance_is" />
@@ -88,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_margin="@dimen/fab_margin"
-                android:onClick="@{() -> checkoutViewModel.onCheckoutClicked()}"
+                android:onClick="@{() -> homeViewModel.onCheckoutClicked()}"
                 android:text="@string/checkout"
                 android:textColor="@color/colorOnPrimary"
                 app:icon="@drawable/ic_checkout_white_24dp"

@@ -63,7 +63,6 @@ class AccountDetailViewModel(
         withContext(Dispatchers.IO) {
             // TODO: Throw error if name is same as an existing name.
             // TODO: Throw error if last admin account disabled.
-            // TODO: Hash password.
             database.update(account.value!!)
             Log.i(TAG, "Updated ${account.value!!}")
         }

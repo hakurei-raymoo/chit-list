@@ -8,86 +8,102 @@
 
     <fragment
             android:id="@+id/login_fragment"
-            android:name="gensokyo.hakurei.chitlist.login.LoginFragment"
+            android:name="gensokyo.hakurei.chitlist.LoginFragment"
             android:label="LoginFragment"
             tools:layout="@layout/fragment_login" >
         <action
-                android:id="@+id/action_login_fragment_to_home_view_pager_fragment"
-                app:destination="@id/home_view_pager_fragment"
+                android:id="@+id/action_login_fragment_to_home_navigation"
+                app:destination="@id/home_navigation"
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right" />
+                app:popExitAnim="@anim/slide_out_right">
+            <argument
+                    android:name="userId"
+                    app:argType="long" />
+        </action>
     </fragment>
 
-    <fragment
-            android:id="@+id/home_view_pager_fragment"
-            android:name="gensokyo.hakurei.chitlist.homeviewpager.HomeViewPagerFragment"
-            android:label="HomeViewPagerFragment"
-            tools:layout="@layout/fragment_home_view_pager" >
-        <action
-                android:id="@+id/action_home_view_pager_fragment_to_admin_view_pager_fragment"
-                app:destination="@id/admin_view_pager_fragment" />
-    </fragment>
-
-    <fragment
-            android:id="@+id/admin_view_pager_fragment"
-            android:name="gensokyo.hakurei.chitlist.adminviewpager.AdminViewPagerFragment"
-            android:label="AdminViewPagerFragment"
-            tools:layout="@layout/fragment_admin_view_pager">
-        <action
-                android:id="@+id/action_admin_view_pager_fragment_to_item_detail_fragment"
-                app:destination="@id/item_detail_fragment"
-                app:enterAnim="@anim/slide_in_right"
-                app:exitAnim="@anim/slide_out_left"
-                app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right" />
-        <action
-                android:id="@+id/action_admin_view_pager_fragment_to_account_detail_fragment"
-                app:destination="@id/account_detail_fragment"
-                app:enterAnim="@anim/slide_in_right"
-                app:exitAnim="@anim/slide_out_left"
-                app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right" />
-        <action
-                android:id="@+id/action_admin_view_pager_fragment_to_transaction_detail_fragment"
-                app:destination="@id/transaction_detail_fragment"
-                app:enterAnim="@anim/slide_in_right"
-                app:exitAnim="@anim/slide_out_left"
-                app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-
-    <fragment
-            android:id="@+id/item_detail_fragment"
-            android:name="gensokyo.hakurei.chitlist.itemdetail.ItemDetailFragment"
-            android:label="ItemDetailFragment"
-            tools:layout="@layout/fragment_item_detail">
-        <argument
-                android:name="itemKey"
-                app:argType="long" />
-    </fragment>
-
-    <fragment android:id="@+id/account_detail_fragment"
-              android:name="gensokyo.hakurei.chitlist.accountdetail.AccountDetailFragment"
-              android:label="AccountDetailFragment"
-              tools:layout="@layout/fragment_account_detail">
-        <argument
-                android:name="accountKey"
-                app:argType="long" />
-    </fragment>
-
-    <fragment
-            android:id="@+id/transaction_detail_fragment"
-            android:name="gensokyo.hakurei.chitlist.transactiondetail.TransactionDetailFragment"
-            android:label="TransactionDetailFragment"
-            tools:layout="@layout/fragment_transaction_detail">
-        <argument
-                android:name="creatorId"
-                app:argType="long" />
-        <argument
-                android:name="transactionKey"
-                app:argType="long" />
-    </fragment>
+    <navigation
+            android:id="@+id/home_navigation"
+            app:startDestination="@id/home_view_pager_fragment" >
+        <fragment
+                android:id="@+id/home_view_pager_fragment"
+                android:name="gensokyo.hakurei.chitlist.HomeViewPagerFragment"
+                android:label="HomeViewPagerFragment"
+                tools:layout="@layout/fragment_home_view_pager">
+            <action
+                    android:id="@+id/action_home_view_pager_fragment_to_admin_view_pager_fragment"
+                    app:destination="@id/admin_view_pager_fragment" />
+            <argument
+                    android:name="userId"
+                    app:argType="long" />
+        </fragment>
+        <fragment
+                android:id="@+id/transaction_detail_fragment"
+                android:name="gensokyo.hakurei.chitlist.transactiondetail.TransactionDetailFragment"
+                android:label="TransactionDetailFragment"
+                tools:layout="@layout/fragment_transaction_detail">
+            <argument
+                    android:name="creatorId"
+                    app:argType="long" />
+            <argument
+                    android:name="transactionKey"
+                    app:argType="long" />
+        </fragment>
+        <fragment
+                android:id="@+id/account_detail_fragment"
+                android:name="gensokyo.hakurei.chitlist.accountdetail.AccountDetailFragment"
+                android:label="AccountDetailFragment"
+                tools:layout="@layout/fragment_account_detail">
+            <argument
+                    android:name="accountKey"
+                    app:argType="long" />
+        </fragment>
+        <fragment
+                android:id="@+id/admin_view_pager_fragment"
+                android:name="gensokyo.hakurei.chitlist.AdminViewPagerFragment"
+                android:label="AdminViewPagerFragment"
+                tools:layout="@layout/fragment_admin_view_pager">
+            <action
+                    android:id="@+id/action_admin_view_pager_fragment_to_item_detail_fragment"
+                    app:destination="@id/item_detail_fragment"
+                    app:enterAnim="@anim/slide_in_right"
+                    app:exitAnim="@anim/slide_out_left"
+                    app:popEnterAnim="@anim/slide_in_left"
+                    app:popExitAnim="@anim/slide_out_right" />
+            <action
+                    android:id="@+id/action_admin_view_pager_fragment_to_account_detail_fragment"
+                    app:destination="@id/account_detail_fragment"
+                    app:enterAnim="@anim/slide_in_right"
+                    app:exitAnim="@anim/slide_out_left"
+                    app:popEnterAnim="@anim/slide_in_left"
+                    app:popExitAnim="@anim/slide_out_right" />
+            <action
+                    android:id="@+id/action_admin_view_pager_fragment_to_transaction_detail_fragment"
+                    app:destination="@id/transaction_detail_fragment"
+                    app:enterAnim="@anim/slide_in_right"
+                    app:exitAnim="@anim/slide_out_left"
+                    app:popEnterAnim="@anim/slide_in_left"
+                    app:popExitAnim="@anim/slide_out_right" />
+            <argument
+                    android:name="userId"
+                    app:argType="long" />
+        </fragment>
+        <fragment
+                android:id="@+id/item_detail_fragment"
+                android:name="gensokyo.hakurei.chitlist.itemdetail.ItemDetailFragment"
+                android:label="ItemDetailFragment"
+                tools:layout="@layout/fragment_item_detail">
+            <argument
+                    android:name="itemKey"
+                    app:argType="long" />
+        </fragment>
+        <dialog
+                android:id="@+id/change_password_dialog"
+                android:name="gensokyo.hakurei.chitlist.ChangePasswordDialog"
+                android:label="ChangePasswordDialog"
+                tools:layout="@layout/dialog_change_password" />
+    </navigation>
 
 </navigation>

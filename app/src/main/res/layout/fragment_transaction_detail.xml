@@ -9,7 +9,7 @@
                 name="transactionDetailViewModel"
                 type="gensokyo.hakurei.chitlist.transactiondetail.TransactionDetailViewModel" />
 
-        <import type="gensokyo.hakurei.chitlist.Converter" />
+        <import type="gensokyo.hakurei.chitlist.utilities.Converter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

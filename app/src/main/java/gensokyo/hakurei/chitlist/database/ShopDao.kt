@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 /**
  * The Data Access Object for Shop functions.
@@ -13,8 +14,11 @@ interface ShopDao {
     @Insert
     fun insert(transaction: Transaction)
 
-    @Query("SELECT * FROM items_table WHERE item_id = :key")
-    fun getItem(key: Long): Item
+    @Update
+    fun update(account: Account)
+
+//    @Query("SELECT * FROM items_table WHERE item_id = :key")
+//    fun getItem(key: Long): Item
 
     @Query("SELECT * FROM items_table WHERE enabled = :enabled ORDER BY name ASC")
     fun getItems(enabled: Boolean = true): LiveData<List<Item>>
@@ -27,4 +31,7 @@ interface ShopDao {
             " WHERE transactions_table.account_id = :account_id" +
             " GROUP BY transaction_id ORDER BY transaction_id DESC")
     fun getHistory(account_id: Long): LiveData<List<TransactionWithChildren>>
+
+    @Query("SELECT * FROM accounts_table WHERE account_id = :key")
+    fun getAccount(key: Long): LiveData<Account>
 }

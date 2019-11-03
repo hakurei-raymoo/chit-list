@@ -5,10 +5,10 @@ import androidx.sqlite.db.SupportSQLiteQuery
 import androidx.room.RawQuery
 
 /**
- * The Data Access Object for Admin functions.
+ * The Data Access Object for Admin Settings functions.
  */
 @Dao
-interface AdminDao {
+interface AdminSettingsDao {
     @Query("SELECT * FROM accounts_table ORDER BY account_id ASC")
     fun getAccounts(): List<Account>
 

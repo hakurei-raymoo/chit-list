@@ -3,15 +3,15 @@ package gensokyo.hakurei.chitlist.viewmodels
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import gensokyo.hakurei.chitlist.database.AdminDao
+import gensokyo.hakurei.chitlist.database.AdminSettingsDao
 
 private const val TAG = "AdminSettingsViewModelFactory"
 
 /**
- * Provides the [AdminDao] and context to the [AdminSettingsViewModel].
+ * Provides the [AdminSettingsDao] and context to the [AdminSettingsViewModel].
  */
 class AdminSettingsViewModelFactory(
-    private val dataSource: AdminDao,
+    private val dataSource: AdminSettingsDao,
     private val application: Application
 ) : ViewModelProvider.Factory {
 

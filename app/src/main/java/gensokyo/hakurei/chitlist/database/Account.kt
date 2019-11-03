@@ -2,8 +2,8 @@ package gensokyo.hakurei.chitlist.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Index
 import androidx.room.PrimaryKey
+import gensokyo.hakurei.chitlist.utilities.hash
 
 @Entity(tableName = "accounts_table")
 data class Account(
@@ -27,7 +27,7 @@ data class Account(
     var emailAddress: String = "",
 
     @ColumnInfo(name = "password_hash")
-    var passwordHash: String = "",
+    var passwordHash: String = "".hash(),
 
     @ColumnInfo(name = "alt_auth")
     var altAuth: String = "",

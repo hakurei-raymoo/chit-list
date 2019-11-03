@@ -115,7 +115,7 @@ class HomeViewPagerFragment : Fragment() {
 
     private fun changePassword() {
         this.findNavController().navigate(
-            R.id.change_password_dialog
+            HomeViewPagerFragmentDirections.actionHomeViewPagerFragmentToChangePasswordDialog()
         )
     }
 

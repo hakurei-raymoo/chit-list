@@ -44,8 +44,8 @@ class PrepopulateItems {
         items.add(Item(name = "Pie", price = 300, image = "ic_fridge_white_24dp"))
         items.add(Item(name = "Sausage roll", price = 250, image = "ic_fridge_white_24dp"))
         items.add(Item(name = "Pastry", price = 300, image = "ic_fridge_white_24dp"))
-        items.add(Item(name = "Soup", price = 200))
-        items.add(Item(name = "Sandwich", price = 500))
+        items.add(Item(name = "Soup", price = 200, image = "ic_checkout_white_24dp"))
+        items.add(Item(name = "Sandwich", price = 500, image = "ic_checkout_white_24dp"))
         items.shuffle()
     }
 

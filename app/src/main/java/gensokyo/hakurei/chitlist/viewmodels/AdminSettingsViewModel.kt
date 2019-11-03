@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.sqlite.db.SimpleSQLiteQuery
 import gensokyo.hakurei.chitlist.utilities.Converter
 import gensokyo.hakurei.chitlist.utilities.DATABASE_NAME
-import gensokyo.hakurei.chitlist.database.AdminDao
+import gensokyo.hakurei.chitlist.database.AdminSettingsDao
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import kotlinx.coroutines.*
 import java.io.*
@@ -17,7 +17,7 @@ import java.io.*
 private const val TAG = "AdminSettingsViewModel"
 
 class AdminSettingsViewModel(
-    private val database: AdminDao,
+    private val database: AdminSettingsDao,
     val application: Application
 ) : ViewModel() {
 

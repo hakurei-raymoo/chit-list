@@ -39,7 +39,7 @@ class AdminSettingsFragment : Fragment() {
 
         // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
-        val dataSource = AppDatabase.getInstance(application).adminDao
+        val dataSource = AppDatabase.getInstance(application).adminSettingsDao
         val viewModelFactory = AdminSettingsViewModelFactory(
             dataSource,
             application

@@ -7,8 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -17,7 +16,7 @@ import gensokyo.hakurei.chitlist.databinding.FragmentAccountDetailBinding
 
 private const val TAG = "AccountDetailFragment"
 
-class AccountDetailFragment : Fragment() {
+class AccountDetailFragment : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,16 +60,6 @@ class AccountDetailFragment : Fragment() {
                 accountDetailViewModel.doneNavigating()
             }
         })
-
-        (activity as AppCompatActivity).run {
-            setSupportActionBar(binding.toolbar)
-
-            // Add up button to toolbar.
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            binding.toolbar.setNavigationOnClickListener {
-                onBackPressed()
-            }
-        }
 
         return binding.root
     }

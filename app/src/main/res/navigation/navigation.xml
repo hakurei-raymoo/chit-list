@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/navigation"
-            app:startDestination="@id/login_fragment">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/navigation"
+        app:startDestination="@id/login_fragment">
 
 
     <fragment
             android:id="@+id/login_fragment"
             android:name="gensokyo.hakurei.chitlist.LoginFragment"
             android:label="LoginFragment"
-            tools:layout="@layout/fragment_login" >
+            tools:layout="@layout/fragment_login">
         <action
                 android:id="@+id/action_login_fragment_to_home_navigation"
                 app:destination="@id/home_navigation"
@@ -26,18 +26,21 @@
 
     <navigation
             android:id="@+id/home_navigation"
-            app:startDestination="@id/home_view_pager_fragment" >
+            app:startDestination="@id/home_view_pager_fragment">
         <fragment
                 android:id="@+id/home_view_pager_fragment"
                 android:name="gensokyo.hakurei.chitlist.HomeViewPagerFragment"
                 android:label="HomeViewPagerFragment"
                 tools:layout="@layout/fragment_home_view_pager">
-            <action
-                    android:id="@+id/action_home_view_pager_fragment_to_admin_view_pager_fragment"
-                    app:destination="@id/admin_view_pager_fragment" />
             <argument
                     android:name="userId"
                     app:argType="long" />
+            <action
+                    android:id="@+id/action_home_view_pager_fragment_to_admin_view_pager_fragment"
+                    app:destination="@id/admin_view_pager_fragment" />
+            <action
+                    android:id="@+id/action_home_view_pager_fragment_to_change_password_dialog"
+                    app:destination="@id/change_password_dialog" />
         </fragment>
         <fragment
                 android:id="@+id/transaction_detail_fragment"
@@ -49,15 +52,6 @@
                     app:argType="long" />
             <argument
                     android:name="transactionKey"
-                    app:argType="long" />
-        </fragment>
-        <fragment
-                android:id="@+id/account_detail_fragment"
-                android:name="gensokyo.hakurei.chitlist.accountdetail.AccountDetailFragment"
-                android:label="AccountDetailFragment"
-                tools:layout="@layout/fragment_account_detail">
-            <argument
-                    android:name="accountKey"
                     app:argType="long" />
         </fragment>
         <fragment
@@ -99,11 +93,22 @@
                     android:name="itemKey"
                     app:argType="long" />
         </fragment>
+
         <dialog
                 android:id="@+id/change_password_dialog"
                 android:name="gensokyo.hakurei.chitlist.ChangePasswordDialog"
                 android:label="ChangePasswordDialog"
                 tools:layout="@layout/dialog_change_password" />
+
+        <dialog
+                android:id="@+id/account_detail_fragment"
+                android:name="gensokyo.hakurei.chitlist.accountdetail.AccountDetailFragment"
+                android:label="AccountDetailFragment"
+                tools:layout="@layout/fragment_account_detail">
+            <argument
+                    android:name="accountKey"
+                    app:argType="long" />
+        </dialog>
     </navigation>
 
 </navigation>

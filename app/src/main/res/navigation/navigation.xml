@@ -42,23 +42,21 @@
                     android:id="@+id/action_home_view_pager_fragment_to_change_password_dialog"
                     app:destination="@id/change_password_dialog" />
         </fragment>
-        <fragment
-                android:id="@+id/transaction_detail_fragment"
-                android:name="gensokyo.hakurei.chitlist.transactiondetail.TransactionDetailFragment"
-                android:label="TransactionDetailFragment"
-                tools:layout="@layout/fragment_transaction_detail">
-            <argument
-                    android:name="creatorId"
-                    app:argType="long" />
-            <argument
-                    android:name="transactionKey"
-                    app:argType="long" />
-        </fragment>
+
+        <dialog
+                android:id="@+id/change_password_dialog"
+                android:name="gensokyo.hakurei.chitlist.ChangePasswordFragment"
+                android:label="ChangePasswordDialog"
+                tools:layout="@layout/fragment_change_password" />
+
         <fragment
                 android:id="@+id/admin_view_pager_fragment"
                 android:name="gensokyo.hakurei.chitlist.AdminViewPagerFragment"
                 android:label="AdminViewPagerFragment"
                 tools:layout="@layout/fragment_admin_view_pager">
+            <argument
+                    android:name="userId"
+                    app:argType="long" />
             <action
                     android:id="@+id/action_admin_view_pager_fragment_to_item_detail_fragment"
                     app:destination="@id/item_detail_fragment"
@@ -80,25 +78,7 @@
                     app:exitAnim="@anim/slide_out_left"
                     app:popEnterAnim="@anim/slide_in_left"
                     app:popExitAnim="@anim/slide_out_right" />
-            <argument
-                    android:name="userId"
-                    app:argType="long" />
         </fragment>
-        <fragment
-                android:id="@+id/item_detail_fragment"
-                android:name="gensokyo.hakurei.chitlist.itemdetail.ItemDetailFragment"
-                android:label="ItemDetailFragment"
-                tools:layout="@layout/fragment_item_detail">
-            <argument
-                    android:name="itemKey"
-                    app:argType="long" />
-        </fragment>
-
-        <dialog
-                android:id="@+id/change_password_dialog"
-                android:name="gensokyo.hakurei.chitlist.ChangePasswordDialog"
-                android:label="ChangePasswordDialog"
-                tools:layout="@layout/dialog_change_password" />
 
         <dialog
                 android:id="@+id/account_detail_fragment"
@@ -107,6 +87,29 @@
                 tools:layout="@layout/fragment_account_detail">
             <argument
                     android:name="accountKey"
+                    app:argType="long" />
+        </dialog>
+
+        <dialog
+                android:id="@+id/item_detail_fragment"
+                android:name="gensokyo.hakurei.chitlist.itemdetail.ItemDetailFragment"
+                android:label="ItemDetailFragment"
+                tools:layout="@layout/fragment_item_detail">
+            <argument
+                    android:name="itemKey"
+                    app:argType="long" />
+        </dialog>
+
+        <dialog
+                android:id="@+id/transaction_detail_fragment"
+                android:name="gensokyo.hakurei.chitlist.transactiondetail.TransactionDetailFragment"
+                android:label="TransactionDetailFragment"
+                tools:layout="@layout/fragment_transaction_detail">
+            <argument
+                    android:name="creatorId"
+                    app:argType="long" />
+            <argument
+                    android:name="transactionKey"
                     app:argType="long" />
         </dialog>
     </navigation>

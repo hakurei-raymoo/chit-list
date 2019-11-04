@@ -8,12 +8,12 @@ import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import gensokyo.hakurei.chitlist.viewmodels.HomeViewModel
-import gensokyo.hakurei.chitlist.databinding.DialogChangePasswordBinding
+import gensokyo.hakurei.chitlist.databinding.FragmentChangePasswordBinding
 import gensokyo.hakurei.chitlist.utilities.hash
 
-private const val TAG = "ChangePasswordDialog"
+private const val TAG = "ChangePasswordFragment"
 
-class ChangePasswordDialog : DialogFragment() {
+class ChangePasswordFragment : DialogFragment() {
 
     private val homeViewModel: HomeViewModel by navGraphViewModels(R.id.home_navigation)
 
@@ -24,7 +24,7 @@ class ChangePasswordDialog : DialogFragment() {
     ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding = DialogChangePasswordBinding.inflate(inflater, container, false)
+        val binding = FragmentChangePasswordBinding.inflate(inflater, container, false)
 
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.

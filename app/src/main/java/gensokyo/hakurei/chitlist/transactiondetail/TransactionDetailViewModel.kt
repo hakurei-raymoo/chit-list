@@ -11,20 +11,26 @@ private const val TAG = "TXDetailViewModel"
 
 class TransactionDetailViewModel(
     private val creatorId: Long,
-    transactionKey: Long,
-    private val database: TransactionDao
+    private val transactionKey: Long,
+    private val dataSource: TransactionDao
 ) : ViewModel() {
 
     private val viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val _transaction: LiveData<Transaction>
-    val transaction
+    // Check transactionKey to either get Transaction from database or insert a new one.
+    private var _transaction =
+        if (transactionKey == -1L) {
+            MutableLiveData<Transaction>(Transaction(accountId = creatorId, creatorId = creatorId, itemId = 1L))
+        } else {
+            dataSource.getTransaction(transactionKey)
+        }
+    val transaction: LiveData<Transaction>
         get() = _transaction
 
-    val accounts = database.getBareAccounts()
-    val items = database.getBareItems()
+    val accounts = dataSource.getBareAccounts()
+    val items = dataSource.getBareItems()
 
     private var _linkedAccount = MutableLiveData<BareAccount>()
     val linkedAccount: LiveData<BareAccount>
@@ -47,29 +53,8 @@ class TransactionDetailViewModel(
     val navigateToTransactionsList: LiveData<Boolean?>
         get() = _navigateToTransactionsList
 
-    /**
-     * Check transactionKey to either get existing Transaction or insert a new one.
-     */
     init {
         Log.i(TAG, "Init")
-        if (transactionKey == -1L) {
-            newTransaction()
-            _transaction = database.getLastTransaction()
-        } else {
-            _transaction = database.getTransaction(transactionKey)
-        }
-    }
-
-    private fun newTransaction() {
-        uiScope.launch {
-            withContext(Dispatchers.IO) {
-                // Transaction must have valid ForeignKeys before insertion to table.
-                val newTransaction = Transaction(accountId = 1L, creatorId = creatorId, itemId = 1L)
-                Log.i(TAG, "Attempting $newTransaction")
-                database.insert(newTransaction)
-                Log.i(TAG, "Inserted $newTransaction")
-            }
-        }
     }
 
     fun onUpdateClicked() {
@@ -85,8 +70,13 @@ class TransactionDetailViewModel(
 
     private suspend fun update() {
         withContext(Dispatchers.IO) {
-            database.update(transaction.value!!)
-            Log.i(TAG, "Updated ${transaction.value!!}")
+            if (transactionKey == -1L) {
+                dataSource.insert(transaction.value!!)
+                Log.i(TAG, "Inserted ${transaction.value!!}")
+            } else {
+                dataSource.update(transaction.value!!)
+                Log.i(TAG, "Updated ${transaction.value!!}")
+            }
         }
     }
 
@@ -105,7 +95,7 @@ class TransactionDetailViewModel(
         } else {
             uiScope.launch {
                 withContext(Dispatchers.IO) {
-                    val account = database.getAccount(accountId)
+                    val account = dataSource.getAccount(accountId)
                     _linkedAccount.postValue(account)
                 }
             }
@@ -119,7 +109,7 @@ class TransactionDetailViewModel(
         } else {
             uiScope.launch {
                 withContext(Dispatchers.IO) {
-                    _linkedCreator.postValue(database.getAccount(creatorId))
+                    _linkedCreator.postValue(dataSource.getAccount(creatorId))
                 }
             }
         }
@@ -132,7 +122,7 @@ class TransactionDetailViewModel(
         } else {
             uiScope.launch {
                 withContext(Dispatchers.IO) {
-                    _linkedItem.postValue(database.getItem(itemId))
+                    _linkedItem.postValue(dataSource.getItem(itemId))
                 }
             }
         }

@@ -8,8 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -18,7 +17,7 @@ import gensokyo.hakurei.chitlist.databinding.FragmentTransactionDetailBinding
 
 private const val TAG = "TXDetailFragment"
 
-class TransactionDetailFragment : Fragment() {
+class TransactionDetailFragment : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,16 +86,6 @@ class TransactionDetailFragment : Fragment() {
 //            binding.itemEdit.error = if (it == null) "Invalid item_id" else null
             transactionDetailViewModel.updateEnableInput()
         })
-
-        (activity as AppCompatActivity).run {
-            setSupportActionBar(binding.toolbar)
-
-            // Add up button to toolbar.
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            binding.toolbar.setNavigationOnClickListener {
-                onBackPressed()
-            }
-        }
 
         return binding.root
     }

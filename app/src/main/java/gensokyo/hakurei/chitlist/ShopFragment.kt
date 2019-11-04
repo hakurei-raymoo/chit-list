@@ -1,6 +1,5 @@
 package gensokyo.hakurei.chitlist
 
-import android.app.ProgressDialog.show
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast

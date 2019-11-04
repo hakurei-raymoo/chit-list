@@ -9,17 +9,15 @@ import kotlinx.coroutines.*
 private const val TAG = "AccountDetailViewModel"
 
 class AccountDetailViewModel(
-    private val accountKey: Long = -1L,
+    private val accountKey: Long,
     private val dataSource: AccountDao
 ) : ViewModel() {
-
-    private val database = dataSource
 
     private val viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    // Check accountKey to either get existing Account or insert a new one.
+    // Check accountKey to either get Account from database or insert a new one.
     private var _account =
         if (accountKey == -1L) {
             MutableLiveData<Account>(Account())
@@ -47,11 +45,11 @@ class AccountDetailViewModel(
     private suspend fun update() {
         withContext(Dispatchers.IO) {
             if (accountKey == -1L) {
-                database.insert(account.value!!)
+                dataSource.insert(account.value!!)
                 Log.i(TAG, "Inserted ${account.value!!}")
             } else {
                 // TODO: Throw error if last admin account disabled.
-                database.update(account.value!!)
+                dataSource.update(account.value!!)
                 Log.i(TAG, "Updated ${account.value!!}")
             }
         }

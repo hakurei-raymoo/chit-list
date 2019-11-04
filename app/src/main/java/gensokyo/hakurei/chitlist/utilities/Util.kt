@@ -60,7 +60,7 @@ object Converter {
     @JvmStatic
     @SuppressLint("SimpleDateFormat")
     fun convertLongToDateStringExpanded(systemTime: Long): String {
-        return SimpleDateFormat("EEEE MMM-dd-yyyy' Time 'HH:mm:ss.SSS")
+        return SimpleDateFormat("EEEE MMM dd yyyy' Time 'HH:mm:ss.SSS")
             .format(systemTime).toString()
     }
 

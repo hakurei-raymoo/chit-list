@@ -7,6 +7,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import gensokyo.hakurei.chitlist.utilities.DATABASE_NAME
+import gensokyo.hakurei.chitlist.utilities.hash
 import java.util.concurrent.Executors
 
 private const val TAG = "AppDatabase"
@@ -64,7 +65,7 @@ abstract class AppDatabase : RoomDatabase() {
                         Account(
                             firstName = "admin",
                             lastName = "default",
-                            passwordHash = "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+                            passwordHash = "".hash(),
                             admin = true
                         )
                     )
@@ -72,6 +73,13 @@ abstract class AppDatabase : RoomDatabase() {
                     .insert(
                         Item(
                             name = "Cash",
+                            enabled = false
+                        )
+                    )
+                getInstance(context).itemDao
+                    .insert(
+                        Item(
+                            name = "EFT",
                             enabled = false
                         )
                     )

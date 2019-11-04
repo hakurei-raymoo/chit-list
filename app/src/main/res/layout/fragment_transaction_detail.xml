@@ -45,9 +45,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="@dimen/spacing_normal"
+                        android:text="@{Converter.convertLongToDateStringExpanded(transactionDetailViewModel.transaction.time)}"
                         android:textAllCaps="true"
                         android:textSize="12sp"
-                        android:text="@{Converter.convertLongToDateStringExpanded(transactionDetailViewModel.transaction.time)}"
                         tools:text="@string/time_equals" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -62,6 +62,7 @@
                             style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:enabled="@{transactionDetailViewModel.newTransaction}"
                             android:inputType="textNoSuggestions|textVisiblePassword"
                             android:text="@={`` + transactionDetailViewModel.transaction.accountId}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -91,6 +92,7 @@
                             style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:enabled="@{transactionDetailViewModel.newTransaction}"
                             android:inputType="textNoSuggestions|textVisiblePassword"
                             android:text="@={`` + transactionDetailViewModel.transaction.itemId}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -104,8 +106,8 @@
                             android:id="@+id/amount_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:enabled="@{transactionDetailViewModel.newTransaction}"
                             android:inputType="number|numberSigned|numberDecimal"
-                            android:maxLines="1"
                             android:text="@={Converter.addDecimal(transactionDetailViewModel.transaction.amount)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -133,8 +135,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:onClick="@{() -> transactionDetailViewModel.onUpdateClicked()}"
                             android:enabled="@{transactionDetailViewModel.enableInput}"
+                            android:onClick="@{() -> transactionDetailViewModel.onUpdateClicked()}"
                             android:text="@string/update" />
 
                     <com.google.android.material.button.MaterialButton

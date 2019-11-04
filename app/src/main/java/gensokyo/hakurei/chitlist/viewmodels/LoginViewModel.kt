@@ -28,8 +28,7 @@ class LoginViewModel(
 
     // AutoCompleteTextView adapter list.
     private val _accountsList = Transformations.map(database.getBareAccounts()) { accounts ->
-        formatAccounts(accounts)
-    }
+        formatAccounts(accounts) }
     val accountsList: LiveData<List<String>>
         get() = _accountsList
 

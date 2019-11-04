@@ -23,9 +23,11 @@ class TransactionDetailViewModel(
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    val newTransaction = (transactionKey == -1L)
+
     // Check transactionKey to either get Transaction from database or insert a new one.
     private var _transaction =
-        if (transactionKey == -1L) {
+        if (newTransaction) {
             MutableLiveData<Transaction>(Transaction(accountId = creatorId, creatorId = creatorId, itemId = 1L))
         } else {
             dataSource.getTransaction(transactionKey)
@@ -85,7 +87,7 @@ class TransactionDetailViewModel(
 
     private suspend fun update() {
         withContext(Dispatchers.IO) {
-            if (transactionKey == -1L) {
+            if (newTransaction) {
                 dataSource.insert(transaction.value!!)
                 Log.i(TAG, "Inserted ${transaction.value!!}")
             } else {

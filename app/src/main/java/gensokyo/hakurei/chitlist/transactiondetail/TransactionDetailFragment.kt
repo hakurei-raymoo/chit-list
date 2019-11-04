@@ -1,5 +1,6 @@
 package gensokyo.hakurei.chitlist.transactiondetail
 
+import android.R
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
@@ -46,6 +48,40 @@ class TransactionDetailFragment : DialogFragment() {
         // This is necessary so that the binding can observe LiveData updates.
         binding.lifecycleOwner = viewLifecycleOwner
 
+        // Populate AutoCompleteTextView with accounts.
+        transactionDetailViewModel.accountsList.observe(this, Observer {
+            Log.i(TAG, "Observed accounts=$it")
+
+            if (it != null) {
+                // Get a reference to the AutoCompleteTextView in the layout.
+                val accountAutocomplete = binding.accountAutocomplete
+                // Create the adapter and set it to the AutoCompleteTextView.
+                val accountsAdaptor = ArrayAdapter<String>(
+                    requireContext(),
+                    R.layout.simple_list_item_1,
+                    it
+                )
+                accountAutocomplete.setAdapter(accountsAdaptor)
+            }
+        })
+
+        // Populate AutoCompleteTextView with items.
+        transactionDetailViewModel.itemsList.observe(this, Observer {
+            Log.i(TAG, "Observed items=$it")
+
+            if (it != null) {
+                // Get a reference to the AutoCompleteTextView in the layout.
+                val accountAutocomplete = binding.itemAutocomplete
+                // Create the adapter and set it to the AutoCompleteTextView.
+                val accountsAdaptor = ArrayAdapter<String>(
+                    requireContext(),
+                    R.layout.simple_list_item_1,
+                    it
+                )
+                accountAutocomplete.setAdapter(accountsAdaptor)
+            }
+        })
+
         // Add an Observer to the state variable for Navigating when a Submit button is tapped.
         transactionDetailViewModel.navigateToTransactionsList.observe(viewLifecycleOwner, Observer {
             // Observed state is true.
@@ -63,27 +99,25 @@ class TransactionDetailFragment : DialogFragment() {
         })
 
         // Update helper text on text change.
-        binding.accountEdit.addTextChangedListener { text ->
-            transactionDetailViewModel.updateAccountEditHelperText(text.toString().toLongOrNull())
+        binding.accountAutocomplete.addTextChangedListener { text ->
+            transactionDetailViewModel.updateLinkedAccount(text.toString())
         }
         binding.creatorEdit.addTextChangedListener { text ->
-            transactionDetailViewModel.updateCreatorEditHelperText(text.toString().toLongOrNull())
+            transactionDetailViewModel.updateLinkedCreator(text.toString())
         }
-        binding.itemEdit.addTextChangedListener { text ->
-            transactionDetailViewModel.updateItemEditHelperText(text.toString().toLongOrNull())
+        binding.itemAutocomplete.addTextChangedListener { text ->
+            transactionDetailViewModel.updateLinkedItem(text.toString())
         }
 
         // Update error on database response.
         transactionDetailViewModel.linkedAccount.observe(viewLifecycleOwner, Observer {
-//            binding.accountEdit.error = if (it == null) "Invalid account_id" else null
-            transactionDetailViewModel.updateEnableInput()
-        })
-        transactionDetailViewModel.linkedCreator.observe(viewLifecycleOwner, Observer {
-//            binding.creatorEdit.error = if (it == null) "Invalid creator_id" else null
+//            binding.accountAutocomplete.error = if (it == null) "Invalid account_id" else null
+            Log.i(TAG, "linkedAccount=$it")
             transactionDetailViewModel.updateEnableInput()
         })
         transactionDetailViewModel.linkedItem.observe(viewLifecycleOwner, Observer {
 //            binding.itemEdit.error = if (it == null) "Invalid item_id" else null
+            Log.i(TAG, "linkedItem=$it")
             transactionDetailViewModel.updateEnableInput()
         })
 

@@ -5,11 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import gensokyo.hakurei.chitlist.adapters.formatAccounts
 import gensokyo.hakurei.chitlist.database.Account
-import gensokyo.hakurei.chitlist.database.BareAccount
 import gensokyo.hakurei.chitlist.database.LoginDao
 import gensokyo.hakurei.chitlist.utilities.hash
 import kotlinx.coroutines.*
+import kotlin.math.min
 
 private const val TAG = "LoginViewModel"
 
@@ -45,23 +46,9 @@ class LoginViewModel(
         Log.i(TAG, "Init")
     }
 
-    /* Convert List<BareAccount> to List<String> for AutoCompeteTextView. */
-    private fun formatAccounts(accounts: List<BareAccount>): List<String> {
-        val mutableList = accounts.toMutableList()
-        val stringList = mutableListOf<String>()
-        mutableList.sortWith(compareBy(String.CASE_INSENSITIVE_ORDER) {String.format("%04d: %s %s", it.accountId, it.firstName, it.lastName)})
-        Log.i(TAG, "mutableList=$mutableList")
-
-        mutableList.forEach {
-            stringList.add(String.format("%04d: %s %s", it.accountId, it.firstName, it.lastName))
-        }
-        Log.i(TAG, "stringList=$stringList")
-        return stringList
-    }
-
     /* Returns the first four characters of the string as a long. */
     private fun loginStringToAccountId(string: String): Long? {
-        return if (string.length > 3) string.substring(0..3).toLongOrNull() else null
+        return string.substring(0, min(string.length, 4)).toLongOrNull()
     }
 
     private fun tryLogin(accountId: Long, passwordHash: String) {

@@ -8,6 +8,7 @@ import androidx.databinding.InverseMethod
 import gensokyo.hakurei.chitlist.R
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
+import kotlin.math.min
 
 private const val TAG = "Util"
 
@@ -20,9 +21,9 @@ fun String.hash() : String {
 object Converter {
     @JvmStatic
     @InverseMethod("addDecimal")
-    fun removeDecimal(value: String): Int {
-        Log.i(TAG, "removeDecimal called on $value")
-        val float = value.toFloatOrNull() ?: return 0
+    fun removeDecimal(string: String): Int {
+        Log.i(TAG, "removeDecimal called on $string")
+        val float = string.toFloatOrNull() ?: return 0
 
         val formatted: String
         formatted = when (CURRENCY_SEPARATOR_OFFSET) {

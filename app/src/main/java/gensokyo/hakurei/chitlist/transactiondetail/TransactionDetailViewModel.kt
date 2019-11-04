@@ -3,9 +3,13 @@ package gensokyo.hakurei.chitlist.transactiondetail
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import gensokyo.hakurei.chitlist.adapters.formatAccounts
+import gensokyo.hakurei.chitlist.adapters.formatItems
 import gensokyo.hakurei.chitlist.database.*
 import kotlinx.coroutines.*
+import kotlin.math.min
 
 private const val TAG = "TXDetailViewModel"
 
@@ -29,16 +33,25 @@ class TransactionDetailViewModel(
     val transaction: LiveData<Transaction>
         get() = _transaction
 
-    val accounts = dataSource.getBareAccounts()
-    val items = dataSource.getBareItems()
+    // Accounts AutoCompleteTextView adapter list.
+    private val _accountsList = Transformations.map(dataSource.getBareAccounts()) { accounts ->
+        formatAccounts(accounts) }
+    val accountsList: LiveData<List<String>>
+        get() = _accountsList
+
+    // Items AutoCompleteTextView adapter list.
+    private val _itemsList = Transformations.map(dataSource.getBareItems()) { items ->
+        formatItems(items) }
+    val itemsList: LiveData<List<String>>
+        get() = _itemsList
 
     private var _linkedAccount = MutableLiveData<BareAccount>()
     val linkedAccount: LiveData<BareAccount>
         get() = _linkedAccount
 
-    private var _linkedCreator = MutableLiveData<BareAccount>()
-    val linkedCreator: LiveData<BareAccount>
-        get() = _linkedCreator
+//    private var _linkedCreator = dataSource.getAccount(creatorId)
+//    val linkedCreator: LiveData<BareAccount>
+//        get() = _linkedCreator
 
     private var _linkedItem = MutableLiveData<BareItem>()
     val linkedItem: LiveData<BareItem>
@@ -58,8 +71,10 @@ class TransactionDetailViewModel(
     }
 
     fun onUpdateClicked() {
-        if (linkedAccount.value == null || linkedCreator.value == null || linkedItem.value == null) {
-            Log.i(TAG, "Invalid input.")
+        if (linkedAccount.value == null) {
+            Log.i(TAG, "Invalid account_id.")
+        } else if (linkedItem.value == null) {
+            Log.i(TAG, "Invalid item_id.")
         } else {
             uiScope.launch {
                 update()
@@ -88,8 +103,10 @@ class TransactionDetailViewModel(
         _navigateToTransactionsList.value = null
     }
 
-    fun updateAccountEditHelperText(accountId: Long?) {
+    fun updateLinkedAccount(string: String) {
+        val accountId = string.substring(0, min(string.length, 4)).toLongOrNull()
         // Clear value if input cannot be cast to Long. Else perform database lookup.
+        Log.i(TAG, "updateLinkedAccount=$accountId")
         if (accountId == null) {
             _linkedAccount.postValue(null)
         } else {
@@ -102,27 +119,23 @@ class TransactionDetailViewModel(
         }
     }
 
-    fun updateCreatorEditHelperText(creatorId: Long?) {
+    fun updateLinkedCreator(string: String) {
+        val creatorId = string.substring(0, min(string.length, 4)).toLongOrNull()
         // Clear value if input cannot be cast to Long. Else perform database lookup.
-        if (creatorId == null) {
-            _linkedCreator.postValue(null)
-        } else {
-            uiScope.launch {
-                withContext(Dispatchers.IO) {
-                    _linkedCreator.postValue(dataSource.getAccount(creatorId))
-                }
-            }
-        }
+        Log.i(TAG, "updateLinkedCreator=$creatorId")
     }
 
-    fun updateItemEditHelperText(itemId: Long?) {
+    fun updateLinkedItem(string: String) {
+        val itemId = string.substring(0, min(string.length, 4)).toLongOrNull()
         // Clear value if input cannot be cast to Long. Else perform database lookup.
+        Log.i(TAG, "updateLinkedItem=$itemId")
         if (itemId == null) {
             _linkedItem.postValue(null)
         } else {
             uiScope.launch {
                 withContext(Dispatchers.IO) {
-                    _linkedItem.postValue(dataSource.getItem(itemId))
+                    val item = dataSource.getItem(itemId)
+                    _linkedItem.postValue(item)
                 }
             }
         }
@@ -130,7 +143,8 @@ class TransactionDetailViewModel(
 
     // Switch when all ForeignKey inputs are not null.
     fun updateEnableInput() {
-        _enableInput.postValue(linkedAccount.value != null && linkedCreator.value != null && linkedItem.value != null)
+//        _enableInput.postValue(linkedAccount.value != null && linkedCreator.value != null && linkedItem.value != null)
+        _enableInput.postValue(linkedAccount.value != null && linkedItem.value != null)
     }
 
     override fun onCleared() {

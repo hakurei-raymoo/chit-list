@@ -51,54 +51,47 @@
                         tools:text="@string/time_equals" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/account"
-                        app:helperText="@{transactionDetailViewModel.linkedAccount != null ? (@string/full_name(transactionDetailViewModel.linkedAccount.firstName,transactionDetailViewModel.linkedAccount.lastName)) : (@string/invalid_input)}"
-                        app:helperTextEnabled="true"
-                        tools:helperText="@string/full_name">
+                        android:labelFor="@id/account_autocomplete">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/account_edit"
+                    <AutoCompleteTextView
+                            android:id="@+id/account_autocomplete"
+                            style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number"
-                            android:maxLines="1"
+                            android:inputType="textNoSuggestions|textVisiblePassword"
                             android:text="@={`` + transactionDetailViewModel.transaction.accountId}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/creator"
-                        app:helperText="@{transactionDetailViewModel.linkedCreator != null ? (@string/full_name(transactionDetailViewModel.linkedCreator.firstName,transactionDetailViewModel.linkedCreator.lastName)) : (@string/invalid_input)}"
-                        app:helperTextEnabled="true"
-                        tools:helperText="@string/full_name">
+                        android:hint="@string/creator">
 
                     <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/creator_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:enabled="false"
-                            android:inputType="number"
-                            android:maxLines="1"
                             android:text="@={`` + transactionDetailViewModel.transaction.creatorId}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/item"
-                        app:helperText="@{transactionDetailViewModel.linkedItem.name ?? @string/invalid_input}"
-                        app:helperTextEnabled="true"
-                        tools:helperText="transactionDetailViewModel.linkedItem.name">
+                        android:labelFor="@id/item_autocomplete">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/item_edit"
+                    <AutoCompleteTextView
+                            android:id="@+id/item_autocomplete"
+                            style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number"
-                            android:maxLines="1"
+                            android:inputType="textNoSuggestions|textVisiblePassword"
                             android:text="@={`` + transactionDetailViewModel.transaction.itemId}" />
                 </com.google.android.material.textfield.TextInputLayout>
 

@@ -31,10 +31,7 @@ class ShopFragment : Fragment() {
         val adapter =
             ShopAdapter(ShopListener {
                 homeViewModel.addItem(it)
-                Toast.makeText(activity, "Added ${it.name} to cart.", Toast.LENGTH_SHORT).apply {
-                    setGravity(Gravity.CENTER, 0, 0)
-                    show()
-                }
+                Toast.makeText(activity, "Added ${it.name} to cart", Toast.LENGTH_SHORT).show()
             })
         binding.itemsList.adapter = adapter
 

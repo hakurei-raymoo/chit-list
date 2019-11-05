@@ -12,8 +12,6 @@ class AdminHomeViewModel(
     private val dataSource: AdminHomeDao
 ) : ViewModel() {
 
-    private var viewModelJob = Job()
-
     private val _accounts = dataSource.getAccounts()
     val accounts
         get() = _accounts
@@ -85,6 +83,5 @@ class AdminHomeViewModel(
     override fun onCleared() {
         Log.i(TAG, "Cleared")
         super.onCleared()
-        viewModelJob.cancel()
     }
 }

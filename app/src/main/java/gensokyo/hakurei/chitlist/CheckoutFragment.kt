@@ -34,10 +34,7 @@ class CheckoutFragment : Fragment() {
         val adapter =
             CheckoutAdapter(CheckoutListener {
                 homeViewModel.removeItem(it)
-                Toast.makeText(activity, "Removed ${it.name} from cart.", Toast.LENGTH_SHORT).apply {
-                    setGravity(Gravity.CENTER, 0, 0)
-                    show()
-                }
+                Toast.makeText(activity, "Removed ${it.name} from cart", Toast.LENGTH_SHORT).show()
             })
         binding.itemsList.adapter = adapter
 
@@ -65,7 +62,7 @@ class CheckoutFragment : Fragment() {
 
                 homeViewModel.onLoginNavigated()
 
-                Toast.makeText(activity, "Checked out ${homeViewModel.cart.value?.size} items.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Checked out ${homeViewModel.cart.value?.size} items", Toast.LENGTH_SHORT).show()
             }
         })
 

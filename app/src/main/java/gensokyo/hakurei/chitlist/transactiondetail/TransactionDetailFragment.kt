@@ -1,6 +1,5 @@
 package gensokyo.hakurei.chitlist.transactiondetail
 
-import android.R
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +13,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentTransactionDetailBinding
 
@@ -43,6 +43,7 @@ class TransactionDetailFragment : DialogFragment() {
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
         binding.transactionDetailViewModel = transactionDetailViewModel
+        binding.isNew = (arguments.transactionKey == -1L)
 
         // Specify the current activity as the lifecycle owner of the binding.
         // This is necessary so that the binding can observe LiveData updates.
@@ -58,7 +59,7 @@ class TransactionDetailFragment : DialogFragment() {
                 // Create the adapter and set it to the AutoCompleteTextView.
                 val accountsAdaptor = ArrayAdapter<String>(
                     requireContext(),
-                    R.layout.simple_list_item_1,
+                    android.R.layout.simple_list_item_1,
                     it
                 )
                 accountAutocomplete.setAdapter(accountsAdaptor)
@@ -75,7 +76,7 @@ class TransactionDetailFragment : DialogFragment() {
                 // Create the adapter and set it to the AutoCompleteTextView.
                 val accountsAdaptor = ArrayAdapter<String>(
                     requireContext(),
-                    R.layout.simple_list_item_1,
+                    android.R.layout.simple_list_item_1,
                     it
                 )
                 accountAutocomplete.setAdapter(accountsAdaptor)
@@ -108,12 +109,12 @@ class TransactionDetailFragment : DialogFragment() {
 
         // Update error on database response.
         transactionDetailViewModel.linkedAccount.observe(viewLifecycleOwner, Observer {
-            binding.accountAutocomplete.error = if (it == null) "Invalid account_id" else null
+            binding.accountInput.hint = if (it == null) getString(R.string.invalid_account) else getString(R.string.account)
             Log.i(TAG, "linkedAccount=$it")
             transactionDetailViewModel.updateEnableInput()
         })
         transactionDetailViewModel.linkedItem.observe(viewLifecycleOwner, Observer {
-            binding.itemAutocomplete.error = if (it == null) "Invalid item_id" else null
+            binding.itemInput.hint = if (it == null) getString(R.string.invalid_item) else getString(R.string.item)
             Log.i(TAG, "linkedItem=$it")
             transactionDetailViewModel.updateEnableInput()
         })

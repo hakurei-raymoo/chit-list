@@ -43,6 +43,7 @@ class AdminSettingsViewModel(
         _returnMessage.value = null
     }
 
+    // TODO: Sum balances.
     fun exportBalances(uri: Uri) {
         try {
             uiScope.launch {
@@ -125,6 +126,7 @@ class AdminSettingsViewModel(
                                 "transaction_id," +
                                 "time," +
                                 "account," +
+                                "creator," +
                                 "item," +
                                 "amount," +
                                 "comments"
@@ -132,9 +134,11 @@ class AdminSettingsViewModel(
                             transactions.forEach {
                                 out.println(
                                     "${it.transactionId}," +
-                                    "${it.time}," +
+                                    "${Converter.convertLongToDateStringShort(it.time)}," +
                                     "${it.account.firstName} " +
                                     "${it.account.lastName}," +
+                                    "${it.creator.firstName} " +
+                                    "${it.creator.lastName}," +
                                     "${it.item.name}," +
                                     "${Converter.addDecimal(it.amount)}," +
                                     "${it.comments}"
@@ -191,7 +195,7 @@ class AdminSettingsViewModel(
                     }
                 }
 
-                _returnMessage.postValue("$DATABASE_NAME restored. App will now restart.")
+                _returnMessage.postValue("$DATABASE_NAME restored. App will now close.")
 
                 // Wait before exiting so messages can be displayed.
                 Thread.sleep(1000L)

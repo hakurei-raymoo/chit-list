@@ -19,7 +19,6 @@ class LoginViewModel(
 ) : ViewModel() {
 
     private var viewModelJob = Job()
-
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     val enableInput = MutableLiveData<Boolean>(true)

@@ -16,10 +16,12 @@ interface AdminSettingsDao {
     fun getItems(): List<Item>
 
     @Query("SELECT transactions_table.*," +
-            "accounts_table.account_id, accounts_table.first_name, accounts_table.last_name," +
-            "items_table.* FROM transactions_table" +
-            " LEFT JOIN accounts_table ON transactions_table.account_id = accounts_table.account_id" +
-            " LEFT JOIN items_table ON transactions_table.item_id = items_table.item_id" +
+            "a.account_id AS a_account_id, a.first_name AS a_first_name, a.last_name AS a_last_name," +
+            "c.account_id AS c_account_id, c.first_name AS c_first_name, c.last_name AS c_last_name," +
+            "i.item_id, i.name, i.price FROM transactions_table" +
+            " LEFT JOIN accounts_table AS a ON transactions_table.account_id = a_account_id" +
+            " LEFT JOIN accounts_table AS c ON transactions_table.creator_id = c_account_id" +
+            " LEFT JOIN items_table AS i ON transactions_table.item_id = i.item_id" +
             " GROUP BY transaction_id ORDER BY transaction_id ASC")
     fun getTransactionsWithChildren(): List<TransactionWithChildren>
 

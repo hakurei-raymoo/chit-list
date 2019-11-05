@@ -128,7 +128,7 @@ class HomeViewPagerFragment : Fragment() {
     }
 
     private fun logout() {
-//        Toast.makeText(activity, "${homeViewModel.user?.firstName} ${homeViewModel.user?.lastName} logged out.", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(activity, "${homeViewModel.user?.firstName} ${homeViewModel.user?.lastName} logged out", Toast.LENGTH_SHORT).show()
         (activity as AppCompatActivity).run {
             onBackPressed()
         }

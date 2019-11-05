@@ -51,18 +51,14 @@ class TransactionDetailViewModel(
     val linkedAccount: LiveData<BareAccount>
         get() = _linkedAccount
 
-//    private var _linkedCreator = dataSource.getAccount(creatorId)
-//    val linkedCreator: LiveData<BareAccount>
-//        get() = _linkedCreator
-
     private var _linkedItem = MutableLiveData<BareItem>()
     val linkedItem: LiveData<BareItem>
         get() = _linkedItem
 
-    // Enable/disable the submit button.
-    private var _enableInput = MutableLiveData<Boolean>()
-    val enableInput: LiveData<Boolean>
-        get() = _enableInput
+    // Disable the update button on invalid input.
+    private var _enableUpdate = MutableLiveData<Boolean>()
+    val enableUpdate: LiveData<Boolean>
+        get() = _enableUpdate
 
     private val _navigateToTransactionsList = MutableLiveData<Boolean?>()
     val navigateToTransactionsList: LiveData<Boolean?>
@@ -97,7 +93,7 @@ class TransactionDetailViewModel(
         }
     }
 
-    fun onBackClicked() {
+    fun onCancelClicked() {
         _navigateToTransactionsList.value = true
     }
 
@@ -121,12 +117,6 @@ class TransactionDetailViewModel(
         }
     }
 
-    fun updateLinkedCreator(string: String) {
-        val creatorId = string.substring(0, min(string.length, 4)).toLongOrNull()
-        // Clear value if input cannot be cast to Long. Else perform database lookup.
-        Log.i(TAG, "updateLinkedCreator=$creatorId")
-    }
-
     fun updateLinkedItem(string: String) {
         val itemId = string.substring(0, min(string.length, 4)).toLongOrNull()
         // Clear value if input cannot be cast to Long. Else perform database lookup.
@@ -145,8 +135,8 @@ class TransactionDetailViewModel(
 
     // Switch when all ForeignKey inputs are not null.
     fun updateEnableInput() {
-//        _enableInput.postValue(linkedAccount.value != null && linkedCreator.value != null && linkedItem.value != null)
-        _enableInput.postValue(linkedAccount.value != null && linkedItem.value != null)
+//        _enableUpdate.postValue(linkedAccount.value != null && linkedCreator.value != null && linkedItem.value != null)
+        _enableUpdate.postValue(linkedAccount.value != null && linkedItem.value != null)
     }
 
     override fun onCleared() {

@@ -34,7 +34,7 @@ class ChangePasswordFragment : DialogFragment() {
         // This is necessary so that the binding can observe LiveData updates.
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.okButton.setOnClickListener {
+        binding.updateButton.setOnClickListener {
             val currentPassword = binding.currentPasswordEdit.text.toString()
             val newPassword = binding.newPasswordEdit.text.toString()
             val confirmPassword = binding.confirmPasswordEdit.text.toString()
@@ -43,14 +43,18 @@ class ChangePasswordFragment : DialogFragment() {
             if (currentPassword.hash() == homeViewModel.user.value?.passwordHash) {
                 if (confirmPassword == newPassword) {
                     homeViewModel.changePassword(newPassword.hash())
-                    Toast.makeText(activity, "Password changed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Password changed", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(activity, "Passwords do not match.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Passwords do not match", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(activity, "Incorrect password.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Incorrect password", Toast.LENGTH_SHORT).show()
             }
 
+            this.findNavController().navigateUp()
+        }
+
+        binding.cancelButton.setOnClickListener {
             this.findNavController().navigateUp()
         }
 

@@ -3,7 +3,6 @@ package gensokyo.hakurei.chitlist.adapters
 import android.content.res.Resources
 import android.text.SpannableStringBuilder
 import android.text.Spanned
-import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -37,7 +36,6 @@ class HistoryAdapter(val clickListener: HistoryListener) :
             binding.transaction = item
             binding.clickListener = clickListener
             binding.executePendingBindings()
-//            binding.historyText.text = convertTransactionToString(item, res)
         }
 
         companion object {
@@ -75,11 +73,11 @@ private fun convertTransactionToString(item: TransactionWithChildren, resources:
         append(Converter.convertLongToDateStringShort(item.time))
         append("\n")
         append(resources.getString(R.string.creator_equals))
-        if (item.creatorId == item.account.accountId) {
-            append(resources.getString(R.string.you))
-        } else {
-            append("${item.creatorId}", ForegroundColorSpan(resources.getColor(R.color.colorAccent)), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        }
+//        if (item.creatorId == item.account.accountId) {
+//            append(resources.getString(R.string.you))
+//        } else {
+//            append("${item.creatorId}", ForegroundColorSpan(resources.getColor(R.color.colorAccent)), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        }
         append("\n")
         append(resources.getString(R.string.comments_equals))
         if (item.comments == "") {

@@ -56,7 +56,7 @@ class ItemDetailViewModel(
         }
     }
 
-    fun onBackClicked() {
+    fun onCancelClicked() {
         _navigateToItemsList.value = true
     }
 

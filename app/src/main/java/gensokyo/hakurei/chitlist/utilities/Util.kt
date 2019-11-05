@@ -21,14 +21,14 @@ fun String.hash() : String {
 object Converter {
     @JvmStatic
     @InverseMethod("toAccountName")
-    fun toAccountId(string: String): Long? {
-        val value = string.substring(0, min(string.length, 4)).toLongOrNull()
+    fun toAccountId(string: String): Long {
+        val value = string.substring(0, min(string.length, 4)).toLongOrNull() ?: -1
         Log.i(TAG, "toAccountId called on $string -> $value")
         return value
     }
 
     @JvmStatic
-    fun toAccountName(value: Long?): String {
+    fun toAccountName(value: Long): String {
         val string = String.format("%04d", value)
         Log.i(TAG, "toAccountName called on $value -> $string")
         return string
@@ -61,7 +61,7 @@ object Converter {
             1 -> "%.1f".format(float)
             else -> float.toString()
         }
-        Log.i(TAG, "removeDecimal called on $string -> $formatted")
+//        Log.i(TAG, "removeDecimal called on $string -> $formatted")
 
         return formatted.replace(CURRENCY_SEPARATOR_SYMBOL, "").toInt()
     }
@@ -70,7 +70,7 @@ object Converter {
     fun addDecimal(value: Int): String {
         // Add leading zeroes up to currency separator.
         val string = value.toString().padStart(CURRENCY_SEPARATOR_OFFSET + 1, '0')
-        Log.i(TAG, "addDecimal called on $value -> $string")
+//        Log.i(TAG, "addDecimal called on $value -> $string")
 
         val length = string.length
         // Insert currency separator at offset from right of string.

@@ -55,7 +55,7 @@ class AccountDetailViewModel(
         }
     }
 
-    fun onBackClicked() {
+    fun onCancelClicked() {
         _navigateToAccountsList.value = true
     }
 

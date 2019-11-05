@@ -148,14 +148,13 @@
                             android:text="@string/update" />
 
                     <com.google.android.material.button.MaterialButton
-                            android:id="@+id/back_button"
+                            android:id="@+id/cancel_button"
                             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/button_spacing"
                             android:layout_toStartOf="@id/update_button"
-                            android:onClick="@{() -> accountDetailViewModel.onBackClicked()}"
-                            android:text="@string/back" />
+                            android:onClick="@{() -> accountDetailViewModel.onCancelClicked()}"
+                            android:text="@string/cancel" />
                 </RelativeLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

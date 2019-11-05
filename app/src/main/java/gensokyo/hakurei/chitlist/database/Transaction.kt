@@ -50,16 +50,16 @@ data class TransactionWithChildren(
 
     val time: Long,
 
-    @Embedded
+    @Embedded(prefix = "a_")
     val account: BareAccount,
 
-    @ColumnInfo(name = "creator_id", index = true)
-    var creatorId: Long,
+    @Embedded(prefix = "c_")
+    val creator: BareAccount,
 
     @Embedded
-    val item: Item,
+    val item: BareItem,
 
-    var amount: Int = 0,
+    var amount: Int,
 
     var comments: String
 )

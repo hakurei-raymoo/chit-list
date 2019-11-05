@@ -71,12 +71,14 @@ class HomeViewModel (
     }
 
     fun onCheckoutClicked() {
-        uiScope.launch(Dispatchers.IO) {
-            Log.i(TAG, "cart=${cart.value}")
-            insertCart(cart.value)
+        uiScope.launch{
+            withContext(Dispatchers.IO) {
+                Log.i(TAG, "cart=${cart.value}")
+                insertCart(cart.value)
 
-            // Ensure database inserts are done before navigating.
-            _navigateToLogin.postValue(true)
+                // Ensure database inserts are done before navigating.
+                _navigateToLogin.postValue(true)
+            }
         }
     }
 

@@ -11,11 +11,10 @@
     <!-- Buttons -->
     <string name="update">Update</string>
     <string name="delete">Delete</string>
-    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
     <string name="edit">Edit</string>
     <string name="search">Search</string>
     <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
     <!-- Login -->
     <string name="login">Login</string>
     <string name="username">Username</string>
@@ -71,10 +70,12 @@
     <string name="time">Time</string>
     <string name="time_equals">time=%d</string>
     <string name="account">Account</string>
+    <string name="invalid_account">Invalid account id</string>
     <string name="account_equals">account=%s</string>
     <string name="creator">Creator</string>
     <string name="creator_equals">creator=%s</string>
     <string name="item">Item</string>
+    <string name="invalid_item">Invalid item id</string>
     <string name="item_equals">item=%s</string>
     <string name="amount">Amount</string>
     <string name="amount_equals">amount=%s</string>

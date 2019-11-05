@@ -12,16 +12,19 @@
         <variable
                 name="clickListener"
                 type="gensokyo.hakurei.chitlist.adapters.TransactionListener" />
+
+        <import type="android.view.View"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() -> clickListener.onClick(transaction)}"
-            app:cardBackgroundColor="@color/colorTransactions"
+            app:cardBackgroundColor="@{(transaction.account.accountId==transaction.creator.accountId) ? @color/colorTransactions : @color/colorPrimary}"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="false"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.LeftCutCard">
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.LeftCutCard"
+            tools:cardBackgroundColor="@color/colorTransactions">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -45,8 +48,8 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/colorSurface"
                     android:gravity="center_vertical"
+                    android:background="@color/colorSurface"
                     android:orientation="vertical"
                     android:paddingStart="@dimen/spacing_normal"
                     android:paddingTop="@dimen/spacing_extra_small"
@@ -56,16 +59,32 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="start"
                         android:text="@{@string/full_name(transaction.account.firstName,transaction.account.lastName)}"
                         tools:text="@string/account_equals" />
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="start"
                         android:text="@{transaction.item.name}"
                         tools:text="@string/item_equals" />
+
+                <TextView
+                        android:id="@+id/creator_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/creator_equals(@string/full_name(transaction.creator.firstName,transaction.creator.lastName))}"
+                        android:visibility='@{(transaction.account.accountId==transaction.creator.accountId) ? View.GONE : View.VISIBLE}'
+                        tools:text="@string/creator_equals"
+                        tools:visibility="gone" />
+
+                <TextView
+                        android:id="@+id/comments_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/comments_equals(transaction.comments)}"
+                        android:visibility='@{(transaction.comments.equals("")) ? View.GONE : View.VISIBLE}'
+                        tools:text="@string/comments_equals"
+                        tools:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

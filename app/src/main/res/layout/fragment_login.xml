@@ -62,8 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
-                    app:endIconMode="password_toggle"
-                    app:errorEnabled="true">
+                    app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/password_edit"
@@ -81,9 +80,8 @@
 
                 <com.google.android.material.button.MaterialButton
                         android:id="@+id/login_button"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
                         android:enabled="@{loginViewModel.enableInput}"
                         android:onClick="@{() -> loginViewModel.onLoginClicked()}"
                         android:text="@string/login" />

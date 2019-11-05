@@ -7,16 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.Fragment
+import android.widget.ArrayAdapter
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentTransactionDetailBinding
 
 private const val TAG = "TXDetailFragment"
 
-class TransactionDetailFragment : Fragment() {
+class TransactionDetailFragment : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +34,7 @@ class TransactionDetailFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val arguments = TransactionDetailFragmentArgs.fromBundle(arguments!!)
         val dataSource = AppDatabase.getInstance(application).transactionDao
-        val viewModelFactory = TransactionDetailViewModelFactory(arguments.transactionKey, dataSource)
+        val viewModelFactory = TransactionDetailViewModelFactory(arguments.creatorId, arguments.transactionKey, dataSource)
 
         // Get a reference to the ViewModel associated with this fragment.
         val transactionDetailViewModel =
@@ -40,10 +43,45 @@ class TransactionDetailFragment : Fragment() {
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
         binding.transactionDetailViewModel = transactionDetailViewModel
+        binding.isNew = (arguments.transactionKey == -1L)
 
         // Specify the current activity as the lifecycle owner of the binding.
         // This is necessary so that the binding can observe LiveData updates.
         binding.lifecycleOwner = viewLifecycleOwner
+
+        // Populate account AutoCompleteTextView with accounts.
+        transactionDetailViewModel.accountsList.observe(this, Observer {
+            Log.i(TAG, "Observed accounts=$it")
+
+            if (it != null) {
+                // Get a reference to the AutoCompleteTextView in the layout.
+                val accountAutocomplete = binding.accountAutocomplete
+                // Create the adapter and set it to the AutoCompleteTextView.
+                val accountsAdaptor = ArrayAdapter<String>(
+                    requireContext(),
+                    android.R.layout.simple_list_item_1,
+                    it
+                )
+                accountAutocomplete.setAdapter(accountsAdaptor)
+            }
+        })
+
+        // Populate item AutoCompleteTextView with items.
+        transactionDetailViewModel.itemsList.observe(this, Observer {
+            Log.i(TAG, "Observed items=$it")
+
+            if (it != null) {
+                // Get a reference to the AutoCompleteTextView in the layout.
+                val accountAutocomplete = binding.itemAutocomplete
+                // Create the adapter and set it to the AutoCompleteTextView.
+                val accountsAdaptor = ArrayAdapter<String>(
+                    requireContext(),
+                    android.R.layout.simple_list_item_1,
+                    it
+                )
+                accountAutocomplete.setAdapter(accountsAdaptor)
+            }
+        })
 
         // Add an Observer to the state variable for Navigating when a Submit button is tapped.
         transactionDetailViewModel.navigateToTransactionsList.observe(viewLifecycleOwner, Observer {
@@ -61,24 +99,25 @@ class TransactionDetailFragment : Fragment() {
             }
         })
 
-        // Update helper text on onCreateView.
-        transactionDetailViewModel.transaction.observe(viewLifecycleOwner, Observer {
-            transactionDetailViewModel.updateAccountEditHelperText(transactionDetailViewModel.transaction.value?.accountId)
-            transactionDetailViewModel.updateItemEditHelperText(transactionDetailViewModel.transaction.value?.itemId)
-        })
+        // Update linked properties on text change.
+        binding.accountAutocomplete.addTextChangedListener { text ->
+            transactionDetailViewModel.updateLinkedAccount(text.toString())
+        }
+        binding.itemAutocomplete.addTextChangedListener { text ->
+            transactionDetailViewModel.updateLinkedItem(text.toString())
+        }
 
-        // Update helper text on edit losing focus.
-        binding.accountEdit.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                transactionDetailViewModel.updateAccountEditHelperText(transactionDetailViewModel.transaction.value?.accountId)
-            }
-        }
-        // Update helper text on edit losing focus.
-        binding.itemEdit.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                transactionDetailViewModel.updateItemEditHelperText(transactionDetailViewModel.transaction.value?.itemId)
-            }
-        }
+        // Update error on database response.
+        transactionDetailViewModel.linkedAccount.observe(viewLifecycleOwner, Observer {
+            binding.accountInput.hint = if (it == null) getString(R.string.invalid_account) else getString(R.string.account)
+            Log.i(TAG, "linkedAccount=$it")
+            transactionDetailViewModel.updateEnableInput()
+        })
+        transactionDetailViewModel.linkedItem.observe(viewLifecycleOwner, Observer {
+            binding.itemInput.hint = if (it == null) getString(R.string.invalid_item) else getString(R.string.item)
+            Log.i(TAG, "linkedItem=$it")
+            transactionDetailViewModel.updateEnableInput()
+        })
 
         return binding.root
     }

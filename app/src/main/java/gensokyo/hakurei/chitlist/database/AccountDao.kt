@@ -14,9 +14,6 @@ interface AccountDao {
     @Update
     fun update(account: Account)
 
-    @Delete
-    fun delete(account: Account)
-
     @Query("SELECT * from accounts_table WHERE account_id = :key")
     fun getAccount(key: Long): LiveData<Account>
 

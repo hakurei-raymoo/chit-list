@@ -6,10 +6,6 @@
     <data>
 
         <variable
-                name="checkoutViewModel"
-                type="gensokyo.hakurei.chitlist.checkout.CheckoutViewModel" />
-
-        <variable
                 name="hasItems"
                 type="boolean" />
     </data>
@@ -22,8 +18,7 @@
                 android:id="@+id/items_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                app:spanCount="2" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -38,7 +33,7 @@
                     android:layout_height="120dp"
                     android:tint="@color/colorFaded"
                     android:layout_marginBottom="@dimen/spacing_normal"
-                    app:srcCompat="@drawable/ic_basket"
+                    app:srcCompat="@drawable/ic_basket_black_120dp"
                     android:contentDescription="@string/no_items_icon" />
 
             <TextView

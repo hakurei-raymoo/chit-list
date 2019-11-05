@@ -6,50 +6,19 @@
     <data>
 
         <variable
+                name="isNew"
+                type="boolean" />
+
+        <variable
                 name="transactionDetailViewModel"
                 type="gensokyo.hakurei.chitlist.transactiondetail.TransactionDetailViewModel" />
 
-        <import type="gensokyo.hakurei.chitlist.Converter" />
+        <import type="gensokyo.hakurei.chitlist.utilities.Converter" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
-
-        <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/app_bar_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true">
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                    android:id="@+id/toolbar_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_scrollFlags="scroll|snap"
-                    app:toolbarId="@id/toolbar">
-
-                <androidx.appcompat.widget.Toolbar
-                        android:id="@+id/toolbar"
-                        style="@style/Widget.MaterialComponents.Toolbar.Primary"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:background="@color/colorTransactions"
-                        app:layout_collapseMode="parallax">
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="?attr/actionBarSize"
-                            android:gravity="center"
-                            android:text="@string/admin"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorOnPrimary"
-                            android:textSize="16sp" />
-
-                </androidx.appcompat.widget.Toolbar>
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-        </com.google.android.material.appbar.AppBarLayout>
+            android:layout_height="wrap_content">
 
         <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -65,70 +34,84 @@
                     android:padding="@dimen/spacing_large">
 
                 <TextView
-                        android:id="@+id/primary_key_text"
+                        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text.CenterStacked"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
                         android:text="@{@string/primary_key_equals(transactionDetailViewModel.transaction.transactionId)}"
                         android:textAllCaps="true"
-                        android:textSize="16sp"
                         tools:text="@string/primary_key_equals" />
 
                 <TextView
-                        android:id="@+id/time_text"
+                        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text.CenterStacked"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="@dimen/spacing_normal"
+                        android:text="@{Converter.convertLongToDateStringExpanded(transactionDetailViewModel.transaction.time)}"
                         android:textAllCaps="true"
                         android:textSize="12sp"
-                        app:timeFormattedExpanded="@{transactionDetailViewModel.transaction.time}"
                         tools:text="@string/time_equals" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/account_input"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:enabled="@{isNew}"
                         android:hint="@string/account"
-                        app:helperText="@{@string/full_name(transactionDetailViewModel.linkedAccount.firstName,transactionDetailViewModel.linkedAccount.lastName)}"
-                        app:helperTextEnabled="true">
+                        android:labelFor="@id/account_autocomplete">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/account_edit"
+                    <AutoCompleteTextView
+                            android:id="@+id/account_autocomplete"
+                            style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:text="@={`` + transactionDetailViewModel.transaction.accountId}" />
+                            android:inputType="textNoSuggestions|textVisiblePassword"
+                            android:text="@={Converter.toAccountName(transactionDetailViewModel.transaction.accountId)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:enabled="@{false}"
+                        android:hint="@string/creator">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/creator_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:text="@={Converter.toAccountName(transactionDetailViewModel.transaction.creatorId)}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/item_input"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{isNew}"
                         android:hint="@string/item"
-                        app:helperText="@{transactionDetailViewModel.linkedItem.name}"
-                        app:helperTextEnabled="true">
+                        android:labelFor="@id/item_autocomplete">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/item_edit"
+                    <AutoCompleteTextView
+                            android:id="@+id/item_autocomplete"
+                            style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:enabled="false"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:text="@={`` + transactionDetailViewModel.transaction.itemId}" />
+                            android:inputType="textNoSuggestions|textVisiblePassword"
+                            android:text="@={Converter.toItemName(transactionDetailViewModel.transaction.itemId)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:enabled="@{isNew}"
                         android:hint="@string/amount">
 
                     <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/amount_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="numberDecimal|numberSigned"
-                            android:maxLines="1"
+                            android:inputType="number|numberSigned|numberDecimal"
                             android:text="@={Converter.addDecimal(transactionDetailViewModel.transaction.amount)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -152,24 +135,25 @@
 
                     <com.google.android.material.button.MaterialButton
                             android:id="@+id/update_button"
+                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
+                            android:enabled="@{transactionDetailViewModel.enableUpdate}"
                             android:onClick="@{() -> transactionDetailViewModel.onUpdateClicked()}"
                             android:text="@string/update" />
 
                     <com.google.android.material.button.MaterialButton
-                            android:id="@+id/delete_button"
+                            android:id="@+id/cancel_button"
+                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/button_spacing"
                             android:layout_toStartOf="@id/update_button"
-                            android:enabled="false"
-                            android:onClick="@{() -> transactionDetailViewModel.onDeleteClicked()}"
-                            android:text="@string/delete" />
+                            android:onClick="@{() -> transactionDetailViewModel.onCancelClicked()}"
+                            android:text="@string/cancel" />
 
                 </RelativeLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </RelativeLayout>
 </layout>

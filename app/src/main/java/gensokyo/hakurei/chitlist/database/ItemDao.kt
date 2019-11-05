@@ -8,15 +8,11 @@ import androidx.room.*
  */
 @Dao
 interface ItemDao {
-
     @Insert
     fun insert(item: Item)
 
     @Update
     fun update(item: Item)
-
-    @Delete
-    fun delete(item: Item)
 
     @Query("SELECT * from items_table WHERE item_id = :key")
     fun getItem(key: Long): LiveData<Item>

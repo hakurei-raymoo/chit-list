@@ -6,20 +6,9 @@
     <data>
 
         <variable
-                name="sharedViewModel"
-                type="gensokyo.hakurei.chitlist.SharedViewModel" />
+                name="adminHomeViewModel"
+                type="gensokyo.hakurei.chitlist.viewmodels.AdminHomeViewModel" />
 
-        <variable
-                name="accountsListViewModel"
-                type="gensokyo.hakurei.chitlist.accountslist.AccountsListViewModel" />
-
-        <variable
-                name="itemsListViewModel"
-                type="gensokyo.hakurei.chitlist.itemslist.ItemsListViewModel" />
-
-        <variable
-                name="transactionsListViewModel"
-                type="gensokyo.hakurei.chitlist.transactionslist.TransactionsListViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -58,7 +47,7 @@
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="?attr/actionBarSize"
-                            android:gravity="center"
+                            android:gravity="center_vertical"
                             android:text="@string/admin"
                             android:textAllCaps="true"
                             android:textColor="@color/colorOnPrimary"
@@ -84,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
-                android:onClick="@{() -> accountsListViewModel.onNewAccount()}"
+                android:onClick="@{() -> adminHomeViewModel.onNewAccount()}"
                 app:backgroundTint="@color/colorAccounts"
                 app:srcCompat="@drawable/ic_add_black_24dp"
                 app:tint="@color/colorOnPrimary" />
@@ -95,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
-                android:onClick="@{() -> itemsListViewModel.onNewItem()}"
+                android:onClick="@{() -> adminHomeViewModel.onNewItem()}"
                 app:backgroundTint="@color/colorItems"
                 app:srcCompat="@drawable/ic_add_black_24dp"
                 app:tint="@color/colorOnPrimary" />
@@ -106,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
-                android:onClick="@{() -> transactionsListViewModel.onNewTransaction()}"
+                android:onClick="@{() -> adminHomeViewModel.onNewTransaction()}"
                 app:backgroundTint="@color/colorTransactions"
                 app:srcCompat="@drawable/ic_add_black_24dp"
                 app:tint="@color/colorOnPrimary" />

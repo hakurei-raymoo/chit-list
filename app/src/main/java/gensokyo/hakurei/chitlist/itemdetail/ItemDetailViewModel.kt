@@ -11,44 +11,30 @@ import kotlinx.coroutines.*
 private const val TAG = "ItemDetailViewModel"
 
 class ItemDetailViewModel(
-    itemKey: Long = 0L,
-    private val database: ItemDao
+    private val itemKey: Long,
+    private val dataSource: ItemDao
 ) : ViewModel() {
 
     private val viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val _item: LiveData<Item>
-    val item
+    // Check itemKey to either get Item from database or insert a new one.
+    private var _item =
+        if (itemKey == -1L) {
+            MutableLiveData<Item>(Item())
+        } else {
+            dataSource.getItem(itemKey)
+        }
+    val item: LiveData<Item>
         get() = _item
 
     private val _navigateToItemsList = MutableLiveData<Boolean?>()
     val navigateToItemsList: LiveData<Boolean?>
         get() = _navigateToItemsList
-
-    /**
-     * Check itemKey to either get existing Item or insert a new one.
-     */
+    
     init {
         Log.i(TAG, "Init")
-
-        if (itemKey == -1L) {
-            newItem()
-            _item = database.getLastItem()
-        } else {
-            _item = database.getItem(itemKey)
-        }
-    }
-
-    private fun newItem() {
-        uiScope.launch {
-            withContext(Dispatchers.IO) {
-                val newItem = Item()
-                database.insert(newItem)
-                Log.i(TAG, "Inserted $newItem")
-            }
-        }
     }
 
     fun onUpdateClicked() {
@@ -60,28 +46,26 @@ class ItemDetailViewModel(
 
     private suspend fun update() {
         withContext(Dispatchers.IO) {
-            database.update(item.value!!)
-            Log.i(TAG, "Updated ${item.value!!}")
+            if (itemKey == -1L) {
+                dataSource.insert(item.value!!)
+                Log.i(TAG, "Inserted ${item.value!!}")
+            } else {
+                dataSource.update(item.value!!)
+                Log.i(TAG, "Updated ${item.value!!}")
+            }
         }
+    }
+
+    fun onCancelClicked() {
+        _navigateToItemsList.value = true
     }
 
     fun doneNavigating() {
         _navigateToItemsList.value = null
     }
 
-    fun onDeleteClicked() {
-        uiScope.launch {
-            withContext(Dispatchers.IO) {
-                database.delete(item.value!!)
-                Log.i(TAG, "Deleted ${item.value!!}")
-            }
-            _navigateToItemsList.value = true
-        }
-    }
-
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }
-
 }

@@ -10,7 +10,13 @@
     <color name="colorOnSurface">#000000</color>
     <color name="colorSurface">#FFFFFF</color>
     <color name="colorAccounts">#0336FF</color>
+    <color name="colorAccountsDark">#0008CA</color>
+    <color name="colorAccountsLight">#6F63FF</color>
     <color name="colorItems">#FFDE03</color>
+    <color name="colorItemsDark">#C7AD00</color>
+    <color name="colorItemsLight">#FFFF54</color>
     <color name="colorTransactions">#FF0266</color>
+    <color name="colorTransactionsDark">#C5003C</color>
+    <color name="colorTransactionsLight">#FF5C93</color>
     <color name="colorFaded">#9E9E9E</color>
 </resources>

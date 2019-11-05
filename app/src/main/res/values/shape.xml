@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="ShapeAppearance.AdminCard" parent="ShapeAppearance.MaterialComponents">
+    <style name="ShapeAppearance.RightCutCard" parent="ShapeAppearance.MaterialComponents">
         <item name="cornerFamily">cut</item>
-
         <item name="cornerSizeTopLeft">0dp</item>
         <item name="cornerSizeTopRight">@dimen/card_corner_radius</item>
         <item name="cornerSizeBottomRight">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
-    <style name="ShapeAppearance.ShopCard" parent="ShapeAppearance.MaterialComponents">
+    <style name="ShapeAppearance.LeftCutCard" parent="ShapeAppearance.MaterialComponents">
         <item name="cornerFamily">cut</item>
-
-        <item name="cornerSizeTopLeft">0dp</item>
-        <item name="cornerSizeTopRight">@dimen/card_corner_radius</item>
+        <item name="cornerSizeTopLeft">@dimen/card_corner_radius</item>
+        <item name="cornerSizeTopRight">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
     <style name="ShapeAppearance.Button.Center" parent="ShapeAppearance.MaterialComponents">
         <item name="cornerFamily">cut</item>
-
         <item name="cornerSizeTopLeft">0dp</item>
         <item name="cornerSizeTopRight">@dimen/button_corner_radius</item>
         <item name="cornerSizeBottomRight">0dp</item>
@@ -30,7 +26,6 @@
 
     <style name="ShapeAppearance.Button.Admin" parent="ShapeAppearance.MaterialComponents">
         <item name="cornerFamily">cut</item>
-
         <item name="cornerSizeTopLeft">0dp</item>
         <item name="cornerSizeTopRight">@dimen/button_corner_radius</item>
         <item name="cornerSizeBottomRight">0dp</item>

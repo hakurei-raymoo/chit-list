@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+            android:id="@+id/admin_settings_item"
+            android:title="@string/admin"
+            android:visible="false" />
+
+    <item
+            android:id="@+id/change_password_item"
+            android:title="@string/change_password" />
+
+    <item
+            android:id="@+id/logout_item"
+            android:title="@string/logout" />
+</menu>

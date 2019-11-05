@@ -2,19 +2,27 @@ package gensokyo.hakurei.chitlist.database
 
 import androidx.room.*
 
-@Entity(tableName = "transactions_table",
+@Entity(
+    tableName = "transactions_table",
     foreignKeys = arrayOf(
         ForeignKey(
             entity = Account::class,
             parentColumns = arrayOf("account_id"),
-            childColumns = arrayOf("account_id")),
+            childColumns = arrayOf("account_id")
+        ),
+        ForeignKey(
+            entity = Account::class,
+            parentColumns = arrayOf("account_id"),
+            childColumns = arrayOf("creator_id")
+        ),
         ForeignKey(
             entity = Item::class,
             parentColumns = arrayOf("item_id"),
-            childColumns = arrayOf("item_id"))
+            childColumns = arrayOf("item_id")
+        )
     )
 )
-data class Transaction (
+data class Transaction(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "transaction_id")
     var transactionId: Long = 0L,
@@ -24,6 +32,9 @@ data class Transaction (
     @ColumnInfo(name = "account_id", index = true)
     var accountId: Long,
 
+    @ColumnInfo(name = "creator_id", index = true)
+    var creatorId: Long,
+
     @ColumnInfo(name = "item_id", index = true)
     var itemId: Long,
 
@@ -32,20 +43,23 @@ data class Transaction (
     var comments: String = ""
 )
 
-data class TransactionWithChildren (
+data class TransactionWithChildren(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "transaction_id")
     var transactionId: Long,
 
     val time: Long,
 
-    @Embedded
+    @Embedded(prefix = "a_")
     val account: BareAccount,
 
-    @Embedded
-    val item: Item,
+    @Embedded(prefix = "c_")
+    val creator: BareAccount,
 
-    var amount: Int = 0,
+    @Embedded
+    val item: BareItem,
+
+    var amount: Int,
 
     var comments: String
 )

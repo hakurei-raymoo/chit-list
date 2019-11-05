@@ -6,10 +6,6 @@
     <data>
 
         <variable
-                name="historyViewModel"
-                type="gensokyo.hakurei.chitlist.history.HistoryViewModel" />
-
-        <variable
                 name="hasHistory"
                 type="boolean" />
     </data>
@@ -37,7 +33,7 @@
                     android:layout_height="120dp"
                     android:tint="@color/colorFaded"
                     android:layout_marginBottom="@dimen/spacing_normal"
-                    app:srcCompat="@drawable/ic_receipt"
+                    app:srcCompat="@drawable/ic_receipt_black_120dp"
                     android:contentDescription="@string/no_transactions_icon" />
 
             <TextView

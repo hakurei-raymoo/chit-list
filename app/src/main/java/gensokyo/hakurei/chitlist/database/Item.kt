@@ -18,3 +18,13 @@ data class Item (
 
     var enabled: Boolean = true
 )
+
+data class BareItem(
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "item_id", index = true)
+    var itemId: Long,
+
+    var name: String = "",
+
+    var price: Int = 0
+)

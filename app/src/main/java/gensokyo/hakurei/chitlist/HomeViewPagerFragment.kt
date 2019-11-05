@@ -1,9 +1,11 @@
 package gensokyo.hakurei.chitlist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.tabs.TabLayoutMediator
@@ -61,9 +63,15 @@ class HomeViewPagerFragment : Fragment() {
         // Hide and show FABs depending on page.
         viewPager.registerOnPageChangeCallback((object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                animateFab(position)
+                animateFab(position, binding.hasItems)
             }
         }))
+
+        homeViewModel.cart.observe(viewLifecycleOwner, Observer {
+            // Show empty cart layout if not null or empty.
+            binding.hasItems = !it.isNullOrEmpty()
+            animateFab(viewPager.currentItem, binding.hasItems)
+        })
 
         (activity as AppCompatActivity).run {
             setSupportActionBar(binding.toolbar)
@@ -143,14 +151,11 @@ class HomeViewPagerFragment : Fragment() {
         }
     }
 
-    private fun animateFab(position: Int) {
-        when (position) {
-            1 -> {
-                checkout_fab.show()
-            }
-            else -> {
-                checkout_fab.hide()
-            }
+    private fun animateFab(position: Int, hasItems: Boolean) {
+        if (position == 1 && hasItems) {
+            checkout_fab.show()
+        } else {
+            checkout_fab.hide()
         }
     }
 }

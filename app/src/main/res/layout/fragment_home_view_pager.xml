@@ -6,6 +6,10 @@
     <data>
 
         <variable
+                name="hasItems"
+                type="boolean" />
+
+        <variable
                 name="homeViewModel"
                 type="gensokyo.hakurei.chitlist.viewmodels.HomeViewModel" />
 
@@ -48,8 +52,8 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        android:layout_marginEnd="@dimen/spacing_extra_large"
                         android:layout_marginStart="@dimen/spacing_extra_large"
+                        android:layout_marginEnd="@dimen/spacing_extra_large"
                         android:gravity="center"
                         android:text="@{@string/full_name(homeViewModel.user.firstName, homeViewModel.user.lastName)}"
                         android:textAllCaps="true"

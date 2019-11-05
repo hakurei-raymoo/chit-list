@@ -55,20 +55,20 @@ class AdminSettingsViewModel(
                         PrintWriter(FileOutputStream(it.fileDescriptor)).use { out ->
                             out.println(
                                 "account_id," +
-                                        "first_name," +
-                                        "last_name," +
-                                        "location," +
-                                        "contact_number," +
-                                        "email_address"
+                                "first_name," +
+                                "last_name," +
+                                "location," +
+                                "contact_number," +
+                                "email_address"
                             )
                             accounts.forEach {
                                 out.println(
                                     "${it.accountId}," +
-                                            "${it.firstName}," +
-                                            "${it.lastName}," +
-                                            "${it.location}," +
-                                            "${it.contactNumber}," +
-                                            "${it.emailAddress}"
+                                    "${it.firstName}," +
+                                    "${it.lastName}," +
+                                    "${it.location}," +
+                                    "${it.contactNumber}," +
+                                    "${it.emailAddress}"
                                 )
                             }
                         }
@@ -123,21 +123,21 @@ class AdminSettingsViewModel(
                         PrintWriter(FileOutputStream(it.fileDescriptor)).use { out ->
                             out.println(
                                 "transaction_id," +
-                                        "time," +
-                                        "account," +
-                                        "item," +
-                                        "amount," +
-                                        "comments"
+                                "time," +
+                                "account," +
+                                "item," +
+                                "amount," +
+                                "comments"
                             )
                             transactions.forEach {
                                 out.println(
                                     "${it.transactionId}," +
-                                            "${it.time}," +
-                                            "${it.account.firstName} " +
-                                            "${it.account.lastName}," +
-                                            "${it.item.name}," +
-                                            "${Converter.addDecimal(it.amount)}," +
-                                            "${it.comments}"
+                                    "${it.time}," +
+                                    "${it.account.firstName} " +
+                                    "${it.account.lastName}," +
+                                    "${it.item.name}," +
+                                    "${Converter.addDecimal(it.amount)}," +
+                                    "${it.comments}"
                                 )
                             }
                         }
@@ -168,7 +168,7 @@ class AdminSettingsViewModel(
                         input.copyTo(output)
                     }
                 }
-                _returnMessage.postValue("$DATABASE_NAME backup up to $uri")
+                _returnMessage.postValue("$DATABASE_NAME backed up to $uri")
             }
         }
     }
@@ -191,7 +191,10 @@ class AdminSettingsViewModel(
                     }
                 }
 
-                _returnMessage.postValue("$DATABASE_NAME restored from $uri")
+                _returnMessage.postValue("$DATABASE_NAME restored. App will now restart.")
+
+                // Wait before exiting so messages can be displayed.
+                Thread.sleep(1000L)
                 _exitApp.postValue(true)
             }
         }

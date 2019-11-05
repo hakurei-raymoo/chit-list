@@ -30,20 +30,17 @@
                     android:padding="@dimen/spacing_large">
 
                 <TextView
-                        android:id="@+id/primary_key_text"
+                        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text.CenterStacked"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
                         android:text="@{@string/primary_key_equals(transactionDetailViewModel.transaction.transactionId)}"
                         android:textAllCaps="true"
-                        android:textSize="16sp"
                         tools:text="@string/primary_key_equals" />
 
                 <TextView
-                        android:id="@+id/time_text"
+                        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text.CenterStacked"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="@dimen/spacing_normal"
                         android:text="@{Converter.convertLongToDateStringExpanded(transactionDetailViewModel.transaction.time)}"
                         android:textAllCaps="true"
@@ -64,20 +61,22 @@
                             android:layout_height="wrap_content"
                             android:enabled="@{transactionDetailViewModel.newTransaction}"
                             android:inputType="textNoSuggestions|textVisiblePassword"
-                            android:text="@={`` + transactionDetailViewModel.transaction.accountId}" />
+                            android:text="@={Converter.toAccountName(transactionDetailViewModel.transaction.accountId)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/creator">
+                        android:hint="@string/creator"
+                        android:labelFor="@id/creator_autocomplete">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/creator_edit"
+                    <AutoCompleteTextView
+                            android:id="@+id/creator_autocomplete"
+                            style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:enabled="false"
-                            android:text="@={`` + transactionDetailViewModel.transaction.creatorId}" />
+                            android:text="@={Converter.toAccountName(transactionDetailViewModel.transaction.creatorId)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -94,7 +93,7 @@
                             android:layout_height="wrap_content"
                             android:enabled="@{transactionDetailViewModel.newTransaction}"
                             android:inputType="textNoSuggestions|textVisiblePassword"
-                            android:text="@={`` + transactionDetailViewModel.transaction.itemId}" />
+                            android:text="@={Converter.toItemName(transactionDetailViewModel.transaction.itemId)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout

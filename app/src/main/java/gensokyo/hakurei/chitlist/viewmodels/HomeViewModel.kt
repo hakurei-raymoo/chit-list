@@ -26,7 +26,7 @@ class HomeViewModel (
     // The users history.
     private val _history = dataSource.getHistory(userId)
     val history: LiveData<List<TransactionWithChildren>>
-        get()  =_history
+        get() = _history
 
     // Sum all transactions matching the users accountId.
     private val _balance = Transformations.map(history) { sumTransactions(it) }
@@ -37,7 +37,7 @@ class HomeViewModel (
     private val _cartList = mutableListOf<Item>()
     private val _cart = MutableLiveData<List<Item>>()
     val cart: LiveData<List<Item>>
-        get()  =_cart
+        get() = _cart
 
     // List of items available in the shop.
     private val _items = dataSource.getItems()
@@ -71,30 +71,30 @@ class HomeViewModel (
     }
 
     fun onCheckoutClicked() {
-        checkout()
-        _navigateToLogin.value = true
+        uiScope.launch(Dispatchers.IO) {
+            Log.i(TAG, "cart=${cart.value}")
+            insertCart(cart.value)
+
+            // Ensure database inserts are done before navigating.
+            _navigateToLogin.postValue(true)
+        }
     }
 
-    fun onLoginNavigated() {
-        _navigateToLogin.value = false
-    }
-
-    private fun checkout() {
-        Log.i(TAG, "cart=${cart.value}")
-        cart.value?.forEach {
+    private fun insertCart(cart: List<Item>?) {
+        cart?.forEach {
             val transaction = Transaction(
                 accountId = user.value?.accountId!!,
                 creatorId = user.value?.accountId!!,
                 itemId = it.itemId,
                 amount = it.price
             )
-
-            // TODO: Figure out by withContext(Dispatchers.IO){ doesn't work.
-            uiScope.launch(Dispatchers.IO) {
-                Log.i(TAG, "inserting: $transaction")
-                dataSource.insert(transaction)
-            }
+            Log.i(TAG, "inserting: $transaction")
+            dataSource.insert(transaction)
         }
+    }
+
+    fun onLoginNavigated() {
+        _navigateToLogin.value = false
     }
 
     fun onHistoryClicked(transactionId: Long) {
@@ -114,8 +114,8 @@ class HomeViewModel (
     }
 
     override fun onCleared() {
-        Log.i(TAG, "Cleared")
         super.onCleared()
         viewModelJob.cancel()
+        Log.i(TAG, "Cleared")
     }
 }

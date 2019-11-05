@@ -28,14 +28,12 @@
                     android:padding="@dimen/spacing_large">
 
                 <TextView
-                        android:id="@+id/primary_key_text"
+                        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text.CenterStacked"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="@dimen/spacing_normal"
                         android:text="@{@string/primary_key_equals(accountDetailViewModel.account.accountId)}"
                         android:textAllCaps="true"
-                        android:textSize="16sp"
                         tools:text="@string/primary_key_equals" />
 
                 <com.google.android.material.textfield.TextInputLayout

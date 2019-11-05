@@ -15,6 +15,7 @@ import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentAdminSettingsBinding
 import gensokyo.hakurei.chitlist.viewmodels.AdminSettingsViewModel
 import gensokyo.hakurei.chitlist.viewmodels.AdminSettingsViewModelFactory
+import kotlin.system.exitProcess
 
 private const val TAG = "AdminSettingsFragment"
 
@@ -129,8 +130,7 @@ class AdminSettingsFragment : Fragment() {
         // Observer to process exit attempt.
         adminSettingsViewModel.exitApp.observe(this, Observer {
             if (it != null) {
-                // Exit the application.
-                requireNotNull(this.activity).finish()
+                exitProcess(0) // Warning: Only works for one activity.
             }
         })
 

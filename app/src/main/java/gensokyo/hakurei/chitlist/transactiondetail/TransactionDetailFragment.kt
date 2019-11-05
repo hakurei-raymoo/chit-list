@@ -48,7 +48,7 @@ class TransactionDetailFragment : DialogFragment() {
         // This is necessary so that the binding can observe LiveData updates.
         binding.lifecycleOwner = viewLifecycleOwner
 
-        // Populate AutoCompleteTextView with accounts.
+        // Populate account AutoCompleteTextView with accounts.
         transactionDetailViewModel.accountsList.observe(this, Observer {
             Log.i(TAG, "Observed accounts=$it")
 
@@ -65,7 +65,7 @@ class TransactionDetailFragment : DialogFragment() {
             }
         })
 
-        // Populate AutoCompleteTextView with items.
+        // Populate item AutoCompleteTextView with items.
         transactionDetailViewModel.itemsList.observe(this, Observer {
             Log.i(TAG, "Observed items=$it")
 
@@ -98,12 +98,9 @@ class TransactionDetailFragment : DialogFragment() {
             }
         })
 
-        // Update helper text on text change.
+        // Update linked properties on text change.
         binding.accountAutocomplete.addTextChangedListener { text ->
             transactionDetailViewModel.updateLinkedAccount(text.toString())
-        }
-        binding.creatorEdit.addTextChangedListener { text ->
-            transactionDetailViewModel.updateLinkedCreator(text.toString())
         }
         binding.itemAutocomplete.addTextChangedListener { text ->
             transactionDetailViewModel.updateLinkedItem(text.toString())
@@ -111,12 +108,12 @@ class TransactionDetailFragment : DialogFragment() {
 
         // Update error on database response.
         transactionDetailViewModel.linkedAccount.observe(viewLifecycleOwner, Observer {
-//            binding.accountAutocomplete.error = if (it == null) "Invalid account_id" else null
+            binding.accountAutocomplete.error = if (it == null) "Invalid account_id" else null
             Log.i(TAG, "linkedAccount=$it")
             transactionDetailViewModel.updateEnableInput()
         })
         transactionDetailViewModel.linkedItem.observe(viewLifecycleOwner, Observer {
-//            binding.itemEdit.error = if (it == null) "Invalid item_id" else null
+            binding.itemAutocomplete.error = if (it == null) "Invalid item_id" else null
             Log.i(TAG, "linkedItem=$it")
             transactionDetailViewModel.updateEnableInput()
         })

@@ -20,9 +20,38 @@ fun String.hash() : String {
 
 object Converter {
     @JvmStatic
+    @InverseMethod("toAccountName")
+    fun toAccountId(string: String): Long? {
+        val value = string.substring(0, min(string.length, 4)).toLongOrNull()
+        Log.i(TAG, "toAccountId called on $string -> $value")
+        return value
+    }
+
+    @JvmStatic
+    fun toAccountName(value: Long?): String {
+        val string = String.format("%04d", value)
+        Log.i(TAG, "toAccountName called on $value -> $string")
+        return string
+    }
+    
+    @JvmStatic
+    @InverseMethod("toItemName")
+    fun toItemId(string: String): Long? {
+        val value = string.substring(0, min(string.length, 4)).toLongOrNull()
+        Log.i(TAG, "toItemId called on $string -> $value")
+        return value
+    }
+
+    @JvmStatic
+    fun toItemName(value: Long?): String {
+        val string = String.format("%04d", value)
+        Log.i(TAG, "toItemName called on $value -> $string")
+        return string
+    }
+
+    @JvmStatic
     @InverseMethod("addDecimal")
     fun removeDecimal(string: String): Int {
-        Log.i(TAG, "removeDecimal called on $string")
         val float = string.toFloatOrNull() ?: return 0
 
         val formatted: String
@@ -32,16 +61,17 @@ object Converter {
             1 -> "%.1f".format(float)
             else -> float.toString()
         }
-        Log.i(TAG, "formatted=$formatted")
+        Log.i(TAG, "removeDecimal called on $string -> $formatted")
 
         return formatted.replace(CURRENCY_SEPARATOR_SYMBOL, "").toInt()
     }
 
     @JvmStatic
     fun addDecimal(value: Int): String {
-//        Log.i(TAG, "addDecimal called on $value")
         // Add leading zeroes up to currency separator.
         val string = value.toString().padStart(CURRENCY_SEPARATOR_OFFSET + 1, '0')
+        Log.i(TAG, "addDecimal called on $value -> $string")
+
         val length = string.length
         // Insert currency separator at offset from right of string.
         return StringBuilder(string).insert(length - CURRENCY_SEPARATOR_OFFSET,

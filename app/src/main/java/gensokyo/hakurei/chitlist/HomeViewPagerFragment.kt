@@ -83,6 +83,13 @@ class HomeViewPagerFragment : Fragment() {
             }
         }
 
+        homeViewModel.user.observe(viewLifecycleOwner, Observer {
+            // Show admin settings only if User is an admin.
+            if (it.admin) {
+                requireActivity().invalidateOptionsMenu()
+            }
+        })
+
         setHasOptionsMenu(true)
 
         return binding.root
@@ -91,8 +98,14 @@ class HomeViewPagerFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.home_menu, menu)
+    }
+
+    @Override
+    override fun onPrepareOptionsMenu (menu: Menu) {
         // Show admin settings only if User is an admin.
-        menu.findItem(R.id.admin_settings_item).isVisible = homeViewModel.user.value?.admin == true
+        if (homeViewModel.user.value?.admin == true) {
+            menu.findItem(R.id.admin_settings_item).isVisible = true
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

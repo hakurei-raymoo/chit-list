@@ -55,6 +55,7 @@
     <string name="email_address">Email address</string>
     <string name="password">Password</string>
     <string name="password_hash">Password hash (SHA-1)</string>
+    <string name="last_admin_warning">WARNING: This is the only active admin account. It cannot be disabled.</string>
     <string name="allow_administrator_access">Allow administrator access?</string>
     <string name="allow_interactive_login">Allow interactive login?</string>
     <!-- Item -->

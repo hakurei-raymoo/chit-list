@@ -120,11 +120,19 @@
                             android:text="@={accountDetailViewModel.account.passwordHash}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/last_admin_warning"
+                        android:textColor="@color/colorError"
+                        app:isGone="@{!accountDetailViewModel.lastAdmin}"/>
+
                 <Switch
                         android:id="@+id/admin_switch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:checked="@={accountDetailViewModel.account.admin}"
+                        android:enabled="@{(!accountDetailViewModel.lastAdmin)}"
                         android:text="@string/allow_administrator_access" />
 
                 <Switch
@@ -132,6 +140,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:checked="@={accountDetailViewModel.account.enabled}"
+                        android:enabled="@{!accountDetailViewModel.lastAdmin}"
                         android:text="@string/allow_interactive_login" />
 
                 <RelativeLayout

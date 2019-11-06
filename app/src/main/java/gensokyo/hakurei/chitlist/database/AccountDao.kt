@@ -22,4 +22,7 @@ interface AccountDao {
 
     @Query("SELECT * FROM accounts_table ORDER BY account_id DESC")
     fun getAccounts(): LiveData<List<Account>>
+
+    @Query("SELECT * FROM accounts_table WHERE admin = :admin AND enabled = :enabled ORDER BY first_name ASC")
+    fun getAdminAccounts(admin: Boolean = true, enabled: Boolean = true): LiveData<List<Account>>
 }

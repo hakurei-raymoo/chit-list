@@ -27,6 +27,13 @@ class AccountDetailViewModel(
     val account: LiveData<Account>
         get() = _account
 
+    // Check if last enabled admin account.
+    private val _lastAdmin = Transformations.map(dataSource.getAdminAccounts()) {
+        Log.i(TAG, "size=${it.size}, admins=$it")
+        (it.size == 1) && (it.first().accountId == accountKey) }
+    val lastAdmin: LiveData<Boolean>
+    get() = _lastAdmin
+
     private val _navigateToAccountsList = MutableLiveData<Boolean?>()
     val navigateToAccountsList: LiveData<Boolean?>
         get() = _navigateToAccountsList
@@ -48,7 +55,6 @@ class AccountDetailViewModel(
                 dataSource.insert(account.value!!)
                 Log.i(TAG, "Inserted ${account.value!!}")
             } else {
-                // TODO: Throw error if last admin account disabled.
                 dataSource.update(account.value!!)
                 Log.i(TAG, "Updated ${account.value!!}")
             }

@@ -31,10 +31,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-            <FrameLayout
+            <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
                     android:padding="@dimen/spacing_normal">
 
                 <TextView
@@ -43,7 +44,7 @@
                         android:text="@{@string/number(transaction.transactionId)}"
                         android:textColor="@color/colorOnPrimary"
                         tools:text="@string/number" />
-            </FrameLayout>
+            </LinearLayout>
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -75,7 +76,7 @@
                         android:text="@{@string/creator_equals(@string/full_name(transaction.creator.firstName,transaction.creator.lastName))}"
                         android:visibility='@{(transaction.account.accountId==transaction.creator.accountId) ? View.GONE : View.VISIBLE}'
                         tools:text="@string/creator_equals"
-                        tools:visibility="gone" />
+                        tools:visibility="visible" />
 
                 <TextView
                         android:id="@+id/comments_text"
@@ -84,7 +85,7 @@
                         android:text="@{@string/comments_equals(transaction.comments)}"
                         android:visibility='@{(transaction.comments.equals("")) ? View.GONE : View.VISIBLE}'
                         tools:text="@string/comments_equals"
-                        tools:visibility="gone" />
+                        tools:visibility="visible" />
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

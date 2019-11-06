@@ -8,7 +8,7 @@
 <li><a href="#app_overview">App overview</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#setup">Setup</a></li>
-<li><a href="#user_functions">User functions</a></li>
+<li><a href="#user_functions">User functions</a>
 <ol>
 <li><a href="#login_screen">Login screen</a></li>
 <li><a href="#home_screen">Home screen</a></li>
@@ -16,13 +16,15 @@
 <li><a href="#checkout_screen">Checkout screen</a></li>
 <li><a href="#history_screen">History screen</a></li>
 </ol>
-<li><a href="#admin_functions">Admin functions</a></li>
+</li>
+<li><a href="#admin_functions">Admin functions</a>
 <ol>
 <li><a href="#settings_screen">Settings screen</a></li>
 <li><a href="#accounts_screen">Accounts screen</a></li>
 <li><a href="#items_screen">Items screen</a></li>
 <li><a href="#transactions_screen">Transactions screen</a></li>
 </ol>
+</li>
 </ol>
 </div>
 
@@ -88,8 +90,8 @@ Password: <em>none</em></li>
 <li>Key - A unique id used to refer to an item. Also referred to as <code>item_id</code>.</li>
 <li>Name - The display name of the item.</li>
 <li>Price - Used to calculate the <code>amount</code> of transactions during <a href="#checkout_screen">checkout</a>. Prices can be changed without affecting existing transactions. Price has no effect on transactions created through the <a href="#transactions_screen">admin interface</a>.</li>
-<li>Image - The image used in the <a href="#shop_screen">shop<a>.</li>
-<li>Enabled - Shows/hides the item from the <a href="#shop_screen">shop<a>.</li>
+<li>Image - The image used in the <a href="#shop_screen">shop</a>.</li>
+<li>Enabled - Shows/hides the item from the <a href="#shop_screen">shop</a>.</li>
 </ul>
 <p>The automatically created items <code>Cash</code> and <code>EFT</code> are designed for use when reconciling balances.</p>
 <h3><span id="transactions_screen">Transactions screen</span></h3>

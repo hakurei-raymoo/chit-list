@@ -55,7 +55,7 @@ object Converter {
         val float = string.toFloatOrNull() ?: return 0
 
         val formatted: String
-        formatted = when (CURRENCY_SEPARATOR_OFFSET) {
+        formatted = when (Config.currencyOffset) {
             3 -> "%.3f".format(float)
             2 -> "%.2f".format(float)
             1 -> "%.1f".format(float)
@@ -63,19 +63,19 @@ object Converter {
         }
 //        Log.i(TAG, "removeDecimal called on $string -> $formatted")
 
-        return formatted.replace(CURRENCY_SEPARATOR_SYMBOL, "").toInt()
+        return formatted.replace(Config.currencySeparator, "").toInt()
     }
 
     @JvmStatic
     fun addDecimal(value: Int): String {
         // Add leading zeroes up to currency separator.
-        val string = value.toString().padStart(CURRENCY_SEPARATOR_OFFSET + 1, '0')
+        val string = value.toString().padStart(Config.currencyOffset + 1, '0')
 //        Log.i(TAG, "addDecimal called on $value -> $string")
 
         val length = string.length
         // Insert currency separator at offset from right of string.
-        return StringBuilder(string).insert(length - CURRENCY_SEPARATOR_OFFSET,
-            CURRENCY_SEPARATOR_SYMBOL
+        return StringBuilder(string).insert(length - Config.currencyOffset,
+            Config.currencySeparator
         ).toString()
     }
 

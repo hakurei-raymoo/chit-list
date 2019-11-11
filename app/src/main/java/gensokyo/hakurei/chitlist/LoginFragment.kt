@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentLoginBinding
+import gensokyo.hakurei.chitlist.utilities.Config
 import gensokyo.hakurei.chitlist.viewmodels.LoginViewModel
 import gensokyo.hakurei.chitlist.viewmodels.LoginViewModelFactory
 
@@ -85,6 +86,9 @@ class LoginFragment : Fragment() {
                 loginViewModel.onHomeNavigated()
             }
         })
+
+        binding.titleText.text = Config.appName
+        Log.i(TAG, "Config.appName=${Config.appName}")
 
         return binding.root
     }

@@ -10,6 +10,10 @@
                 type="boolean" />
 
         <variable
+                name="balanceCapped"
+                type="boolean" />
+
+        <variable
                 name="homeViewModel"
                 type="gensokyo.hakurei.chitlist.viewmodels.HomeViewModel" />
 

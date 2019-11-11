@@ -13,15 +13,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import gensokyo.hakurei.chitlist.utilities.DATABASE_NAME
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentAdminSettingsBinding
+import gensokyo.hakurei.chitlist.utilities.Config
+import gensokyo.hakurei.chitlist.utilities.Converter
 import gensokyo.hakurei.chitlist.viewmodels.AdminSettingsViewModel
 import gensokyo.hakurei.chitlist.viewmodels.AdminSettingsViewModelFactory
 import kotlin.system.exitProcess
@@ -107,7 +106,7 @@ class AdminSettingsFragment : Fragment() {
             val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
                 type = "application/x-sqlite3"
-                putExtra(Intent.EXTRA_TITLE, "$DATABASE_NAME-${System.currentTimeMillis()}")
+                putExtra(Intent.EXTRA_TITLE, "${Config.databaseName}-${System.currentTimeMillis()}")
             }
 
             startActivityForResult(intent, BACKUP_DATABASE_REQUEST_CODE)
@@ -181,8 +180,19 @@ class AdminSettingsFragment : Fragment() {
         SpannableStringBuilder().apply {
             val mAdminComponentName = requireActivity().componentName
             val mDevicePolicyManager = requireContext().getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-            val database = requireActivity().getDatabasePath(DATABASE_NAME).absolutePath
+            val database = requireActivity().getDatabasePath(Config.databaseName).absolutePath
 
+            append("Properties: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            append(Config.file.toString())
+            append("\n")
+            Config.properties.forEach { (k, v) ->
+                append("$k: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                append("$v")
+                append("\n")
+            }
+            append("Database: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            append(database)
+            append("\n")
             append("PackageName: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             append(requireContext().packageName)
             append("\n")
@@ -194,9 +204,6 @@ class AdminSettingsFragment : Fragment() {
             append("\n")
             append("isDeviceOwnerApp: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             append(mDevicePolicyManager.isDeviceOwnerApp(requireContext().packageName).toString())
-            append("\n")
-            append("Database: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            append(database)
             append("\n")
 
             return this

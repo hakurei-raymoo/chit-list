@@ -18,6 +18,7 @@ import gensokyo.hakurei.chitlist.adapters.CHECKOUT_PAGE_INDEX
 import gensokyo.hakurei.chitlist.adapters.HISTORY_PAGE_INDEX
 import gensokyo.hakurei.chitlist.adapters.HomePagerAdapter
 import gensokyo.hakurei.chitlist.adapters.SHOP_PAGE_INDEX
+import gensokyo.hakurei.chitlist.utilities.Config
 import gensokyo.hakurei.chitlist.viewmodels.HomeViewModelFactory
 
 private const val TAG = "HomeViewPagerFragment"
@@ -63,14 +64,18 @@ class HomeViewPagerFragment : Fragment() {
         // Hide and show FABs depending on page.
         viewPager.registerOnPageChangeCallback((object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                animateFab(position, binding.hasItems)
+                animateFab(position, binding.hasItems, binding.balanceCapped)
             }
         }))
 
         homeViewModel.cart.observe(viewLifecycleOwner, Observer {
             // Show empty cart layout if not null or empty.
             binding.hasItems = !it.isNullOrEmpty()
-            animateFab(viewPager.currentItem, binding.hasItems)
+            animateFab(viewPager.currentItem, binding.hasItems, binding.balanceCapped)
+        })
+
+        homeViewModel.balance.observe(viewLifecycleOwner, Observer {
+            binding.balanceCapped = it > Config.shopLimit
         })
 
         (activity as AppCompatActivity).run {
@@ -164,8 +169,8 @@ class HomeViewPagerFragment : Fragment() {
         }
     }
 
-    private fun animateFab(position: Int, hasItems: Boolean) {
-        if (position == 1 && hasItems) {
+    private fun animateFab(position: Int, hasItems: Boolean, balanceCapped: Boolean) {
+        if (position == 1 && hasItems && !balanceCapped) {
             checkout_fab.show()
         } else {
             checkout_fab.hide()

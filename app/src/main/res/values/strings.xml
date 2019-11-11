@@ -31,6 +31,8 @@
     <string name="no_items_icon">No items icon</string>
     <string name="your_cart_is_empty">Your cart is empty</string>
     <string name="add_items">Add item(s)</string>
+    <string name="error_icon">Error icon</string>
+    <string name="exceeded_balance_cap">You have exceeded the balance cap: $%s\n Pay off your balance to make further transactions.</string>
     <!-- History -->
     <string name="history">History</string>
     <string name="amount_item">%s: $%s</string>

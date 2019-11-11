@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import gensokyo.hakurei.chitlist.databinding.ActivityMainBinding
+import gensokyo.hakurei.chitlist.utilities.Config
 
 private const val TAG = "MainActivity"
 
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity() {
             or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Config.init(this)
+        Config.write()
+        Config.read()
+
         // Call the superclass implementation.
         super.onCreate(savedInstanceState)
 

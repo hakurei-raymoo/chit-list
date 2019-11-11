@@ -23,6 +23,7 @@
                 android:padding="@dimen/spacing_large">
 
             <ImageView
+                    android:id="@+id/logo_image"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_gravity="center_horizontal"
@@ -32,13 +33,14 @@
                     app:srcCompat="@android:drawable/sym_def_app_icon" />
 
             <TextView
+                    android:id="@+id/title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="@dimen/spacing_normal"
-                    android:text="@string/app_name"
                     android:textAllCaps="true"
-                    android:textAppearance="?attr/textAppearanceHeadline4" />
+                    android:textAppearance="?attr/textAppearanceHeadline4"
+                    tools:text="@string/app_name" />
 
             <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"

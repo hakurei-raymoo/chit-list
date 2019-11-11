@@ -7,7 +7,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.database.Transaction
-import gensokyo.hakurei.chitlist.utilities.DATABASE_NAME
+import gensokyo.hakurei.chitlist.utilities.Config
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -39,7 +39,7 @@ class PrepopulateTransactions {
         database = Room.databaseBuilder(
             context.applicationContext,
             AppDatabase::class.java,
-            DATABASE_NAME
+            Config.databaseName
         )
             .fallbackToDestructiveMigration()
             .build()

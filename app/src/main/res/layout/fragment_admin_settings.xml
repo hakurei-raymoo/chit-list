@@ -72,14 +72,6 @@
                         app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
 
                 <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:paddingBottom="@dimen/spacing_normal"
-                        android:text="@string/info"
-                        android:textAppearance="?attr/textAppearanceHeadline4" />
-
-                <TextView
                         android:id="@+id/log_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

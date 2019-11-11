@@ -14,6 +14,7 @@ import gensokyo.hakurei.chitlist.adapters.CheckoutListener
 import gensokyo.hakurei.chitlist.viewmodels.HomeViewModel
 import gensokyo.hakurei.chitlist.databinding.FragmentCheckoutBinding
 import gensokyo.hakurei.chitlist.adapters.SHOP_PAGE_INDEX
+import gensokyo.hakurei.chitlist.utilities.Config
 
 private const val TAG = "CheckoutFragment"
 
@@ -42,6 +43,12 @@ class CheckoutFragment : Fragment() {
         // This is necessary so that the binding can observe LiveData updates.
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.balanceCap = Config.shopLimit
+
+        homeViewModel.balance.observe(viewLifecycleOwner, Observer {
+            binding.balanceCapped = it > Config.shopLimit
+        })
+
         homeViewModel.cart.observe(viewLifecycleOwner, Observer {
             // Show empty cart layout if not null or empty.
             binding.hasItems = !it.isNullOrEmpty()
@@ -51,8 +58,12 @@ class CheckoutFragment : Fragment() {
             }
         })
 
-        binding.addItem.setOnClickListener {
+        binding.addItemButton.setOnClickListener {
             navigateToShopPage()
+        }
+
+        binding.logoutButton.setOnClickListener {
+            this.findNavController().navigateUp()
         }
 
         // Add an Observer on the state variable for Navigating when EDIT button is pressed.

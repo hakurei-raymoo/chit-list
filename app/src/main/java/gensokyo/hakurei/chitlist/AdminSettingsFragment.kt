@@ -1,12 +1,21 @@
 package gensokyo.hakurei.chitlist
 
 import android.app.Activity.RESULT_OK
+import android.app.admin.DevicePolicyManager
+import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -130,9 +139,24 @@ class AdminSettingsFragment : Fragment() {
         // Observer to process exit attempt.
         adminSettingsViewModel.exitApp.observe(this, Observer {
             if (it != null) {
-                exitProcess(0) // Warning: Only works for one activity.
+                val mAdminComponentName = requireActivity().componentName
+                val mDevicePolicyManager = requireContext().getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+                if (mDevicePolicyManager.isDeviceOwnerApp(requireContext().packageName)) {
+                    Log.i(TAG, "Removing from default home apps list.")
+                    mDevicePolicyManager.clearPackagePersistentPreferredActivities(
+                        mAdminComponentName,
+                        requireContext().packageName
+                    )
+                } else {
+                    Log.i(TAG, "Was not a device administrator.")
+                }
+
+                requireActivity().finish()
+                exitProcess(0) // Warning: Only exits one activity.
             }
         })
+
+        binding.logText.text = writeLog()
 
         return binding.root
     }
@@ -150,6 +174,32 @@ class AdminSettingsFragment : Fragment() {
                     RESTORE_DATABASE_REQUEST_CODE -> adminSettingsViewModel.restoreDatabase(data.data!!)
                 }
             }
+        }
+    }
+
+    private fun writeLog(): Spanned {
+        SpannableStringBuilder().apply {
+            val mAdminComponentName = requireActivity().componentName
+            val mDevicePolicyManager = requireContext().getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+            val database = requireActivity().getDatabasePath(DATABASE_NAME).absolutePath
+
+            append("PackageName: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            append(requireContext().packageName)
+            append("\n")
+            append("AdminComponentName: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            append(mAdminComponentName.toString())
+            append("\n")
+            append("DevicePolicyManager: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            append(mDevicePolicyManager.toString())
+            append("\n")
+            append("isDeviceOwnerApp: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            append(mDevicePolicyManager.isDeviceOwnerApp(requireContext().packageName).toString())
+            append("\n")
+            append("Database: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            append(database)
+            append("\n")
+
+            return this
         }
     }
 }

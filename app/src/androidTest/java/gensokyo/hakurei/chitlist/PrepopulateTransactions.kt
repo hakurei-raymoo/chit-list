@@ -68,7 +68,8 @@ class PrepopulateTransactions {
                         accountId = accountId,
                         creatorId = accountId,
                         itemId = it.itemId,
-                        amount = it.price
+                        amount = it.price,
+                        type = true
                     )
                 )
             }

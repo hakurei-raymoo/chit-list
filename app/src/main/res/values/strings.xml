@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Chit List</string>
+    <string name="admin_description">Enable kiosk mode</string>
     <string name="logo_content_description">App logo</string>
     <!-- Common -->
+    <string name="is_admin">App is a device administrator</string>
+    <string name="not_admin_warning">Not installed correctly. Kiosk functions may not work.</string>
     <string name="admin">Admin Settings</string>
     <string name="primary_key_equals">key=%d</string>
     <string name="balance_is">Balance is $%s</string>
@@ -9,6 +12,7 @@
     <string name="number">%04d</string>
     <string name="invalid_input">Invalid input</string>
     <!-- Buttons -->
+    <string name="create">Create</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
@@ -43,6 +47,7 @@
     <string name="backup_database">Backup database</string>
     <string name="restore_database">Restore database</string>
     <string name="exit_application">Exit application</string>
+    <string name="info">Info:</string>
     <string name="log">Log:</string>
     <!-- Account -->
     <string name="accounts">Accounts</string>
@@ -70,6 +75,9 @@
     <string name="transactions">Transactions</string>
     <string name="time">Time</string>
     <string name="time_equals">time=%d</string>
+    <string name="shop_tx">Shop transaction</string>
+    <string name="custom_tx">Custom transaction</string>
+    <string name="shop_tx_equals">Shop transaction=%s</string>
     <string name="account">Account</string>
     <string name="invalid_account">Invalid account id</string>
     <string name="account_equals">account=%s</string>
@@ -82,6 +90,7 @@
     <string name="amount_equals">amount=%s</string>
     <string name="comments">Comments</string>
     <string name="comments_equals">comments=%s</string>
+    <!-- Password -->
     <string name="current_password">Current password</string>
     <string name="new_password">New password</string>
     <string name="confirm_password">Confirm password</string>

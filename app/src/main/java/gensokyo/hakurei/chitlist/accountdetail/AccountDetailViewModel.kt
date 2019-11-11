@@ -14,12 +14,13 @@ class AccountDetailViewModel(
 ) : ViewModel() {
 
     private val viewModelJob = Job()
-
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    val isNew = (accountKey == -1L)
 
     // Check accountKey to either get Account from database or insert a new one.
     private var _account =
-        if (accountKey == -1L) {
+        if (isNew) {
             MutableLiveData<Account>(Account())
         } else {
             dataSource.getAccount(accountKey)
@@ -42,6 +43,13 @@ class AccountDetailViewModel(
         Log.i(TAG, "Init")
     }
 
+    fun onCreateClicked() {
+        uiScope.launch {
+            create()
+            _navigateToAccountsList.value = true
+        }
+    }
+
     fun onUpdateClicked() {
         uiScope.launch {
             update()
@@ -49,15 +57,17 @@ class AccountDetailViewModel(
         }
     }
 
+    private suspend fun create() {
+        withContext(Dispatchers.IO) {
+            dataSource.insert(account.value!!)
+            Log.i(TAG, "Inserted ${account.value!!}")
+        }
+    }
+
     private suspend fun update() {
         withContext(Dispatchers.IO) {
-            if (accountKey == -1L) {
-                dataSource.insert(account.value!!)
-                Log.i(TAG, "Inserted ${account.value!!}")
-            } else {
-                dataSource.update(account.value!!)
-                Log.i(TAG, "Updated ${account.value!!}")
-            }
+            dataSource.update(account.value!!)
+            Log.i(TAG, "Updated ${account.value!!}")
         }
     }
 

@@ -125,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/last_admin_warning"
                         android:textColor="@color/colorError"
-                        app:isGone="@{!accountDetailViewModel.lastAdmin}"/>
+                        app:isGone="@{!accountDetailViewModel.lastAdmin}" />
 
                 <Switch
                         android:id="@+id/admin_switch"
@@ -143,28 +143,39 @@
                         android:enabled="@{!accountDetailViewModel.lastAdmin}"
                         android:text="@string/allow_interactive_login" />
 
-                <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
 
-                    <com.google.android.material.button.MaterialButton
-                            android:id="@+id/update_button"
-                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:onClick="@{() -> accountDetailViewModel.onUpdateClicked()}"
-                            android:text="@string/update" />
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:orientation="horizontal">
 
                     <com.google.android.material.button.MaterialButton
                             android:id="@+id/cancel_button"
                             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toStartOf="@id/update_button"
                             android:onClick="@{() -> accountDetailViewModel.onCancelClicked()}"
                             android:text="@string/cancel" />
-                </RelativeLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                            android:id="@+id/update_button"
+                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{() -> accountDetailViewModel.onUpdateClicked()}"
+                            android:text="@string/update"
+                            app:isGone="@{accountDetailViewModel.isNew}" />
+
+                    <com.google.android.material.button.MaterialButton
+                            android:id="@+id/create_button"
+                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{() -> accountDetailViewModel.onCreateClicked()}"
+                            android:text="@string/create"
+                            app:isGone="@{!accountDetailViewModel.isNew}" />
+                </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </RelativeLayout>

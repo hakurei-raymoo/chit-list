@@ -25,8 +25,6 @@ class AdminSettingsViewModel(
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    val log = MutableLiveData<String>("Database located at: " + application.getDatabasePath(DATABASE_NAME).absolutePath)
-
     private val _exitApp = MutableLiveData<Boolean>()
     val exitApp: LiveData<Boolean>
         get() = _exitApp
@@ -37,6 +35,7 @@ class AdminSettingsViewModel(
 
     init {
         Log.i(TAG, "Init")
+        // TODO: Add scheduled backups.
     }
 
     fun messageReturned() {
@@ -113,6 +112,7 @@ class AdminSettingsViewModel(
     }
 
     fun exportTransactions(uri: Uri) {
+        // TODO: Allow user to select columns to export.
         try {
             uiScope.launch {
                 withContext(Dispatchers.IO) {

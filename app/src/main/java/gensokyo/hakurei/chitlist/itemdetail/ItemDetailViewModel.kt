@@ -16,12 +16,13 @@ class ItemDetailViewModel(
 ) : ViewModel() {
 
     private val viewModelJob = Job()
-
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    val isNew = (itemKey == -1L)
 
     // Check itemKey to either get Item from database or insert a new one.
     private var _item =
-        if (itemKey == -1L) {
+        if (isNew) {
             MutableLiveData<Item>(Item())
         } else {
             dataSource.getItem(itemKey)
@@ -37,6 +38,13 @@ class ItemDetailViewModel(
         Log.i(TAG, "Init")
     }
 
+    fun onCreateClicked() {
+        uiScope.launch {
+            create()
+            _navigateToItemsList.value = true
+        }
+    }
+
     fun onUpdateClicked() {
         uiScope.launch {
             update()
@@ -44,15 +52,17 @@ class ItemDetailViewModel(
         }
     }
 
+    private suspend fun create() {
+        withContext(Dispatchers.IO) {
+            dataSource.insert(item.value!!)
+            Log.i(TAG, "Inserted ${item.value!!}")
+        }
+    }
+
     private suspend fun update() {
         withContext(Dispatchers.IO) {
-            if (itemKey == -1L) {
-                dataSource.insert(item.value!!)
-                Log.i(TAG, "Inserted ${item.value!!}")
-            } else {
-                dataSource.update(item.value!!)
-                Log.i(TAG, "Updated ${item.value!!}")
-            }
+            dataSource.update(item.value!!)
+            Log.i(TAG, "Updated ${item.value!!}")
         }
     }
 

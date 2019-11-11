@@ -88,7 +88,8 @@ class HomeViewModel (
                 accountId = user.value?.accountId!!,
                 creatorId = user.value?.accountId!!,
                 itemId = it.itemId,
-                amount = it.price
+                amount = it.price,
+                type = true
             )
             Log.i(TAG, "inserting: $transaction")
             dataSource.insert(transaction)

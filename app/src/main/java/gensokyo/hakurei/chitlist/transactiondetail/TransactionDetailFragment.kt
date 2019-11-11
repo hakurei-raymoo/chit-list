@@ -43,7 +43,6 @@ class TransactionDetailFragment : DialogFragment() {
         // To use the View Model with data binding, you have to explicitly
         // give the binding object a reference to it.
         binding.transactionDetailViewModel = transactionDetailViewModel
-        binding.isNew = (arguments.transactionKey == -1L)
 
         // Specify the current activity as the lifecycle owner of the binding.
         // This is necessary so that the binding can observe LiveData updates.

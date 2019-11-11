@@ -40,7 +40,9 @@ data class Transaction(
 
     var amount: Int = 0,
 
-    var comments: String = ""
+    var comments: String = "",
+
+    val type: Boolean = false
 )
 
 data class TransactionWithChildren(
@@ -61,5 +63,7 @@ data class TransactionWithChildren(
 
     var amount: Int,
 
-    var comments: String
+    var comments: String,
+
+    val type: Boolean
 )

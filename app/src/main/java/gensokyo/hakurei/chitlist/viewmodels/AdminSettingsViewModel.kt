@@ -163,7 +163,7 @@ class AdminSettingsViewModel(
                 database.checkpoint(SimpleSQLiteQuery("pragma wal_checkpoint(full)"))
 
                 // Copy database file.
-                val inputStream = application.getDatabasePath(Config.databaseName).inputStream()
+                val inputStream = application.getDatabasePath(Config.DATABASE_NAME).inputStream()
                 val outputStream = application.contentResolver.openOutputStream(uri)
                 Log.i(TAG, "inStream=${inputStream}")
                 Log.i(TAG, "outStream=${outputStream}")
@@ -172,7 +172,7 @@ class AdminSettingsViewModel(
                         input.copyTo(output)
                     }
                 }
-                _returnMessage.postValue("${Config.databaseName} backed up to $uri")
+                _returnMessage.postValue("${Config.DATABASE_NAME} backed up to $uri")
             }
         }
     }
@@ -186,7 +186,7 @@ class AdminSettingsViewModel(
 
                 // Copy database file.
                 val inputStream = application.contentResolver.openInputStream(uri)
-                val outputStream = application.getDatabasePath(Config.databaseName).outputStream()
+                val outputStream = application.getDatabasePath(Config.DATABASE_NAME).outputStream()
                 Log.i(TAG, "inStream=${inputStream}")
                 Log.i(TAG, "outStream=${outputStream}")
                 inputStream.use { input ->
@@ -195,7 +195,7 @@ class AdminSettingsViewModel(
                     }
                 }
 
-                _returnMessage.postValue("${Config.databaseName} restored. App will now close.")
+                _returnMessage.postValue("${Config.DATABASE_NAME} restored. App will now close.")
 
                 // Wait before exiting so messages can be displayed.
                 Thread.sleep(1000L)

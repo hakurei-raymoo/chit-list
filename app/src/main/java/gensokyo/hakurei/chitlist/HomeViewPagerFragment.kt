@@ -1,7 +1,6 @@
 package gensokyo.hakurei.chitlist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -75,7 +74,7 @@ class HomeViewPagerFragment : Fragment() {
         })
 
         homeViewModel.balance.observe(viewLifecycleOwner, Observer {
-            binding.balanceCapped = it > Config.shopLimit
+            binding.balanceCapped = it > Config.BALANCE_CAP
         })
 
         (activity as AppCompatActivity).run {

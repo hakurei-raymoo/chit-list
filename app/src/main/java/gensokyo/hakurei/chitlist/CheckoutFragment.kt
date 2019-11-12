@@ -43,10 +43,10 @@ class CheckoutFragment : Fragment() {
         // This is necessary so that the binding can observe LiveData updates.
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.balanceCap = Config.shopLimit
+        binding.balanceCap = Config.BALANCE_CAP
 
         homeViewModel.balance.observe(viewLifecycleOwner, Observer {
-            binding.balanceCapped = it > Config.shopLimit
+            binding.balanceCapped = it > Config.BALANCE_CAP
         })
 
         homeViewModel.cart.observe(viewLifecycleOwner, Observer {

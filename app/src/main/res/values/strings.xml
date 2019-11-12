@@ -103,9 +103,11 @@
     <string name="database_name">Database name</string>
     <string name="balance_cap">Balance cap</string>
     <string name="decimal_separator_symbol">Decimal separator symbol:</string>
+    <string name="point">Point</string>
     <string name="decimal_point">Decimal point</string>
+    <string name="comma">Comma</string>
     <string name="decimal_comma">Decimal comma</string>
-    <string name="currency_separator_offset">Currency separator offset:</string>
+    <string name="decimal_separator_offset">Decimal separator offset:</string>
     <string name="one">One</string>
     <string name="two">Two</string>
     <string name="three">Three</string>

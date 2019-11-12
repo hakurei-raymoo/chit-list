@@ -87,8 +87,8 @@ class LoginFragment : Fragment() {
             }
         })
 
-        binding.titleText.text = Config.appName
-        Log.i(TAG, "Config.appName=${Config.appName}")
+        binding.titleText.text = Config.APP_NAME
+        Log.i(TAG, "Config.APP_NAME=${Config.APP_NAME}")
 
         return binding.root
     }

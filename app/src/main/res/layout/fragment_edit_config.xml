@@ -87,46 +87,55 @@
 
                     <RadioGroup
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
 
                         <RadioButton
                                 android:id="@+id/point_button"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/decimal_point" />
+                                android:layout_weight="1"
+                                android:text="@string/point" />
 
                         <RadioButton
                                 android:id="@+id/comma_button"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/decimal_comma" />
+                                android:layout_weight="1"
+                                android:text="@string/comma" />
                     </RadioGroup>
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/currency_separator_offset" />
+                            android:text="@string/decimal_separator_offset" />
 
                     <RadioGroup
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
 
                         <RadioButton
                                 android:id="@+id/one_button"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:text="@string/one" />
 
                         <RadioButton
                                 android:id="@+id/two_button"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:text="@string/two" />
 
                         <RadioButton
                                 android:id="@+id/three_button"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:text="@string/three" />
                     </RadioGroup>
 

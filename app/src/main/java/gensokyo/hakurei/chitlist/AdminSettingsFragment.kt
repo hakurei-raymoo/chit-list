@@ -21,7 +21,6 @@ import androidx.navigation.fragment.findNavController
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentAdminSettingsBinding
 import gensokyo.hakurei.chitlist.utilities.Config
-import gensokyo.hakurei.chitlist.utilities.Converter
 import gensokyo.hakurei.chitlist.viewmodels.AdminSettingsViewModel
 import gensokyo.hakurei.chitlist.viewmodels.AdminSettingsViewModelFactory
 import kotlin.system.exitProcess
@@ -107,7 +106,7 @@ class AdminSettingsFragment : Fragment() {
             val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
                 type = "application/x-sqlite3"
-                putExtra(Intent.EXTRA_TITLE, "${Config.databaseName}-${System.currentTimeMillis()}")
+                putExtra(Intent.EXTRA_TITLE, "${Config.DATABASE_NAME}-${System.currentTimeMillis()}")
             }
 
             startActivityForResult(intent, BACKUP_DATABASE_REQUEST_CODE)
@@ -187,7 +186,7 @@ class AdminSettingsFragment : Fragment() {
         SpannableStringBuilder().apply {
             val mAdminComponentName = requireActivity().componentName
             val mDevicePolicyManager = requireContext().getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-            val database = requireActivity().getDatabasePath(Config.databaseName).absolutePath
+            val database = requireActivity().getDatabasePath(Config.DATABASE_NAME).absolutePath
 
             append("Properties: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             append(Config.file.toString())

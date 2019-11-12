@@ -39,7 +39,7 @@ class PrepopulateTransactions {
         database = Room.databaseBuilder(
             context.applicationContext,
             AppDatabase::class.java,
-            Config.databaseName
+            Config.DATABASE_NAME
         )
             .fallbackToDestructiveMigration()
             .build()

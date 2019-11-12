@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Config.init(this)
-        Config.write()
         Config.read()
 
         // Call the superclass implementation.

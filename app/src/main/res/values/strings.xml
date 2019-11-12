@@ -48,6 +48,7 @@
     <string name="export_transactions">Export transactions</string>
     <string name="backup_database">Backup database</string>
     <string name="restore_database">Restore database</string>
+    <string name="edit_config">Edit config</string>
     <string name="exit_application">Exit application</string>
     <string name="info">Info:</string>
     <string name="log">Log:</string>
@@ -96,4 +97,17 @@
     <string name="current_password">Current password</string>
     <string name="new_password">New password</string>
     <string name="confirm_password">Confirm password</string>
+    <!-- Config -->
+    <string name="config">Config</string>
+    <string name="app_title">App title</string>
+    <string name="database_name">Database name</string>
+    <string name="balance_cap">Balance cap</string>
+    <string name="decimal_separator_symbol">Decimal separator symbol:</string>
+    <string name="decimal_point">Decimal point</string>
+    <string name="decimal_comma">Decimal comma</string>
+    <string name="currency_separator_offset">Currency separator offset:</string>
+    <string name="one">One</string>
+    <string name="two">Two</string>
+    <string name="three">Three</string>
+    <string name="config_saved">Config saved. Restart to apply changes.</string>
 </resources>

@@ -65,6 +65,13 @@
                         app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
 
                 <com.google.android.material.button.MaterialButton
+                        android:id="@+id/edit_config_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/edit_config"
+                        app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+                <com.google.android.material.button.MaterialButton
                         android:id="@+id/exit_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentAdminSettingsBinding
 import gensokyo.hakurei.chitlist.utilities.Config
@@ -119,6 +120,12 @@ class AdminSettingsFragment : Fragment() {
             }
 
             startActivityForResult(intent, RESTORE_DATABASE_REQUEST_CODE)
+        }
+
+        binding.editConfigButton.setOnClickListener {
+            this.findNavController().navigate(
+                AdminViewPagerFragmentDirections.actionAdminViewPagerFragmentToEditConfigFragment()
+            )
         }
 
         // Observer to process return messages.

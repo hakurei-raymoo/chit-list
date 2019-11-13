@@ -28,10 +28,10 @@
                     android:padding="@dimen/spacing_large">
 
                 <com.google.android.material.button.MaterialButton
-                        android:id="@+id/export_balances_button"
+                        android:id="@+id/export_accounts_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/export_balances"
+                        android:text="@string/export_accounts"
                         android:visibility="gone"
                         app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
 

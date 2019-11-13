@@ -21,6 +21,7 @@ class EditConfigViewModel : ViewModel() {
         balanceCap.value = Config.BALANCE_CAP
         decimalSeparator.value = Config.DECIMAL_SEPARATOR
         decimalOffset.value = Config.DECIMAL_OFFSET
+        Log.i(TAG, "Init")
     }
 
     fun write() {

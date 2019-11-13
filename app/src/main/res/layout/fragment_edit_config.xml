@@ -79,27 +79,31 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/decimal_separator_symbol" />
+                        android:text="@string/decimal_separator_symbol"
+                        android:visibility="gone" />
 
                 <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                     <RadioButton
                             android:id="@+id/point_button"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/point" />
+                            android:text="@string/point"
+                            android:visibility="gone" />
 
                     <RadioButton
                             android:id="@+id/comma_button"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/comma" />
+                            android:text="@string/comma"
+                            android:visibility="gone" />
                 </RadioGroup>
 
                 <TextView

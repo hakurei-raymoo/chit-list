@@ -28,7 +28,7 @@ import kotlin.system.exitProcess
 
 private const val TAG = "AdminSettingsFragment"
 
-const val EXPORT_BALANCES_REQUEST_CODE = 101
+const val EXPORT_ACCOUNTS_REQUEST_CODE = 101
 const val EXPORT_ITEMS_REQUEST_CODE = 102
 const val EXPORT_TRANSACTIONS_REQUEST_CODE = 103
 const val BACKUP_DATABASE_REQUEST_CODE = 201
@@ -67,7 +67,7 @@ class AdminSettingsFragment : Fragment() {
         // This is necessary so that the binding can observe LiveData updates.
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.exportBalancesButton.setOnClickListener {
+        binding.exportAccountsButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
                 // Filter to only show results that can be "opened", such as
                 // a file (as opposed to a list of contacts or timezones).
@@ -75,10 +75,10 @@ class AdminSettingsFragment : Fragment() {
 
                 // Create a file with the requested MIME type.
                 type = "text/csv"
-                putExtra(Intent.EXTRA_TITLE, "balances-${System.currentTimeMillis()}.csv")
+                putExtra(Intent.EXTRA_TITLE, "accounts-${System.currentTimeMillis()}.csv")
             }
 
-            startActivityForResult(intent, EXPORT_BALANCES_REQUEST_CODE)
+            startActivityForResult(intent, EXPORT_ACCOUNTS_REQUEST_CODE)
         }
 
         binding.exportItemsButton.setOnClickListener {
@@ -167,12 +167,12 @@ class AdminSettingsFragment : Fragment() {
         binding.versionText.setOnClickListener{
             clicks += 1
             if (clicks % 5 == 0) {
-                binding.exportBalancesButton.visibility = View.VISIBLE
+                binding.exportAccountsButton.visibility = View.VISIBLE
                 binding.exportItemsButton.visibility = View.VISIBLE
                 binding.logText.visibility = View.VISIBLE
                 binding.logText.text = writeLog()
             } else {
-                binding.exportBalancesButton.visibility = View.GONE
+                binding.exportAccountsButton.visibility = View.GONE
                 binding.exportItemsButton.visibility = View.GONE
                 binding.logText.visibility = View.GONE
             }
@@ -187,7 +187,7 @@ class AdminSettingsFragment : Fragment() {
         if (resultCode == RESULT_OK) {
             if (data != null && data.data != null) {
                 when (requestCode) {
-                    EXPORT_BALANCES_REQUEST_CODE -> adminSettingsViewModel.exportBalances(data.data!!)
+                    EXPORT_ACCOUNTS_REQUEST_CODE -> adminSettingsViewModel.exportAccounts(data.data!!)
                     EXPORT_ITEMS_REQUEST_CODE -> adminSettingsViewModel.exportItems(data.data!!)
                     EXPORT_TRANSACTIONS_REQUEST_CODE -> adminSettingsViewModel.exportTransactions(data.data!!)
                     BACKUP_DATABASE_REQUEST_CODE -> adminSettingsViewModel.backupDatabase(data.data!!)

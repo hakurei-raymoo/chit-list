@@ -42,7 +42,7 @@ class AdminSettingsViewModel(
         _returnMessage.value = null
     }
 
-    fun exportBalances(uri: Uri) {
+    fun exportAccounts(uri: Uri) {
         try {
             uiScope.launch {
                 withContext(Dispatchers.IO) {
@@ -77,7 +77,7 @@ class AdminSettingsViewModel(
                                     "${it.emailAddress}," +
                                     "${it.admin} " +
                                     "${it.enabled}," +
-                                    "${balance}"
+                                    "${Converter.addDecimal(balance)}"
                                 )
                             }
                         }
@@ -105,7 +105,7 @@ class AdminSettingsViewModel(
                             out.println("item_id,name,price,enabled")
                             items.forEach {
                                 out.println(
-                                    "${it.itemId},${it.name},${it.price},${it.enabled}"
+                                    "${it.itemId},${it.name},${Converter.addDecimal(it.price)},${it.enabled}"
                                 )
                             }
                         }

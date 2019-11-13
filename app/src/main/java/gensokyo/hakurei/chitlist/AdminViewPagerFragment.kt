@@ -79,9 +79,9 @@ class AdminViewPagerFragment : Fragment() {
     private fun getTabTitle(position: Int): String? {
         return when (position) {
             ADMIN_SETTINGS_PAGE_INDEX -> getString(R.string.admin_settings)
-            ACCOUNTS_LIST_PAGE_INDEX -> getString(R.string.accounts)
-            ITEMS_LIST_PAGE_INDEX -> getString(R.string.items)
             TRANSACTIONS_LIST_PAGE_INDEX -> getString(R.string.transactions)
+            ITEMS_LIST_PAGE_INDEX -> getString(R.string.items)
+            ACCOUNTS_LIST_PAGE_INDEX -> getString(R.string.accounts)
             else -> null
         }
     }
@@ -89,24 +89,24 @@ class AdminViewPagerFragment : Fragment() {
     private fun animateFab(position: Int) {
         when (position) {
             1 -> {
-                accounts_fab.show()
+                transactions_fab.show()
                 items_fab.hide()
-                transactions_fab.hide()
+                accounts_fab.hide()
             }
             2 -> {
-                accounts_fab.hide()
-                items_fab.show()
                 transactions_fab.hide()
+                items_fab.show()
+                accounts_fab.hide()
             }
             3 -> {
-                accounts_fab.hide()
+                transactions_fab.hide()
                 items_fab.hide()
-                transactions_fab.show()
+                accounts_fab.show()
             }
             else -> {
-                accounts_fab.hide()
-                items_fab.hide()
                 transactions_fab.hide()
+                items_fab.hide()
+                accounts_fab.hide()
             }
         }
     }

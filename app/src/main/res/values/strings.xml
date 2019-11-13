@@ -43,7 +43,7 @@
     <!-- Settings -->
     <string name="admin_settings">Settings</string>
     <string name="path">Path</string>
-    <string name="export_balances">Export balances</string>
+    <string name="export_accounts">Export accounts</string>
     <string name="export_items">Export items</string>
     <string name="export_transactions">Export transactions</string>
     <string name="backup_database">Backup database</string>

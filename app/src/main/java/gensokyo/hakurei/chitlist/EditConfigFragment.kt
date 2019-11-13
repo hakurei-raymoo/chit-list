@@ -35,6 +35,12 @@ class EditConfigFragment : DialogFragment() {
         // This is necessary so that the binding can observe LiveData updates.
         binding.lifecycleOwner = viewLifecycleOwner
 
+        // Set initial state.
+        when (editConfigViewModel.decimalSeparator.value) {
+            "." -> binding.pointButton.isChecked = true
+            "," -> binding.commaButton.isChecked = true
+        }
+
         // Set decimal separator symbol.
         binding.pointButton.setOnClickListener {
             binding.pointButton.isChecked = true
@@ -45,6 +51,13 @@ class EditConfigFragment : DialogFragment() {
             binding.pointButton.isChecked = false
             binding.commaButton.isChecked = true
             editConfigViewModel.decimalSeparator.value = ","
+        }
+
+        // Set initial state.
+        when (editConfigViewModel.decimalOffset.value) {
+            1 -> binding.oneButton.isChecked = true
+            2 -> binding.twoButton.isChecked = true
+            3 -> binding.threeButton.isChecked = true
         }
 
         // Set decimal separator offset.

@@ -8,9 +8,9 @@ import gensokyo.hakurei.chitlist.ItemsListFragment
 import gensokyo.hakurei.chitlist.TransactionsListFragment
 
 const val ADMIN_SETTINGS_PAGE_INDEX = 0
-const val ACCOUNTS_LIST_PAGE_INDEX = 1
+const val TRANSACTIONS_LIST_PAGE_INDEX = 1
 const val ITEMS_LIST_PAGE_INDEX = 2
-const val TRANSACTIONS_LIST_PAGE_INDEX = 3
+const val ACCOUNTS_LIST_PAGE_INDEX = 3
 
 class AdminPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
@@ -19,9 +19,9 @@ class AdminPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
      */
     private val tabFragmentsCreators: Map<Int, () -> Fragment> = mapOf(
         ADMIN_SETTINGS_PAGE_INDEX to { AdminSettingsFragment() },
-        ACCOUNTS_LIST_PAGE_INDEX to { AccountsListFragment() },
+        TRANSACTIONS_LIST_PAGE_INDEX to { TransactionsListFragment() },
         ITEMS_LIST_PAGE_INDEX to { ItemsListFragment() },
-        TRANSACTIONS_LIST_PAGE_INDEX to { TransactionsListFragment() }
+        ACCOUNTS_LIST_PAGE_INDEX to { AccountsListFragment() }
     )
 
     override fun getItemCount() = tabFragmentsCreators.size

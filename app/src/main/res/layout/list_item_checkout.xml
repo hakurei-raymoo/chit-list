@@ -66,18 +66,17 @@
                     android:paddingBottom="@dimen/spacing_extra_small">
 
                 <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{item.name}"
                         android:gravity="start"
+                        android:text="@{item.name}"
                         android:textStyle="bold"
                         tools:text="@string/name_equals" />
 
                 <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="end"
                         android:text="@{@string/dollars(Converter.addDecimal(item.price))}"
                         tools:text="@string/price_equals" />

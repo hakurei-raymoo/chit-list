@@ -87,8 +87,11 @@ class LoginFragment : Fragment() {
             }
         })
 
-        binding.titleText.text = Config.APP_NAME
-        Log.i(TAG, "Config.APP_NAME=${Config.APP_NAME}")
+        // Show the subtitle if it exists.
+        if (Config.APP_SUBTITLE != "") {
+            binding.subtitleText.text = Config.APP_SUBTITLE
+            binding.subtitleText.visibility = View.VISIBLE
+        }
 
         return binding.root
     }

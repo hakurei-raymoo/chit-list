@@ -12,155 +12,150 @@
         <import type="gensokyo.hakurei.chitlist.utilities.Converter" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+                android:id="@+id/title_text"
+                style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:gravity="center"
+                android:text="@string/edit_config"
+                android:textAllCaps="true"
+                android:textColor="@color/colorOnPrimary"
+                android:textSize="16sp" />
+
+        <androidx.core.widget.NestedScrollView
+                android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                    android:id="@+id/title_text"
-                    style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:gravity="center"
-                    android:text="@string/edit_config"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorOnPrimary"
-                    android:textSize="16sp" />
-
-            <androidx.core.widget.NestedScrollView
-                    android:id="@+id/scrollView"
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_large">
 
-                <LinearLayout
+                <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/spacing_large">
+                        android:hint="@string/app_subtitle">
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/app_title">
+                            android:inputType="textNoSuggestions|textVisiblePassword"
+                            android:text="@={editConfigViewModel.appSubtitle}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="textNoSuggestions|textVisiblePassword"
-                                android:text="@={editConfigViewModel.appName}" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/database_name">
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/database_name">
+                            android:inputType="textNoSuggestions|textVisiblePassword"
+                            android:text="@={editConfigViewModel.databaseName}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="textNoSuggestions|textVisiblePassword"
-                                android:text="@={editConfigViewModel.databaseName}" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/balance_cap">
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/balance_cap">
+                            android:inputType="number"
+                            android:text="@={Converter.addDecimal(editConfigViewModel.balanceCap)}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="number"
-                                android:text="@={Converter.addDecimal(editConfigViewModel.balanceCap)}" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/decimal_separator_symbol" />
 
-                    <TextView
+                <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                    <RadioButton
+                            android:id="@+id/point_button"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/decimal_separator_symbol" />
+                            android:layout_weight="1"
+                            android:text="@string/point" />
 
-                    <RadioGroup
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
-
-                        <RadioButton
-                                android:id="@+id/point_button"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/point" />
-
-                        <RadioButton
-                                android:id="@+id/comma_button"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/comma" />
-                    </RadioGroup>
-
-                    <TextView
+                    <RadioButton
+                            android:id="@+id/comma_button"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/decimal_separator_offset" />
+                            android:layout_weight="1"
+                            android:text="@string/comma" />
+                </RadioGroup>
 
-                    <RadioGroup
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/decimal_separator_offset" />
+
+                <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                    <RadioButton
+                            android:id="@+id/one_button"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/one" />
 
-                        <RadioButton
-                                android:id="@+id/one_button"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/one" />
-
-                        <RadioButton
-                                android:id="@+id/two_button"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/two" />
-
-                        <RadioButton
-                                android:id="@+id/three_button"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/three" />
-                    </RadioGroup>
-
-                    <RelativeLayout
+                    <RadioButton
+                            android:id="@+id/two_button"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/two" />
 
-                        <com.google.android.material.button.MaterialButton
-                                android:id="@+id/update_button"
-                                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:text="@string/update" />
+                    <RadioButton
+                            android:id="@+id/three_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/three" />
+                </RadioGroup>
 
-                        <com.google.android.material.button.MaterialButton
-                                android:id="@+id/cancel_button"
-                                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_toStartOf="@id/update_button"
-                                android:text="@string/cancel" />
-                    </RelativeLayout>
-                </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
-        </LinearLayout>
-    </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <com.google.android.material.button.MaterialButton
+                            android:id="@+id/update_button"
+                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="@string/update" />
+
+                    <com.google.android.material.button.MaterialButton
+                            android:id="@+id/cancel_button"
+                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toStartOf="@id/update_button"
+                            android:text="@string/cancel" />
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 </layout>

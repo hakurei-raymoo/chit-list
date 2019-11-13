@@ -21,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentAdminSettingsBinding
 import gensokyo.hakurei.chitlist.utilities.Config
+import gensokyo.hakurei.chitlist.utilities.Converter
 import gensokyo.hakurei.chitlist.viewmodels.AdminSettingsViewModel
 import gensokyo.hakurei.chitlist.viewmodels.AdminSettingsViewModelFactory
 import kotlin.system.exitProcess
@@ -161,7 +162,21 @@ class AdminSettingsFragment : Fragment() {
             }
         })
 
-        binding.logText.text = writeLog()
+        // Show log once version is clicked 5 times.
+        var clicks = 0
+        binding.versionText.setOnClickListener{
+            clicks += 1
+            if (clicks % 5 == 0) {
+                binding.exportBalancesButton.visibility = View.VISIBLE
+                binding.exportItemsButton.visibility = View.VISIBLE
+                binding.logText.visibility = View.VISIBLE
+                binding.logText.text = writeLog()
+            } else {
+                binding.exportBalancesButton.visibility = View.GONE
+                binding.exportItemsButton.visibility = View.GONE
+                binding.logText.visibility = View.GONE
+            }
+        }
 
         return binding.root
     }
@@ -188,16 +203,8 @@ class AdminSettingsFragment : Fragment() {
             val mDevicePolicyManager = requireContext().getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
             val database = requireActivity().getDatabasePath(Config.DATABASE_NAME).absolutePath
 
-            append("Properties: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            append(Config.file.toString())
-            append("\n")
-            Config.properties.forEach { (k, v) ->
-                append("$k: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                append("$v")
-                append("\n")
-            }
-            append("Database: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            append(database)
+            append("Time: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            append(Converter.convertLongToDateStringShort(System.currentTimeMillis()))
             append("\n")
             append("PackageName: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             append(requireContext().packageName)
@@ -210,6 +217,21 @@ class AdminSettingsFragment : Fragment() {
             append("\n")
             append("isDeviceOwnerApp: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             append(mDevicePolicyManager.isDeviceOwnerApp(requireContext().packageName).toString())
+            append("\n")
+            append("Properties path: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            append(Config.file.toString())
+            append("\n")
+            append("Properties {", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            append("\n")
+            Config.properties.forEach { (k, v) ->
+                append("\t$k: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                append("$v")
+                append("\n")
+            }
+            append("}", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            append("\n")
+            append("Database path: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            append(database)
             append("\n")
 
             return this

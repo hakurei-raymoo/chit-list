@@ -7,11 +7,17 @@
 
         <variable
                 name="account"
-                type="gensokyo.hakurei.chitlist.database.Account" />
+                type="gensokyo.hakurei.chitlist.database.BareAccountWithHistory" />
+
+        <variable
+                name="balance"
+                type="Integer" />
 
         <variable
                 name="clickListener"
                 type="gensokyo.hakurei.chitlist.adapters.AccountListener" />
+
+        <import type="gensokyo.hakurei.chitlist.utilities.Converter" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -21,7 +27,8 @@
             app:cardBackgroundColor="@{account.enabled ? (account.admin ? @color/colorAccent : @color/colorAccounts) : @color/colorFaded}"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="false"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.LeftCutCard">
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.LeftCutCard"
+            tools:cardBackgroundColor="@color/colorAccounts">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -47,18 +54,27 @@
                     android:layout_height="match_parent"
                     android:background="@color/colorSurface"
                     android:gravity="center_vertical"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:paddingStart="@dimen/spacing_normal"
                     android:paddingTop="@dimen/spacing_extra_small"
                     android:paddingEnd="@dimen/spacing_normal"
                     android:paddingBottom="@dimen/spacing_extra_small">
 
                 <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="start"
                         android:text="@{@string/full_name(account.firstName, account.lastName)}"
+                        android:textStyle="bold"
                         tools:text="@string/full_name" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@{@string/dollars(Converter.addDecimal(balance))}"
+                        tools:text="@string/balance_equals" />
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

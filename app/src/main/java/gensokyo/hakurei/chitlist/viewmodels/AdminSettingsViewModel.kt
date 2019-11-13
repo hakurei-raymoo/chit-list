@@ -42,38 +42,47 @@ class AdminSettingsViewModel(
         _returnMessage.value = null
     }
 
-    // TODO: Sum balances.
     fun exportBalances(uri: Uri) {
         try {
             uiScope.launch {
                 withContext(Dispatchers.IO) {
                     // Get data to write.
-                    val accounts = database.getAccounts()
+                    val accountsWithHistory = database.getAccountsWithHistory()
+                    Log.i(TAG, "$accountsWithHistory")
 
                     application.contentResolver.openFileDescriptor(uri, "w")?.use {
                         // use{} lets the document provider know you're done by automatically closing the stream
                         PrintWriter(FileOutputStream(it.fileDescriptor)).use { out ->
                             out.println(
                                 "account_id," +
-                                "first_name," +
-                                "last_name," +
+                                "full_name" +
                                 "location," +
                                 "contact_number," +
-                                "email_address"
+                                "email_address," +
+                                "admin," +
+                                "enabled," +
+                                "balance"
                             )
-                            accounts.forEach {
+                            accountsWithHistory.forEach {
+                                var balance = 0
+                                it.history.forEach {
+                                    balance += it.amount
+                                }
                                 out.println(
                                     "${it.accountId}," +
-                                    "${it.firstName}," +
+                                    "${it.firstName} " +
                                     "${it.lastName}," +
                                     "${it.location}," +
-                                    "${it.contactNumber}," +
-                                    "${it.emailAddress}"
+                                    "${it.contactNumber} " +
+                                    "${it.emailAddress}," +
+                                    "${it.admin} " +
+                                    "${it.enabled}," +
+                                    "${balance}"
                                 )
                             }
                         }
                     }
-                    _returnMessage.postValue("${accounts.size} accounts exported to $uri")
+                    _returnMessage.postValue("${accountsWithHistory.size} accounts exported to $uri")
                 }
             }
         } catch (e: FileNotFoundException) {
@@ -93,10 +102,10 @@ class AdminSettingsViewModel(
                     application.contentResolver.openFileDescriptor(uri, "w")?.use {
                         // use{} lets the document provider know you're done by automatically closing the stream
                         PrintWriter(FileOutputStream(it.fileDescriptor)).use { out ->
-                            out.println("item_id,name,price")
+                            out.println("item_id,name,price,enabled")
                             items.forEach {
                                 out.println(
-                                    "${it.itemId},${it.name},${it.price}"
+                                    "${it.itemId},${it.name},${it.price},${it.enabled}"
                                 )
                             }
                         }
@@ -129,7 +138,8 @@ class AdminSettingsViewModel(
                                 "creator," +
                                 "item," +
                                 "amount," +
-                                "comments"
+                                "comments," +
+                                "type"
                             )
                             transactions.forEach {
                                 out.println(
@@ -141,7 +151,8 @@ class AdminSettingsViewModel(
                                     "${it.creator.lastName}," +
                                     "${it.item.name}," +
                                     "${Converter.addDecimal(it.amount)}," +
-                                    "${it.comments}"
+                                    "${it.comments}," +
+                                    "${it.type}"
                                 )
                             }
                         }

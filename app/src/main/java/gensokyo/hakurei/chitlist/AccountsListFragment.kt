@@ -34,6 +34,7 @@ class AccountsListFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         // Sets the adapter of the RecyclerView with click listener.
+        // TODO: Add filters and sorting options.
         val adapter =
             AccountAdapter(AccountListener { accountId ->
                 adminHomeViewModel.onAccountClicked(accountId)

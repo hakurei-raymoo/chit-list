@@ -8,7 +8,7 @@ import gensokyo.hakurei.chitlist.utilities.Config
 private const val TAG = "EditConfigViewModel"
 
 class EditConfigViewModel : ViewModel() {
-    val appName = MutableLiveData<String>("Chit List")
+    val appSubtitle = MutableLiveData<String>("Chit List")
     val databaseName = MutableLiveData<String>("chit-db")
     val balanceCap = MutableLiveData(1000)
     val decimalSeparator = MutableLiveData<String>(".")
@@ -16,7 +16,7 @@ class EditConfigViewModel : ViewModel() {
 
     init {
         Config.read()
-        appName.value = Config.APP_NAME
+        appSubtitle.value = Config.APP_SUBTITLE
         databaseName.value = Config.DATABASE_NAME
         balanceCap.value = Config.BALANCE_CAP
         decimalSeparator.value = Config.DECIMAL_SEPARATOR
@@ -24,19 +24,19 @@ class EditConfigViewModel : ViewModel() {
     }
 
     fun write() {
-        Log.i(TAG, "APP_NAME=${appName.value}")
-        Log.i(TAG, "DATABASE_NAME=${databaseName.value}")
-        Log.i(TAG, "BALANCE_CAP=${balanceCap.value}")
-        Log.i(TAG, "DECIMAL_SEPARATOR=${decimalSeparator.value}")
-        Log.i(TAG, "DECIMAL_OFFSET=${decimalOffset.value}")
+        Log.i(TAG, "appSubtitle=${appSubtitle.value}")
+        Log.i(TAG, "databaseName=${databaseName.value}")
+        Log.i(TAG, "balanceCap=${balanceCap.value}")
+        Log.i(TAG, "decimalSeparator=${decimalSeparator.value}")
+        Log.i(TAG, "decimalOffset=${decimalOffset.value}")
         Config.properties.apply {
-            put("app.name", appName.value)
-            put("database.name", databaseName.value)
-            put("balance.cap", balanceCap.value.toString())
-            put("decimal.separator", decimalSeparator.value)
-            put("decimal.offset", decimalOffset.value.toString())
+            setProperty("app.subtitle", appSubtitle.value)
+            setProperty("database.name", databaseName.value)
+            setProperty("balance.cap", balanceCap.value.toString())
+            setProperty("decimal.separator", decimalSeparator.value)
+            setProperty("decimal.offset", decimalOffset.value.toString())
         }
-        Config.write()
+        Config.store()
     }
 
     override fun onCleared() {

@@ -10,7 +10,7 @@ import androidx.room.RawQuery
 @Dao
 interface AdminSettingsDao {
     @Query("SELECT * FROM accounts_table ORDER BY account_id ASC")
-    fun getAccounts(): List<Account>
+    fun getAccountsWithHistory(): List<AccountWithHistory>
 
     @Query("SELECT * FROM items_table ORDER BY item_id ASC")
     fun getItems(): List<Item>

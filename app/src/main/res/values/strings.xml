@@ -66,6 +66,8 @@
     <string name="last_admin_warning">WARNING: This is the only active admin account. It cannot be disabled.</string>
     <string name="allow_administrator_access">Allow administrator access?</string>
     <string name="allow_interactive_login">Allow interactive login?</string>
+    <string name="balance">balance</string>
+    <string name="balance_equals">balance=%s</string>
     <!-- Item -->
     <string name="items">Items</string>
     <string name="name">Name</string>
@@ -99,7 +101,7 @@
     <string name="confirm_password">Confirm password</string>
     <!-- Config -->
     <string name="config">Config</string>
-    <string name="app_title">App title</string>
+    <string name="app_subtitle">App subtitle</string>
     <string name="database_name">Database name</string>
     <string name="balance_cap">Balance cap</string>
     <string name="decimal_separator_symbol">Decimal separator symbol:</string>
@@ -112,4 +114,5 @@
     <string name="two">Two</string>
     <string name="three">Three</string>
     <string name="config_saved">Config saved. Restart to apply changes.</string>
+    <string name="version_text">Created by Joseph Zhuang 2019</string>
 </resources>

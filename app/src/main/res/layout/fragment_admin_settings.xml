@@ -79,6 +79,14 @@
                         app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
 
                 <TextView
+                        android:id="@+id/version_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/spacing_normal"
+                        android:text="@string/version_text"
+                        android:textAlignment="center" />
+
+                <TextView
                         android:id="@+id/log_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

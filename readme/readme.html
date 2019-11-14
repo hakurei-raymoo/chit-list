@@ -31,11 +31,17 @@ code {
 .display {
 	display: none;
 }
-img {
+img.android {
 	float: right;
 	border: 1px solid #eaecef;
 	height: 400px;
 	width: 240px;
+}
+img.desktop {
+	float: right;
+	border: 1px solid #eaecef;
+	height: 329px;
+	width: 683px;
 }
 </style>
 </head>
@@ -62,10 +68,14 @@ img {
 <li><a href="#admin_functions">Admin functions</a>
 <ol>
 <li><a href="#settings_screen">Settings screen</a></li>
+<li><a href="#edit_config_screen">Edit config screen</a></li>
 <li><a href="#accounts_screen">Accounts screen</a></li>
 <li><a href="#items_screen">Items screen</a></li>
 <li><a href="#transactions_screen">Transactions screen</a></li>
 </ol>
+</li>
+<li><a href="#how_tos">How to's</a>
+<ol><li><a href="#balance_sheet">Create a balance sheet</a></li></ol>
 </li>
 <li><a href="#about">About</a></li>
 </ol>
@@ -97,29 +107,29 @@ Password: <em>none</em></li>
 <h2><span id="user_functions">User functions</span></h2>
 <p>Users can <a href="#login_screen">login</a>, browse the <a href="#shop_screen">shop</a>, <a href="#checkout_screen">checkout</a> items and <a href="#history_screen">view</a> transactions recorded against their account.</p>
 <div class="hover">
-<img src="images/login_screen.png" alt="Login screen" class="display" />
+<img src="images/login_screen.png" alt="Login screen" class="display android" />
 <h3><span id="login_screen">Login screen</span></h3>
 <p>Login using a username and password.</p>
 <p>The username field autocompletes when typing names and prepends a four digit <code>account_id</code>. The actual login credentials used are the <code>account_id</code> and the password. Thus, only the <code>account_id</code> is required for the username.</p>
 </div>
 <div class="hover">
-<img src="images/home_screen.png" alt="Home screen" class="display" />
+<img src="images/home_screen.png" alt="Home screen" class="display android" />
 <h3><span id="home_screen">Home screen</span></h3>
 <p>Upon login users are taken to the home screen. Their full name is shown at the top of the screen as well as the account balance.</p>
 <p>To logout, either use the back button or the top right dropdown menu. The menu is also where the password can be changed and where administrators can access <a href="#admin_functions">admin functions</a>.</p>
 </div>
 <div class="hover">
-<img src="images/shop_screen.png" alt="Shop screen" class="display" />
+<img src="images/shop_screen.png" alt="Shop screen" class="display android" />
 <h3><span id="shop_screen">Shop screen</span></h3>
 <p>Click on items to add them to your cart. You can add items multiple times.</p>
 </div>
 <div class="hover">
-<img src="images/checkout_screen.png" alt="Checkout screen" class="display" />
+<img src="images/checkout_screen.png" alt="Checkout screen" class="display android" />
 <h3><span id="checkout_screen">Checkout screen</span></h3>
 <p>Click on items to remove them from your cart. When satisfied, click the checkout button. This records the transactions and automatically logs you out.</p>
 </div>
 <div class="hover">
-<img src="images/history_screen.png" alt="History screen" class="display" />
+<img src="images/history_screen.png" alt="History screen" class="display android" />
 <h3><span id="history_screen">History screen</span></h3>
 <p>A list of previous transactions. Your balance is the sum of all transactions listed. Transactions created by other users have a different color.</p>
 </div>
@@ -127,12 +137,17 @@ Password: <em>none</em></li>
 <h2><span id="admin_functions">Admin functions</span></h2>
 <p>Admins can perform app <a href="#settings_screen">maintenance</a> functions, create/update <a href="#accounts_screen">accounts</a>, create/update <a href="#items_screen">items</a> and create <a href="#transactions_screen">transactions</a>.</p>
 <div class="hover">
-<img src="images/settings_screen.png" alt="Settings screen" class="display" />
+<img src="images/settings_screen.png" alt="Settings screen" class="display android" />
 <h3><span id="settings_screen">Settings screen</span></h3>
-<p>Export transactions as comma separated values (csv), create a copy of the database, restore the database from a previous copy or exit the app.</p>
+<p>Export transactions as comma separated values (CSV), create a copy of the database, restore the database from a previous copy or exit the app.</p>
 </div>
 <div class="hover">
-<img src="images/account_screen.png" alt="Account screen" class="display" />
+<img src="images/edit_config_screen.png" alt="Edit config screen" class="display android" />
+<h3><span id="edit_config_screen">Edit config screen</span></h3>
+<p>Add a subtitle on the <a href="#login_screen">Login</a> screen, change the database file, change the <code>balance cap</code> or the decimal separator offset.</p>
+</div>
+<div class="hover">
+<img src="images/account_screen.png" alt="Account screen" class="display android" />
 <h3><span id="accounts_screen">Accounts screen</span></h3>
 <p>Click an account to edit it or the add button to create a new one.</p>
 <p>Blue accounts have user access only. Teal accounts have administrator access. Grey accounts cannot log in.</p>
@@ -147,7 +162,7 @@ Password: <em>none</em></li>
 </ul>
 </div>
 <div class="hover">
-<img src="images/item_screen.png" alt="Item screen" class="display" />
+<img src="images/item_screen.png" alt="Item screen" class="display android" />
 <h3><span id="items_screen">Items screen</span></h3>
 <p>Click an item to edit it or the add button to create a new one.</p>
 <p>Yellow items are enabled. Grey items are disabled.</p>
@@ -162,7 +177,7 @@ Password: <em>none</em></li>
 <p>The automatically created items <code>Cash</code> and <code>EFT</code> are designed for use when reconciling balances.</p>
 </div>
 <div class="hover">
-<img src="images/transaction_screen.png" alt="Transaction screen" class="display" />
+<img src="images/transaction_screen.png" alt="Transaction screen" class="display android" />
 <h3><span id="transactions_screen">Transactions screen</span></h3>
 <p>Click a transaction to edit it (comments only) or the add button to create a new one.</p>
 <p>Red transactions are created through the shop. Teal transactions are created by administators.</p>
@@ -178,6 +193,22 @@ Password: <em>none</em></li>
 <li>Comments - An optional field admins can use to annotate transactions.</li>
 </ul>
 </div>
+
+<h2 id="how_tos">How to's</h2>
+<p>Walkthroughs for common operations.</p>
+<h3><span id="balance_sheet">Create a balance sheet</span></h3>
+<p>This guide provides instructions for creating a balance sheet showing totals spent by each account out of exported transactions using <a href="https://docs.google.com/spreadsheets/">Google Sheets</a>. <span class="app_name">Chit list</span> exports are in comma separated values (CSV) format.</p>
+<ol>
+<li>Export transactions from the <a href="#settings_screen">Admin Settings</a> screen</li>
+<li>Import the CSV data into <a href="https://docs.google.com/spreadsheets/">Google Sheets</a></li>
+<li>If the columns are not seperated use <code>Data > Split text to columns</code> - <a href="images/csv1.png">show</a></li>
+<li>Create a pivot table from <code>Data > Pivot table</code> - <a href="images/csv2.png">show</a></li>
+<li>Add <code>account</code> rows</li>
+<li>Add <code>item</code> columns - <a href="images/csv3.png">show</a></li>
+<li>Add <code>amount</code> values summarised by <code>SUM</code> to populate the table with the <code>amount</code> each <code>account</code> has per <code>item</code> - <a href="images/csv4.png">show</a></li>
+<li>The balance of each account is shown in the right most column</li>
+</ol>
+<p>Another useful value is <code>item</code> summarised by <code>COUNTA</code> which provides a count of the number of transactions each <code>account</code> has per <code>item</code>.</p>
 
 <h2 id="about">About</h2>
 <p><span class="app_name">Chit list</span> is maintained by Joseph Zhuang.</p>

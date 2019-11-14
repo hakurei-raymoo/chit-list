@@ -101,7 +101,7 @@ class HomeViewModel (
     }
 
     fun onHistoryClicked(transactionId: Long) {
-        Log.i(TAG, "$transactionId")
+        Log.i(TAG, "Clicked $transactionId")
     }
 
     fun changePassword(newPassword: String) {

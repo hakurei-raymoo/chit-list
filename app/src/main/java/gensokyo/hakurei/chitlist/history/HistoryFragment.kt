@@ -36,7 +36,6 @@ class HistoryFragment : Fragment() {
         val adapter =
             HistoryAdapter(HistoryListener {
                 homeViewModel.onHistoryClicked(it)
-                Log.i(TAG, "clicked $it")
             })
         binding.transactionsList.adapter = adapter
 

@@ -11,7 +11,7 @@
 
         <variable
                 name="clickListener"
-                type="gensokyo.hakurei.chitlist.adapters.HistoryListener" />
+                type="gensokyo.hakurei.chitlist.history.HistoryListener" />
 
         <import type="android.view.View"/>
         <import type="gensokyo.hakurei.chitlist.utilities.Converter" />
@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() -> clickListener.onClick(transaction)}"
-            app:cardBackgroundColor="@{(transaction.account.accountId==transaction.creator.accountId) ? @color/colorPrimary : @color/colorAccent}"
+            app:cardBackgroundColor="@{transaction.type ? @color/colorPrimary : @color/colorAccent}"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="false"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.LeftCutCard"

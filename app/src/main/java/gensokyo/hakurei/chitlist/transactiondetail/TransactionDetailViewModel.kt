@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import gensokyo.hakurei.chitlist.adapters.formatAccounts
-import gensokyo.hakurei.chitlist.adapters.formatItems
+import gensokyo.hakurei.chitlist.utilities.formatAccounts
+import gensokyo.hakurei.chitlist.utilities.formatItems
 import gensokyo.hakurei.chitlist.database.*
 import kotlinx.coroutines.*
 import kotlin.math.min
@@ -20,14 +20,13 @@ class TransactionDetailViewModel(
 ) : ViewModel() {
 
     private val viewModelJob = Job()
-
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    val newTransaction = (transactionKey == -1L)
+    val isNew = (transactionKey == -1L)
 
     // Check transactionKey to either get Transaction from database or insert a new one.
     private var _transaction =
-        if (newTransaction) {
+        if (isNew) {
             MutableLiveData<Transaction>(Transaction(accountId = creatorId, creatorId = creatorId, itemId = 1L))
         } else {
             dataSource.getTransaction(transactionKey)
@@ -37,13 +36,15 @@ class TransactionDetailViewModel(
 
     // Accounts AutoCompleteTextView adapter list.
     private val _accountsList = Transformations.map(dataSource.getBareAccounts()) { accounts ->
-        formatAccounts(accounts) }
+        formatAccounts(accounts)
+    }
     val accountsList: LiveData<List<String>>
         get() = _accountsList
 
     // Items AutoCompleteTextView adapter list.
     private val _itemsList = Transformations.map(dataSource.getBareItems()) { items ->
-        formatItems(items) }
+        formatItems(items)
+    }
     val itemsList: LiveData<List<String>>
         get() = _itemsList
 
@@ -68,6 +69,19 @@ class TransactionDetailViewModel(
         Log.i(TAG, "Init")
     }
 
+    fun onCreateClicked() {
+        if (linkedAccount.value == null) {
+            Log.i(TAG, "Invalid account_id.")
+        } else if (linkedItem.value == null) {
+            Log.i(TAG, "Invalid item_id.")
+        } else {
+            uiScope.launch {
+                create()
+                _navigateToTransactionsList.value = true
+            }
+        }
+    }
+
     fun onUpdateClicked() {
         if (linkedAccount.value == null) {
             Log.i(TAG, "Invalid account_id.")
@@ -81,15 +95,17 @@ class TransactionDetailViewModel(
         }
     }
 
+    private suspend fun create() {
+        withContext(Dispatchers.IO) {
+            dataSource.insert(transaction.value!!)
+            Log.i(TAG, "Inserted ${transaction.value!!}")
+        }
+    }
+
     private suspend fun update() {
         withContext(Dispatchers.IO) {
-            if (newTransaction) {
-                dataSource.insert(transaction.value!!)
-                Log.i(TAG, "Inserted ${transaction.value!!}")
-            } else {
-                dataSource.update(transaction.value!!)
-                Log.i(TAG, "Updated ${transaction.value!!}")
-            }
+            dataSource.update(transaction.value!!)
+            Log.i(TAG, "Updated ${transaction.value!!}")
         }
     }
 

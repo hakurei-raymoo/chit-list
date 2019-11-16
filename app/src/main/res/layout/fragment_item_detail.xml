@@ -87,28 +87,38 @@
                         android:checked="@={itemDetailViewModel.item.enabled}"
                         android:text="@string/enabled" />
 
-                <RelativeLayout
+                <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    <com.google.android.material.button.MaterialButton
-                            android:id="@+id/update_button"
-                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:onClick="@{() -> itemDetailViewModel.onUpdateClicked()}"
-                            android:text="@string/update" />
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:orientation="horizontal">
 
                     <com.google.android.material.button.MaterialButton
                             android:id="@+id/cancel_button"
                             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toStartOf="@id/update_button"
                             android:onClick="@{() -> itemDetailViewModel.onCancelClicked()}"
                             android:text="@string/cancel" />
-                </RelativeLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                            android:id="@+id/update_button"
+                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{() -> itemDetailViewModel.onUpdateClicked()}"
+                            android:text="@string/update"
+                            app:isGone="@{itemDetailViewModel.isNew}" />
+
+                    <com.google.android.material.button.MaterialButton
+                            android:id="@+id/create_button"
+                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{() -> itemDetailViewModel.onCreateClicked()}"
+                            android:text="@string/create"
+                            app:isGone="@{!itemDetailViewModel.isNew}" />
+                </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </RelativeLayout>

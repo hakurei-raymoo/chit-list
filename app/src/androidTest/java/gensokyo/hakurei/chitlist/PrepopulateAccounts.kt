@@ -6,7 +6,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import gensokyo.hakurei.chitlist.database.Account
 import gensokyo.hakurei.chitlist.database.AppDatabase
-import gensokyo.hakurei.chitlist.utilities.DATABASE_NAME
+import gensokyo.hakurei.chitlist.utilities.Config
 import gensokyo.hakurei.chitlist.utilities.hash
 import org.junit.*
 import org.junit.runner.RunWith
@@ -28,7 +28,7 @@ class PrepopulateAccounts {
         database = Room.databaseBuilder(
             context.applicationContext,
             AppDatabase::class.java,
-            DATABASE_NAME
+            Config.DATABASE_NAME
         )
             .fallbackToDestructiveMigration()
             .build()

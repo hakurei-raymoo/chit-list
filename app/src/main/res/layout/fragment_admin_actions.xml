@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_large">
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/export_accounts_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/export_accounts"
+                        android:visibility="gone"
+                        app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/export_items_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/export_items"
+                        android:visibility="gone"
+                        app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/export_transactions_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/export_transactions"
+                        app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/backup_database_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/backup_database"
+                        app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/restore_database_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/restore_database"
+                        app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/edit_config_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/edit_config"
+                        app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/drop_database_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/drop_database"
+                        android:visibility="gone"
+                        app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/exit_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/exit_application"
+                        app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+                <TextView
+                        android:id="@+id/version_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:paddingBottom="@dimen/spacing_normal"
+                        android:text="@string/version_text"
+                        android:textAlignment="center" />
+
+                <TextView
+                        android:id="@+id/log_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="\@{adminOptionsViewModel.log}" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
+</layout>

@@ -1,14 +1,19 @@
 <resources>
     <string name="app_name">Chit List</string>
+    <string name="admin_description">Enable kiosk mode</string>
     <string name="logo_content_description">App logo</string>
+    <string name="version_text">Version 0.1\nCreated by Joseph Zhuang 2019</string>
     <!-- Common -->
-    <string name="admin">Admin Settings</string>
+    <string name="is_admin">App is a device administrator. Setting kiosk policies.</string>
+    <string name="not_admin_warning">Not installed correctly. Kiosk functions may not work.</string>
+    <string name="admin">Admin settings</string>
     <string name="primary_key_equals">key=%d</string>
     <string name="balance_is">Balance is $%s</string>
     <string name="dollars">$%s</string>
     <string name="number">%04d</string>
     <string name="invalid_input">Invalid input</string>
     <!-- Buttons -->
+    <string name="create">Create</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
@@ -27,6 +32,8 @@
     <string name="no_items_icon">No items icon</string>
     <string name="your_cart_is_empty">Your cart is empty</string>
     <string name="add_items">Add item(s)</string>
+    <string name="error_icon">Error icon</string>
+    <string name="exceeded_balance_cap">You have exceeded the balance cap: $%s\n Pay off your balance to make further transactions.</string>
     <!-- History -->
     <string name="history">History</string>
     <string name="amount_item">%s: $%s</string>
@@ -34,15 +41,19 @@
     <string name="none">(none)</string>
     <string name="no_transactions_icon">No transactions icon</string>
     <string name="you_have_zero_transactions_recorded">You have zero transactions recorded.</string>
-    <!-- Settings -->
-    <string name="admin_settings">Settings</string>
+    <!-- Actions -->
+    <string name="actions">Actions</string>
     <string name="path">Path</string>
-    <string name="export_balances">Export balances</string>
+    <string name="export_accounts">Export accounts</string>
     <string name="export_items">Export items</string>
     <string name="export_transactions">Export transactions</string>
     <string name="backup_database">Backup database</string>
     <string name="restore_database">Restore database</string>
+    <string name="drop_database">Drop database</string>
+    <string name="drop_database_warning">This will permanently delete the current database. This action cannot be undone.</string>
+    <string name="edit_config">Edit config</string>
     <string name="exit_application">Exit application</string>
+    <string name="info">Info:</string>
     <string name="log">Log:</string>
     <!-- Account -->
     <string name="accounts">Accounts</string>
@@ -58,6 +69,8 @@
     <string name="last_admin_warning">WARNING: This is the only active admin account. It cannot be disabled.</string>
     <string name="allow_administrator_access">Allow administrator access?</string>
     <string name="allow_interactive_login">Allow interactive login?</string>
+    <string name="balance">balance</string>
+    <string name="balance_equals">balance=%s</string>
     <!-- Item -->
     <string name="items">Items</string>
     <string name="name">Name</string>
@@ -70,6 +83,9 @@
     <string name="transactions">Transactions</string>
     <string name="time">Time</string>
     <string name="time_equals">time=%d</string>
+    <string name="shop_tx">Shop transaction</string>
+    <string name="custom_tx">Custom transaction</string>
+    <string name="shop_tx_equals">Shop transaction=%s</string>
     <string name="account">Account</string>
     <string name="invalid_account">Invalid account id</string>
     <string name="account_equals">account=%s</string>
@@ -82,7 +98,25 @@
     <string name="amount_equals">amount=%s</string>
     <string name="comments">Comments</string>
     <string name="comments_equals">comments=%s</string>
+    <!-- Password -->
     <string name="current_password">Current password</string>
     <string name="new_password">New password</string>
     <string name="confirm_password">Confirm password</string>
+    <!-- Config -->
+    <string name="config">Config</string>
+    <string name="app_subtitle">App subtitle</string>
+    <string name="app_logo">App logo</string>
+    <string name="select_app_logo">Select App Logo</string>
+    <string name="database_name">Database name</string>
+    <string name="balance_cap">Balance cap</string>
+    <string name="decimal_separator_symbol">Decimal separator symbol:</string>
+    <string name="point">Point</string>
+    <string name="decimal_point">Decimal point</string>
+    <string name="comma">Comma</string>
+    <string name="decimal_comma">Decimal comma</string>
+    <string name="decimal_separator_offset">Decimal separator offset:</string>
+    <string name="one">One</string>
+    <string name="two">Two</string>
+    <string name="three">Three</string>
+    <string name="config_saved">Config saved. Restart to apply changes.</string>
 </resources>

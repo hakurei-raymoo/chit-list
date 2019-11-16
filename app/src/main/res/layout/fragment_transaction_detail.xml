@@ -6,10 +6,6 @@
     <data>
 
         <variable
-                name="isNew"
-                type="boolean" />
-
-        <variable
                 name="transactionDetailViewModel"
                 type="gensokyo.hakurei.chitlist.transactiondetail.TransactionDetailViewModel" />
 
@@ -45,18 +41,27 @@
                         style="@style/MaterialAlertDialog.MaterialComponents.Title.Text.CenterStacked"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/spacing_normal"
                         android:text="@{Converter.convertLongToDateStringExpanded(transactionDetailViewModel.transaction.time)}"
                         android:textAllCaps="true"
                         android:textSize="12sp"
                         tools:text="@string/time_equals" />
+
+                <TextView
+                        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text.CenterStacked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/spacing_normal"
+                        android:text="@{transactionDetailViewModel.transaction.type ? @string/shop_tx : @string/custom_tx}"
+                        android:textAllCaps="true"
+                        android:textSize="12sp"
+                        tools:text="@string/shop_tx" />
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/account_input"
                         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="@{isNew}"
+                        android:enabled="@{transactionDetailViewModel.isNew}"
                         android:hint="@string/account"
                         android:labelFor="@id/account_autocomplete">
 
@@ -88,7 +93,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="@{isNew}"
+                        android:enabled="@{transactionDetailViewModel.isNew}"
                         android:hint="@string/item"
                         android:labelFor="@id/item_autocomplete">
 
@@ -104,7 +109,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="@{isNew}"
+                        android:enabled="@{transactionDetailViewModel.isNew}"
                         android:hint="@string/amount">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -129,30 +134,40 @@
                             android:text="@={transactionDetailViewModel.transaction.comments}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <RelativeLayout
+                <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    <com.google.android.material.button.MaterialButton
-                            android:id="@+id/update_button"
-                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:enabled="@{transactionDetailViewModel.enableUpdate}"
-                            android:onClick="@{() -> transactionDetailViewModel.onUpdateClicked()}"
-                            android:text="@string/update" />
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:orientation="horizontal">
 
                     <com.google.android.material.button.MaterialButton
                             android:id="@+id/cancel_button"
                             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toStartOf="@id/update_button"
                             android:onClick="@{() -> transactionDetailViewModel.onCancelClicked()}"
                             android:text="@string/cancel" />
 
-                </RelativeLayout>
+                    <com.google.android.material.button.MaterialButton
+                            android:id="@+id/update_button"
+                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:enabled="@{transactionDetailViewModel.enableUpdate}"
+                            android:onClick="@{() -> transactionDetailViewModel.onUpdateClicked()}"
+                            android:text="@string/update"
+                            app:isGone="@{transactionDetailViewModel.isNew}" />
+
+                    <com.google.android.material.button.MaterialButton
+                            android:id="@+id/create_button"
+                            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:enabled="@{transactionDetailViewModel.enableUpdate}"
+                            android:onClick="@{() -> transactionDetailViewModel.onCreateClicked()}"
+                            android:text="@string/create"
+                            app:isGone="@{!transactionDetailViewModel.isNew}" />
+                </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </RelativeLayout>

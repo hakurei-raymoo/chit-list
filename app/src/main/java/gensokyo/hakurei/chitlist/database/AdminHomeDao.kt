@@ -27,7 +27,7 @@ interface AdminHomeDao {
     fun update(account: Account)
 
     @Query("SELECT * FROM accounts_table ORDER BY account_id DESC")
-    fun getAccounts(): LiveData<List<Account>>
+    fun getAccounts(): LiveData<List<BareAccountWithHistory>>
 
     @Query("SELECT * FROM items_table ORDER BY item_id DESC")
     fun getItems(): LiveData<List<Item>>

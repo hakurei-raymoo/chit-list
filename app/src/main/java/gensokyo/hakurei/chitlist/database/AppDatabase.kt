@@ -6,7 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import gensokyo.hakurei.chitlist.utilities.DATABASE_NAME
+import gensokyo.hakurei.chitlist.utilities.Config
 import gensokyo.hakurei.chitlist.utilities.hash
 import java.util.concurrent.Executors
 
@@ -21,7 +21,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract val loginDao: LoginDao
     abstract val shopDao: ShopDao
-    abstract val adminSettingsDao: AdminSettingsDao
+    abstract val adminActionsDao: AdminActionsDao
     abstract val adminHomeDao: AdminHomeDao
     abstract val accountDao: AccountDao
     abstract val itemDao: ItemDao
@@ -41,7 +41,7 @@ abstract class AppDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         AppDatabase::class.java,
-                        DATABASE_NAME
+                        Config.DATABASE_NAME
                     )
                         .fallbackToDestructiveMigration()
                         .addCallback(object : Callback() {

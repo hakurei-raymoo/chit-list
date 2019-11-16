@@ -7,7 +7,7 @@
 
     <fragment
             android:id="@+id/login_fragment"
-            android:name="gensokyo.hakurei.chitlist.LoginFragment"
+            android:name="gensokyo.hakurei.chitlist.login.LoginFragment"
             android:label="LoginFragment"
             tools:layout="@layout/fragment_login">
         <action
@@ -28,7 +28,7 @@
             app:startDestination="@id/home_view_pager_fragment">
         <fragment
                 android:id="@+id/home_view_pager_fragment"
-                android:name="gensokyo.hakurei.chitlist.HomeViewPagerFragment"
+                android:name="gensokyo.hakurei.chitlist.home.HomeViewPagerFragment"
                 android:label="HomeViewPagerFragment"
                 tools:layout="@layout/fragment_home_view_pager">
             <argument
@@ -44,13 +44,13 @@
 
         <dialog
                 android:id="@+id/change_password_dialog"
-                android:name="gensokyo.hakurei.chitlist.ChangePasswordFragment"
+                android:name="gensokyo.hakurei.chitlist.changepassword.ChangePasswordFragment"
                 android:label="ChangePasswordDialog"
                 tools:layout="@layout/fragment_change_password" />
 
         <fragment
                 android:id="@+id/admin_view_pager_fragment"
-                android:name="gensokyo.hakurei.chitlist.AdminViewPagerFragment"
+                android:name="gensokyo.hakurei.chitlist.adminhome.AdminViewPagerFragment"
                 android:label="AdminViewPagerFragment"
                 tools:layout="@layout/fragment_admin_view_pager">
             <argument
@@ -77,6 +77,9 @@
                     app:exitAnim="@anim/slide_out_left"
                     app:popEnterAnim="@anim/slide_in_left"
                     app:popExitAnim="@anim/slide_out_right" />
+            <action
+                    android:id="@+id/action_admin_view_pager_fragment_to_edit_config_fragment"
+                    app:destination="@id/edit_config_fragment" />
         </fragment>
 
         <dialog
@@ -111,5 +114,11 @@
                     android:name="transactionKey"
                     app:argType="long" />
         </dialog>
+
+        <dialog
+                android:id="@+id/edit_config_fragment"
+                android:name="gensokyo.hakurei.chitlist.editconfig.EditConfigFragment"
+                android:label="EditConfigFragment"
+                tools:layout="@layout/fragment_edit_config" />
     </navigation>
 </navigation>

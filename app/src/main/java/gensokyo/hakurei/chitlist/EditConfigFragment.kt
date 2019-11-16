@@ -1,5 +1,7 @@
 package gensokyo.hakurei.chitlist
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -12,7 +14,11 @@ import gensokyo.hakurei.chitlist.viewmodels.EditConfigViewModel
 
 private const val TAG = "EditConfigFragment"
 
+const val SELECT_APP_LOGO_REQUEST_CODE = 101
+
 class EditConfigFragment : DialogFragment() {
+
+    private lateinit var editConfigViewModel: EditConfigViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +30,7 @@ class EditConfigFragment : DialogFragment() {
         val binding = FragmentEditConfigBinding.inflate(inflater, container, false)
 
         // Get a reference to the ViewModel associated with this fragment.
-        val editConfigViewModel =
+        editConfigViewModel =
             ViewModelProviders.of(this).get(EditConfigViewModel::class.java)
 
         // To use the View Model with data binding, you have to explicitly
@@ -34,6 +40,15 @@ class EditConfigFragment : DialogFragment() {
         // Specify the current activity as the lifecycle owner of the binding.
         // This is necessary so that the binding can observe LiveData updates.
         binding.lifecycleOwner = viewLifecycleOwner
+
+        binding.selectAppLogoButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "image/*"
+            }
+
+            startActivityForResult(intent, SELECT_APP_LOGO_REQUEST_CODE)
+        }
 
         // Set initial state.
         when (editConfigViewModel.decimalSeparator.value) {
@@ -93,5 +108,17 @@ class EditConfigFragment : DialogFragment() {
         }
 
         return binding.root
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (data != null && data.data != null) {
+                when (requestCode) {
+                    SELECT_APP_LOGO_REQUEST_CODE -> editConfigViewModel.changeAppLogo(data.data!!)
+                }
+            }
+        }
     }
 }

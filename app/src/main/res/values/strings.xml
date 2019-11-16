@@ -102,6 +102,8 @@
     <!-- Config -->
     <string name="config">Config</string>
     <string name="app_subtitle">App subtitle</string>
+    <string name="app_logo">App logo</string>
+    <string name="select_app_logo">Select App Logo</string>
     <string name="database_name">Database name</string>
     <string name="balance_cap">Balance cap</string>
     <string name="decimal_separator_symbol">Decimal separator symbol:</string>

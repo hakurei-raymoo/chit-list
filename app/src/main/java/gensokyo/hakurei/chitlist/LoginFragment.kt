@@ -1,6 +1,7 @@
 package gensokyo.hakurei.chitlist
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentLoginBinding
 import gensokyo.hakurei.chitlist.utilities.Config
+import gensokyo.hakurei.chitlist.utilities.getDrawableId
 import gensokyo.hakurei.chitlist.viewmodels.LoginViewModel
 import gensokyo.hakurei.chitlist.viewmodels.LoginViewModelFactory
 
@@ -87,11 +89,17 @@ class LoginFragment : Fragment() {
             }
         })
 
-        // Show the subtitle if it exists.
+        // Show the subtitle if app subtitle property is set.
         if (Config.APP_SUBTITLE != "") {
             binding.subtitleText.text = Config.APP_SUBTITLE
             binding.subtitleText.visibility = View.VISIBLE
         }
+
+        // Override default image if app logo property exists.
+        val name = Config.APP_LOGO
+        val uri = Uri.parse(name)
+        binding.logoImage.setImageURI(uri)
+        if (binding.logoImage.drawable == null) binding.logoImage.setImageResource(android.R.drawable.sym_def_app_icon)
 
         return binding.root
     }

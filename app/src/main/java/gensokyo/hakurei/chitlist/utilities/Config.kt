@@ -10,6 +10,7 @@ private const val TAG = "Config"
 private const val PROPERTIES_FILE = "chit_list.properties"
 
 private const val DEFAULT_APP_SUBTITLE = ""
+private const val DEFAULT_APP_LOGO = ""
 private const val DEFAULT_DATABASE_NAME = "chit-db"
 private const val DEFAULT_BALANCE_CAP = "10000"
 private const val DEFAULT_DECIMAL_SEPARATOR = "."
@@ -20,6 +21,7 @@ object Config {
     lateinit var file: File
 
     var APP_SUBTITLE = DEFAULT_APP_SUBTITLE
+    var APP_LOGO = DEFAULT_APP_LOGO
     var DATABASE_NAME = DEFAULT_DATABASE_NAME
     var BALANCE_CAP = DEFAULT_BALANCE_CAP.toInt()
     var DECIMAL_SEPARATOR = DEFAULT_DECIMAL_SEPARATOR
@@ -29,6 +31,7 @@ object Config {
         val defaults = Properties()
         defaults.apply {
             setProperty("app.subtitle", DEFAULT_APP_SUBTITLE)
+            setProperty("app.logo", DEFAULT_APP_LOGO)
             setProperty("database.name", DEFAULT_DATABASE_NAME)
             setProperty("balance.cap", DEFAULT_BALANCE_CAP)
             setProperty("decimal.separator", DEFAULT_DECIMAL_SEPARATOR)
@@ -59,6 +62,7 @@ object Config {
             properties.load(it)
 
             APP_SUBTITLE = properties.getProperty("app.subtitle", DEFAULT_APP_SUBTITLE)
+            APP_LOGO = properties.getProperty("app.logo", DEFAULT_APP_LOGO)
             DATABASE_NAME = properties.getProperty("database.name", DEFAULT_DATABASE_NAME)
             BALANCE_CAP = properties.getProperty("balance.cap", DEFAULT_BALANCE_CAP).toInt()
             DECIMAL_SEPARATOR = properties.getProperty("decimal.separator", DEFAULT_DECIMAL_SEPARATOR)

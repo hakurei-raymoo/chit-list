@@ -39,13 +39,13 @@ class MainActivity : AppCompatActivity() {
 
         // Associate the activity_main layout with the MainActivity and return the associated binding.
         @Suppress("UNUSED_VARIABLE")
-        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+            val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         // Set up Android Jetpack Navigation.
         @Suppress("UNUSED_VARIABLE")
         val navController = findNavController(R.id.nav_host_fragment)
 
-        mAdminComponentName = componentName
+        mAdminComponentName = ChitlistDeviceAdminReceiver.getComponentName(this)
         mDevicePolicyManager = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
         if (mDevicePolicyManager.isDeviceOwnerApp(packageName)) {
             Log.i(TAG, getString(R.string.is_admin))

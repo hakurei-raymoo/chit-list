@@ -52,6 +52,28 @@
                             android:text="@={editConfigViewModel.appSubtitle}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/select_app_logo_button"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_app_logo" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/app_logo"
+                        android:visibility="gone">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textNoSuggestions|textVisiblePassword"
+                            android:text="@={editConfigViewModel.appLogo}"
+                            android:visibility="gone" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -72,7 +94,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
                             android:text="@={Converter.addDecimal(editConfigViewModel.balanceCap)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 

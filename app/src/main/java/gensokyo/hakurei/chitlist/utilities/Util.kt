@@ -62,8 +62,9 @@ object Converter {
             1 -> DecimalFormat("#.0").format(float)
             else -> float.toString()
         }
+
+        // TODO: Fix behaviour when using comma separators.
         Log.i(TAG, "removeDecimal called on $string -> $formatted")
-        // TODO: Fix crash when using comma separator.
         return formatted.replace(Config.DECIMAL_SEPARATOR, "").toInt()
     }
 
@@ -71,10 +72,10 @@ object Converter {
     fun addDecimal(value: Int): String {
         // Add leading zeroes up to currency separator.
         val string = value.toString().padStart(Config.DECIMAL_OFFSET + 1, '0')
-//        Log.i(TAG, "addDecimal called on $value -> $string")
+        Log.i(TAG, "addDecimal called on $value -> $string")
 
-        val length = string.length
         // Insert currency separator at offset from right of string.
+        val length = string.length
         return StringBuilder(string).insert(length - Config.DECIMAL_OFFSET,
             Config.DECIMAL_SEPARATOR
         ).toString()

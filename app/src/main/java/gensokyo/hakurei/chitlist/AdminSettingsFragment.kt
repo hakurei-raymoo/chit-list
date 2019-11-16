@@ -1,6 +1,7 @@
 package gensokyo.hakurei.chitlist
 
 import android.app.Activity.RESULT_OK
+import android.app.admin.DeviceAdminReceiver
 import android.app.admin.DevicePolicyManager
 import android.content.Context
 import android.content.Intent
@@ -145,7 +146,7 @@ class AdminSettingsFragment : Fragment() {
         // Observer to process exit attempt.
         adminSettingsViewModel.exitApp.observe(this, Observer {
             if (it != null) {
-                val mAdminComponentName = requireActivity().componentName
+                val mAdminComponentName = ChitlistDeviceAdminReceiver.getComponentName(requireContext())
                 val mDevicePolicyManager = requireContext().getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
                 if (mDevicePolicyManager.isDeviceOwnerApp(requireContext().packageName)) {
                     Log.i(TAG, "Removing from default home apps list.")
@@ -199,7 +200,7 @@ class AdminSettingsFragment : Fragment() {
 
     private fun writeLog(): Spanned {
         SpannableStringBuilder().apply {
-            val mAdminComponentName = requireActivity().componentName
+            val mAdminComponentName = ChitlistDeviceAdminReceiver.getComponentName(requireContext())
             val mDevicePolicyManager = requireContext().getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
             val database = requireActivity().getDatabasePath(Config.DATABASE_NAME).absolutePath
 
@@ -209,14 +210,11 @@ class AdminSettingsFragment : Fragment() {
             append("PackageName: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             append(requireContext().packageName)
             append("\n")
-            append("AdminComponentName: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            append(mAdminComponentName.toString())
-            append("\n")
-            append("DevicePolicyManager: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            append(mDevicePolicyManager.toString())
-            append("\n")
             append("isDeviceOwnerApp: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             append(mDevicePolicyManager.isDeviceOwnerApp(requireContext().packageName).toString())
+            append("\n")
+            append("Database path: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            append(database)
             append("\n")
             append("Properties path: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             append(Config.file.toString())
@@ -229,9 +227,6 @@ class AdminSettingsFragment : Fragment() {
                 append("\n")
             }
             append("}", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            append("\n")
-            append("Database path: ", StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            append(database)
             append("\n")
 
             return this

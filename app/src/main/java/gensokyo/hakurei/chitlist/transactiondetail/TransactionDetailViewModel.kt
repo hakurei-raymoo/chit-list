@@ -133,7 +133,6 @@ class TransactionDetailViewModel(
         }
     }
 
-    // TODO: Fix crash on item is blank.
     fun updateLinkedItem(string: String) {
         val itemId = string.substring(0, min(string.length, 4)).toLongOrNull()
         // Clear value if input cannot be cast to Long. Else perform database lookup.

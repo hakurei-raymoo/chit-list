@@ -27,8 +27,8 @@ object Converter {
 
     @JvmStatic
     @InverseMethod("toItemName")
-    fun toItemId(string: String): Long? {
-        val value = string.substring(0, min(string.length, 4)).toLongOrNull()
+    fun toItemId(string: String): Long {
+        val value = string.substring(0, min(string.length, 4)).toLongOrNull() ?: -1
         Log.i(TAG, "toItemId called on $string -> $value")
         return value
     }

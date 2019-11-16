@@ -43,6 +43,7 @@ class EditConfigFragment : DialogFragment() {
         binding.selectAppLogoButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
+                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
                 type = "image/*"
             }
 
@@ -115,7 +116,10 @@ class EditConfigFragment : DialogFragment() {
         if (resultCode == Activity.RESULT_OK) {
             if (data != null && data.data != null) {
                 when (requestCode) {
-                    SELECT_APP_LOGO_REQUEST_CODE -> editConfigViewModel.changeAppLogo(data.data!!)
+                    SELECT_APP_LOGO_REQUEST_CODE -> {
+                        requireActivity().contentResolver.takePersistableUriPermission(data.data!!, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        editConfigViewModel.changeAppLogo(data.data!!)
+                    }
                 }
             }
         }

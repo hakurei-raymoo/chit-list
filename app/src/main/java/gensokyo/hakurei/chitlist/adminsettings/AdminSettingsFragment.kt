@@ -2,6 +2,7 @@ package gensokyo.hakurei.chitlist.adminsettings
 
 import android.app.Activity.RESULT_OK
 import android.app.admin.DevicePolicyManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
@@ -145,14 +146,10 @@ class AdminSettingsFragment : Fragment() {
         // Observer to process exit attempt.
         adminSettingsViewModel.exitApp.observe(this, Observer {
             if (it != null) {
-                val mAdminComponentName = ChitlistDeviceAdminReceiver.getComponentName(requireContext())
-                val mDevicePolicyManager = requireContext().getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-                if (mDevicePolicyManager.isDeviceOwnerApp(requireContext().packageName)) {
-                    Log.i(TAG, "Removing from default home apps list.")
-                    mDevicePolicyManager.clearPackagePersistentPreferredActivities(
-                        mAdminComponentName,
-                        requireContext().packageName
-                    )
+                val adminComponentName = ChitlistDeviceAdminReceiver.getComponentName(requireContext())
+                val devicePolicyManager = requireContext().getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+                if (devicePolicyManager.isDeviceOwnerApp(requireContext().packageName)) {
+                    removeKioskPolicies(adminComponentName, devicePolicyManager)
                 } else {
                     Log.i(TAG, "Was not a device administrator.")
                 }
@@ -195,6 +192,23 @@ class AdminSettingsFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun removeKioskPolicies(adminComponentName: ComponentName, devicePolicyManager: DevicePolicyManager) {
+        requireActivity().stopLockTask()
+
+        // Clear as default application.
+        devicePolicyManager.clearPackagePersistentPreferredActivities(
+            adminComponentName,
+            requireActivity().packageName
+        )
+
+        // Allow the user to select the default home screen.
+        val intent = Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_HOME)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+        startActivity(Intent.createChooser(intent, "Select home"))
     }
 
     private fun writeLog(): Spanned {

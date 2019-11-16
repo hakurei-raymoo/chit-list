@@ -2,6 +2,7 @@
     <string name="app_name">Chit List</string>
     <string name="admin_description">Enable kiosk mode</string>
     <string name="logo_content_description">App logo</string>
+    <string name="version_text">Version 0.1\nCreated by Joseph Zhuang 2019</string>
     <!-- Common -->
     <string name="is_admin">App is a device administrator. Setting kiosk policies.</string>
     <string name="not_admin_warning">Not installed correctly. Kiosk functions may not work.</string>
@@ -116,5 +117,4 @@
     <string name="two">Two</string>
     <string name="three">Three</string>
     <string name="config_saved">Config saved. Restart to apply changes.</string>
-    <string name="version_text">Created by Joseph Zhuang 2019</string>
 </resources>

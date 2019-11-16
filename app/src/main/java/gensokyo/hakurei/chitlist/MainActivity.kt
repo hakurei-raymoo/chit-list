@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         devicePolicyManager.addPersistentPreferredActivity(adminComponentName,
             intentFilter, ComponentName(packageName, MainActivity::class.java.name))
 
-        // Disable lock screen to start app automatically.
+        // Disable lock screen to start app automatically on device startup.
         devicePolicyManager.setKeyguardDisabled(adminComponentName, true)
 
         // Keep screen awake.

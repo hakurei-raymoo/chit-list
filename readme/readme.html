@@ -87,10 +87,11 @@ img.desktop {
 <h2><span id="installation">Installation</span></h2>
 <p>Failure to follow these instructions may result kiosk mode being disabled allowing users to close <span class="app_name">Chit list</span>, uninstall <span class="app_name">Chit list</span>, modify the database and more.</p>
 <ol>
-<li>Factory reset device</li>
-<li>Do not add Google Account</li>
-<li>Download and install .apk</li>
-<li>Set device admin: <code>adb shell dpm set-device-owner gensokyo.hakurei.chitlist/.ChitlistDeviceAdminReveiver</code></li>
+<li><a href="https://support.google.com/nexus/answer/4596836">Factory reset</a> your Android device<br />
+<em>Note: Do not add a Google Account when prompted</em></li>
+<li>Download and install the <span class="app_name">Chit list</span> .apk</li>
+<li>Enable <a href="https://developer.android.com/tools/device.html">USB debugging</a> on your Android device
+<li>Use <a href="https://developer.android.com/studio/command-line/adb">ADB</a> to set the app as the device owner: <code>adb shell dpm set-device-owner gensokyo.hakurei.chitlist/.ChitlistDeviceAdminReceiver</code></li>
 </ol>
 
 <h2><span id="setup">Setup</span></h2>

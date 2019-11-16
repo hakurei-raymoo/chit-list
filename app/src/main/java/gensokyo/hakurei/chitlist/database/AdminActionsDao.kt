@@ -8,7 +8,7 @@ import androidx.room.RawQuery
  * The Data Access Object for Admin Settings functions.
  */
 @Dao
-interface AdminSettingsDao {
+interface AdminActionsDao {
     @Query("SELECT * FROM accounts_table ORDER BY account_id ASC")
     fun getAccountsWithHistory(): List<AccountWithHistory>
 

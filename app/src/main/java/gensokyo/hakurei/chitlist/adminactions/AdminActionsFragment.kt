@@ -1,4 +1,4 @@
-package gensokyo.hakurei.chitlist.adminsettings
+package gensokyo.hakurei.chitlist.adminactions
 
 import android.app.Activity.RESULT_OK
 import android.app.admin.DevicePolicyManager
@@ -19,15 +19,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import gensokyo.hakurei.chitlist.ChitlistDeviceAdminReceiver
+import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.adminhome.AdminViewPagerFragmentDirections
 import gensokyo.hakurei.chitlist.database.AppDatabase
-import gensokyo.hakurei.chitlist.databinding.FragmentAdminSettingsBinding
+import gensokyo.hakurei.chitlist.databinding.FragmentAdminActionsBinding
 import gensokyo.hakurei.chitlist.utilities.Config
 import gensokyo.hakurei.chitlist.utilities.Converter
 import kotlin.system.exitProcess
 
-private const val TAG = "AdminSettingsFragment"
+private const val TAG = "AdminActionsFragment"
 
 const val EXPORT_ACCOUNTS_REQUEST_CODE = 101
 const val EXPORT_ITEMS_REQUEST_CODE = 102
@@ -35,9 +37,9 @@ const val EXPORT_TRANSACTIONS_REQUEST_CODE = 103
 const val BACKUP_DATABASE_REQUEST_CODE = 201
 const val RESTORE_DATABASE_REQUEST_CODE = 202
 
-class AdminSettingsFragment : Fragment() {
+class AdminActionsFragment : Fragment() {
 
-    private lateinit var adminSettingsViewModel: AdminSettingsViewModel
+    private lateinit var adminActionsViewModel: AdminActionsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,23 +48,16 @@ class AdminSettingsFragment : Fragment() {
     ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding = FragmentAdminSettingsBinding.inflate(inflater, container, false)
+        val binding = FragmentAdminActionsBinding.inflate(inflater, container, false)
 
         // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
-        val dataSource = AppDatabase.getInstance(application).adminSettingsDao
-        val viewModelFactory = AdminSettingsViewModelFactory(
-            dataSource,
-            application
-        )
+        val dataSource = AppDatabase.getInstance(application).adminActionsDao
+        val viewModelFactory = AdminActionsViewModelFactory(dataSource, application)
 
         // Get a reference to the ViewModel associated with this fragment.
-        adminSettingsViewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(AdminSettingsViewModel::class.java)
-
-        // To use the View Model with data binding, you have to explicitly
-        // give the binding object a reference to it.
-        binding.adminSettingsViewModel = adminSettingsViewModel
+        adminActionsViewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(AdminActionsViewModel::class.java)
 
         // Specify the current activity as the lifecycle owner of the binding.
         // This is necessary so that the binding can observe LiveData updates.
@@ -123,6 +118,14 @@ class AdminSettingsFragment : Fragment() {
             startActivityForResult(intent, RESTORE_DATABASE_REQUEST_CODE)
         }
 
+        binding.dropDatabaseButton.setOnClickListener {
+            MaterialAlertDialogBuilder(context).setTitle(getString(R.string.drop_database))
+                .setMessage(getString(R.string.drop_database_warning))
+                .setPositiveButton(getString(R.string.delete)) { _, _ -> adminActionsViewModel.dropDatabase() }
+                .setNegativeButton(getString(R.string.cancel), null)
+                .show()
+        }
+
         binding.editConfigButton.setOnClickListener {
             this.findNavController().navigate(
                 AdminViewPagerFragmentDirections.actionAdminViewPagerFragmentToEditConfigFragment()
@@ -130,21 +133,21 @@ class AdminSettingsFragment : Fragment() {
         }
 
         // Observer to process return messages.
-        adminSettingsViewModel.returnMessage.observe(this, Observer {
+        adminActionsViewModel.returnMessage.observe(this, Observer {
             if (it != null) {
                 Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
 
                 // Reset state to make sure we only display once.
-                adminSettingsViewModel.messageReturned()
+                adminActionsViewModel.messageReturned()
             }
         })
 
         binding.exitButton.setOnClickListener {
-            adminSettingsViewModel.exitApp()
+            adminActionsViewModel.exitApp()
         }
 
         // Observer to process exit attempt.
-        adminSettingsViewModel.exitApp.observe(this, Observer {
+        adminActionsViewModel.exitApp.observe(this, Observer {
             if (it != null) {
                 val adminComponentName = ChitlistDeviceAdminReceiver.getComponentName(requireContext())
                 val devicePolicyManager = requireContext().getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
@@ -166,11 +169,13 @@ class AdminSettingsFragment : Fragment() {
             if (clicks % 5 == 0) {
                 binding.exportAccountsButton.visibility = View.VISIBLE
                 binding.exportItemsButton.visibility = View.VISIBLE
+                binding.dropDatabaseButton.visibility = View.VISIBLE
                 binding.logText.visibility = View.VISIBLE
                 binding.logText.text = writeLog()
             } else {
                 binding.exportAccountsButton.visibility = View.GONE
                 binding.exportItemsButton.visibility = View.GONE
+                binding.dropDatabaseButton.visibility = View.GONE
                 binding.logText.visibility = View.GONE
             }
         }
@@ -184,11 +189,11 @@ class AdminSettingsFragment : Fragment() {
         if (resultCode == RESULT_OK) {
             if (data != null && data.data != null) {
                 when (requestCode) {
-                    EXPORT_ACCOUNTS_REQUEST_CODE -> adminSettingsViewModel.exportAccounts(data.data!!)
-                    EXPORT_ITEMS_REQUEST_CODE -> adminSettingsViewModel.exportItems(data.data!!)
-                    EXPORT_TRANSACTIONS_REQUEST_CODE -> adminSettingsViewModel.exportTransactions(data.data!!)
-                    BACKUP_DATABASE_REQUEST_CODE -> adminSettingsViewModel.backupDatabase(data.data!!)
-                    RESTORE_DATABASE_REQUEST_CODE -> adminSettingsViewModel.restoreDatabase(data.data!!)
+                    EXPORT_ACCOUNTS_REQUEST_CODE -> adminActionsViewModel.exportAccounts(data.data!!)
+                    EXPORT_ITEMS_REQUEST_CODE -> adminActionsViewModel.exportItems(data.data!!)
+                    EXPORT_TRANSACTIONS_REQUEST_CODE -> adminActionsViewModel.exportTransactions(data.data!!)
+                    BACKUP_DATABASE_REQUEST_CODE -> adminActionsViewModel.backupDatabase(data.data!!)
+                    RESTORE_DATABASE_REQUEST_CODE -> adminActionsViewModel.restoreDatabase(data.data!!)
                 }
             }
         }

@@ -73,7 +73,7 @@ class AdminViewPagerFragment : Fragment() {
 
     private fun getTabTitle(position: Int): String? {
         return when (position) {
-            ADMIN_SETTINGS_PAGE_INDEX -> getString(R.string.admin_settings)
+            ADMIN_ACTIONS_PAGE_INDEX -> getString(R.string.actions)
             TRANSACTIONS_LIST_PAGE_INDEX -> getString(R.string.transactions)
             ITEMS_LIST_PAGE_INDEX -> getString(R.string.items)
             ACCOUNTS_LIST_PAGE_INDEX -> getString(R.string.accounts)

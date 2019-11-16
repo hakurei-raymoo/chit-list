@@ -21,7 +21,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract val loginDao: LoginDao
     abstract val shopDao: ShopDao
-    abstract val adminSettingsDao: AdminSettingsDao
+    abstract val adminActionsDao: AdminActionsDao
     abstract val adminHomeDao: AdminHomeDao
     abstract val accountDao: AccountDao
     abstract val itemDao: ItemDao

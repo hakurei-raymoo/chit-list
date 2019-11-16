@@ -6,7 +6,7 @@
     <!-- Common -->
     <string name="is_admin">App is a device administrator. Setting kiosk policies.</string>
     <string name="not_admin_warning">Not installed correctly. Kiosk functions may not work.</string>
-    <string name="admin">Admin Settings</string>
+    <string name="admin">Admin settings</string>
     <string name="primary_key_equals">key=%d</string>
     <string name="balance_is">Balance is $%s</string>
     <string name="dollars">$%s</string>
@@ -41,14 +41,16 @@
     <string name="none">(none)</string>
     <string name="no_transactions_icon">No transactions icon</string>
     <string name="you_have_zero_transactions_recorded">You have zero transactions recorded.</string>
-    <!-- Settings -->
-    <string name="admin_settings">Settings</string>
+    <!-- Actions -->
+    <string name="actions">Actions</string>
     <string name="path">Path</string>
     <string name="export_accounts">Export accounts</string>
     <string name="export_items">Export items</string>
     <string name="export_transactions">Export transactions</string>
     <string name="backup_database">Backup database</string>
     <string name="restore_database">Restore database</string>
+    <string name="drop_database">Drop database</string>
+    <string name="drop_database_warning">This will permanently delete the current database. This action cannot be undone.</string>
     <string name="edit_config">Edit config</string>
     <string name="exit_application">Exit application</string>
     <string name="info">Info:</string>

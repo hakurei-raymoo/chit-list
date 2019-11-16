@@ -1,4 +1,4 @@
-package gensokyo.hakurei.chitlist.adminsettings
+package gensokyo.hakurei.chitlist.adminactions
 
 import android.app.Application
 import android.net.Uri
@@ -8,16 +8,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.sqlite.db.SimpleSQLiteQuery
 import gensokyo.hakurei.chitlist.utilities.Converter
-import gensokyo.hakurei.chitlist.database.AdminSettingsDao
+import gensokyo.hakurei.chitlist.database.AdminActionsDao
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.utilities.Config
 import kotlinx.coroutines.*
 import java.io.*
 
-private const val TAG = "AdminSettingsViewModel"
+private const val TAG = "AdminActionsViewModel"
 
-class AdminSettingsViewModel(
-    private val database: AdminSettingsDao,
+class AdminActionsViewModel(
+    private val database: AdminActionsDao,
     val application: Application
 ) : ViewModel() {
 
@@ -207,6 +207,26 @@ class AdminSettingsViewModel(
                 }
 
                 _returnMessage.postValue("${Config.DATABASE_NAME} restored. App will now close.")
+
+                // Wait before exiting so messages can be displayed.
+                Thread.sleep(1000L)
+                _exitApp.postValue(true)
+            }
+        }
+    }
+
+    fun dropDatabase() {
+        uiScope.launch {
+            withContext(Dispatchers.IO) {
+                // Finish writing to database.
+                database.checkpoint(SimpleSQLiteQuery("pragma wal_checkpoint(full)"))
+                AppDatabase.getInstance(application).close()
+
+                // Delete database file.
+                val file = application.getDatabasePath(Config.DATABASE_NAME)
+                file.delete()
+
+                _returnMessage.postValue("${Config.DATABASE_NAME} dropped. App will now close.")
 
                 // Wait before exiting so messages can be displayed.
                 Thread.sleep(1000L)

@@ -3,13 +3,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-                name="adminSettingsViewModel"
-                type="gensokyo.hakurei.chitlist.adminsettings.AdminSettingsViewModel" />
-    </data>
-
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -72,6 +65,14 @@
                         app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
 
                 <com.google.android.material.button.MaterialButton
+                        android:id="@+id/drop_database_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/drop_database"
+                        android:visibility="gone"
+                        app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+                <com.google.android.material.button.MaterialButton
                         android:id="@+id/exit_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -82,6 +83,8 @@
                         android:id="@+id/version_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:paddingBottom="@dimen/spacing_normal"
                         android:text="@string/version_text"
                         android:textAlignment="center" />
@@ -90,7 +93,7 @@
                         android:id="@+id/log_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:text="\@{adminSettingsViewModel.log}" />
+                        tools:text="\@{adminOptionsViewModel.log}" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </FrameLayout>

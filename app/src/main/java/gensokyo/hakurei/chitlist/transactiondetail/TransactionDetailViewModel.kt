@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import gensokyo.hakurei.chitlist.adapters.formatAccounts
-import gensokyo.hakurei.chitlist.adapters.formatItems
+import gensokyo.hakurei.chitlist.utilities.formatAccounts
+import gensokyo.hakurei.chitlist.utilities.formatItems
 import gensokyo.hakurei.chitlist.database.*
 import kotlinx.coroutines.*
 import kotlin.math.min
@@ -36,13 +36,15 @@ class TransactionDetailViewModel(
 
     // Accounts AutoCompleteTextView adapter list.
     private val _accountsList = Transformations.map(dataSource.getBareAccounts()) { accounts ->
-        formatAccounts(accounts) }
+        formatAccounts(accounts)
+    }
     val accountsList: LiveData<List<String>>
         get() = _accountsList
 
     // Items AutoCompleteTextView adapter list.
     private val _itemsList = Transformations.map(dataSource.getBareItems()) { items ->
-        formatItems(items) }
+        formatItems(items)
+    }
     val itemsList: LiveData<List<String>>
         get() = _itemsList
 
@@ -131,6 +133,7 @@ class TransactionDetailViewModel(
         }
     }
 
+    // TODO: Fix crash on item is blank.
     fun updateLinkedItem(string: String) {
         val itemId = string.substring(0, min(string.length, 4)).toLongOrNull()
         // Clear value if input cannot be cast to Long. Else perform database lookup.

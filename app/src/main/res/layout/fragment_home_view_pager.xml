@@ -15,7 +15,7 @@
 
         <variable
                 name="homeViewModel"
-                type="gensokyo.hakurei.chitlist.viewmodels.HomeViewModel" />
+                type="gensokyo.hakurei.chitlist.home.HomeViewModel" />
 
         <import type="gensokyo.hakurei.chitlist.utilities.Converter" />
     </data>

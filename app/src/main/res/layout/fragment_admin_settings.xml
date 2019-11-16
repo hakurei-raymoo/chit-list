@@ -7,7 +7,7 @@
 
         <variable
                 name="adminSettingsViewModel"
-                type="gensokyo.hakurei.chitlist.viewmodels.AdminSettingsViewModel" />
+                type="gensokyo.hakurei.chitlist.adminsettings.AdminSettingsViewModel" />
     </data>
 
     <FrameLayout

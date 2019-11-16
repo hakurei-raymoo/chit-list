@@ -11,7 +11,7 @@
 
         <variable
                 name="clickListener"
-                type="gensokyo.hakurei.chitlist.adapters.HistoryListener" />
+                type="gensokyo.hakurei.chitlist.history.HistoryListener" />
 
         <import type="android.view.View"/>
         <import type="gensokyo.hakurei.chitlist.utilities.Converter" />

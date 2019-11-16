@@ -3,7 +3,7 @@
     <string name="admin_description">Enable kiosk mode</string>
     <string name="logo_content_description">App logo</string>
     <!-- Common -->
-    <string name="is_admin">App is a device administrator</string>
+    <string name="is_admin">App is a device administrator. Setting kiosk policies.</string>
     <string name="not_admin_warning">Not installed correctly. Kiosk functions may not work.</string>
     <string name="admin">Admin Settings</string>
     <string name="primary_key_equals">key=%d</string>

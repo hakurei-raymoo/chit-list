@@ -11,7 +11,7 @@
 
         <variable
                 name="clickListener"
-                type="gensokyo.hakurei.chitlist.adapters.TransactionListener" />
+                type="gensokyo.hakurei.chitlist.transactionslist.TransactionListener" />
 
         <import type="android.view.View" />
         <import type="gensokyo.hakurei.chitlist.utilities.Converter" />

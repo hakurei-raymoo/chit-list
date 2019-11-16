@@ -11,7 +11,7 @@
 
         <variable
                 name="clickListener"
-                type="gensokyo.hakurei.chitlist.adapters.ShopListener" />
+                type="gensokyo.hakurei.chitlist.shop.ShopListener" />
 
         <import type="gensokyo.hakurei.chitlist.utilities.Converter" />
     </data>

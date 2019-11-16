@@ -7,7 +7,7 @@
 
         <variable
                 name="editConfigViewModel"
-                type="gensokyo.hakurei.chitlist.viewmodels.EditConfigViewModel" />
+                type="gensokyo.hakurei.chitlist.editconfig.EditConfigViewModel" />
 
         <import type="gensokyo.hakurei.chitlist.utilities.Converter" />
     </data>

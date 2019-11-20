@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() -> clickListener.onClick(item)}"
-            app:cardBackgroundColor="@{item.enabled ? @color/colorItems : @color/colorFaded}"
+            app:cardBackgroundColor="@{item.enabled ? (item.credit ? @color/colorAccent : @color/colorItems) : @color/colorFaded}"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="false"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.RightCutCard"

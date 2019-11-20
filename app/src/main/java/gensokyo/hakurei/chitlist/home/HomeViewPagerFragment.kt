@@ -56,14 +56,14 @@ class HomeViewPagerFragment : Fragment() {
         // Hide and show FABs depending on page.
         viewPager.registerOnPageChangeCallback((object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                animateFab(position, binding.hasItems, binding.balanceCapped)
+                animateFab(position, binding.hasCart, binding.balanceCapped)
             }
         }))
 
         homeViewModel.cart.observe(viewLifecycleOwner, Observer {
             // Show empty cart layout if not null or empty.
-            binding.hasItems = !it.isNullOrEmpty()
-            animateFab(viewPager.currentItem, binding.hasItems, binding.balanceCapped)
+            binding.hasCart = !it.isNullOrEmpty()
+            animateFab(viewPager.currentItem, binding.hasCart, binding.balanceCapped)
         })
 
         homeViewModel.balance.observe(viewLifecycleOwner, Observer {
@@ -87,6 +87,10 @@ class HomeViewPagerFragment : Fragment() {
             }
         })
 
+        binding.gotoCheckoutFab.setOnClickListener {
+            navigateToCheckoutPage()
+        }
+        
         setHasOptionsMenu(true)
 
         return binding.root
@@ -144,6 +148,11 @@ class HomeViewPagerFragment : Fragment() {
         }
     }
 
+    private fun navigateToCheckoutPage() {
+        requireActivity().findViewById<ViewPager2>(R.id.view_pager).currentItem =
+            CHECKOUT_PAGE_INDEX
+    }
+
 //    private fun getTabIcon(position: Int): Int {
 //        return when (position) {
 //            SHOP_PAGE_INDEX -> R.drawable.shop_tab_selector
@@ -161,11 +170,16 @@ class HomeViewPagerFragment : Fragment() {
         }
     }
 
-    private fun animateFab(position: Int, hasItems: Boolean, balanceCapped: Boolean) {
-        if (position == 1 && hasItems && !balanceCapped) {
+    private fun animateFab(position: Int, hasCart: Boolean, balanceCapped: Boolean) {
+        if (position == 1 && hasCart && !balanceCapped) {
             checkout_fab.show()
         } else {
             checkout_fab.hide()
+        }
+        if (position == 0 && hasCart) {
+            goto_checkout_fab.show()
+        } else {
+            goto_checkout_fab.hide()
         }
     }
 }

@@ -45,4 +45,7 @@ interface TransactionDao {
 
     @Query("SELECT item_id, name, price FROM items_table ORDER BY item_id ASC")
     fun getBareItems(): LiveData<List<BareItem>>
+
+    @Query("SELECT item_id, name, price FROM items_table WHERE credit = :credit AND enabled = :enabled ORDER BY item_id ASC")
+    fun getBareCreditItems(credit: Boolean = true, enabled: Boolean = true): LiveData<List<BareItem>>
 }

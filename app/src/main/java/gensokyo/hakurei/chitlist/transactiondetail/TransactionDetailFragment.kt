@@ -7,13 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.ArrayAdapter
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentTransactionDetailBinding
 
@@ -48,40 +45,6 @@ class TransactionDetailFragment : DialogFragment() {
         // This is necessary so that the binding can observe LiveData updates.
         binding.lifecycleOwner = viewLifecycleOwner
 
-        // Populate account AutoCompleteTextView with accounts.
-        transactionDetailViewModel.accountsList.observe(this, Observer {
-            Log.i(TAG, "Observed accounts=$it")
-
-            if (it != null) {
-                // Get a reference to the AutoCompleteTextView in the layout.
-                val accountAutocomplete = binding.accountAutocomplete
-                // Create the adapter and set it to the AutoCompleteTextView.
-                val accountsAdaptor = ArrayAdapter<String>(
-                    requireContext(),
-                    android.R.layout.simple_list_item_1,
-                    it
-                )
-                accountAutocomplete.setAdapter(accountsAdaptor)
-            }
-        })
-
-        // Populate item AutoCompleteTextView with items.
-        transactionDetailViewModel.itemsList.observe(this, Observer {
-            Log.i(TAG, "Observed items=$it")
-
-            if (it != null) {
-                // Get a reference to the AutoCompleteTextView in the layout.
-                val accountAutocomplete = binding.itemAutocomplete
-                // Create the adapter and set it to the AutoCompleteTextView.
-                val accountsAdaptor = ArrayAdapter<String>(
-                    requireContext(),
-                    android.R.layout.simple_list_item_1,
-                    it
-                )
-                accountAutocomplete.setAdapter(accountsAdaptor)
-            }
-        })
-
         // Add an Observer to the state variable for Navigating when a Submit button is tapped.
         transactionDetailViewModel.navigateToTransactionsList.observe(viewLifecycleOwner, Observer {
             // Observed state is true.
@@ -96,26 +59,6 @@ class TransactionDetailFragment : DialogFragment() {
                 // Reset state to make sure we only navigate once.
                 transactionDetailViewModel.doneNavigating()
             }
-        })
-
-        // Update linked properties on text change.
-        binding.accountAutocomplete.addTextChangedListener { text ->
-            transactionDetailViewModel.updateLinkedAccount(text.toString())
-        }
-        binding.itemAutocomplete.addTextChangedListener { text ->
-            transactionDetailViewModel.updateLinkedItem(text.toString())
-        }
-
-        // Update error on database response.
-        transactionDetailViewModel.linkedAccount.observe(viewLifecycleOwner, Observer {
-            binding.accountInput.hint = if (it == null) getString(R.string.invalid_account) else getString(R.string.account)
-            Log.i(TAG, "linkedAccount=$it")
-            transactionDetailViewModel.updateEnableInput()
-        })
-        transactionDetailViewModel.linkedItem.observe(viewLifecycleOwner, Observer {
-            binding.itemInput.hint = if (it == null) getString(R.string.invalid_item) else getString(R.string.item)
-            Log.i(TAG, "linkedItem=$it")
-            transactionDetailViewModel.updateEnableInput()
         })
 
         return binding.root

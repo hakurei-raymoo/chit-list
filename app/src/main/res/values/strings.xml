@@ -27,23 +27,26 @@
     <string name="change_password">Change password</string>
     <!-- Shop -->
     <string name="shop">Shop</string>
+    <string name="no_items_message">There are no items in the shop. Contact an administrator to add items.</string>
     <!-- Checkout -->
     <string name="checkout">Checkout</string>
     <string name="no_items_icon">No items icon</string>
-    <string name="your_cart_is_empty">Your cart is empty</string>
+    <string name="empty_cart_message">Your cart is empty</string>
     <string name="add_items">Add item(s)</string>
     <string name="error_icon">Error icon</string>
-    <string name="exceeded_balance_cap">You have exceeded the balance cap: $%s\n Pay off your balance to make further transactions.</string>
+    <string name="exceeded_balance_cap_message">You have exceeded the balance cap: $%s\n Pay off your balance to make further transactions.</string>
     <!-- History -->
     <string name="history">History</string>
     <string name="amount_item">%s: $%s</string>
     <string name="you">(you)</string>
     <string name="none">(none)</string>
     <string name="no_transactions_icon">No transactions icon</string>
-    <string name="you_have_zero_transactions_recorded">You have zero transactions recorded.</string>
+    <string name="zero_transactions_message">You have zero transactions recorded</string>
     <!-- Actions -->
     <string name="actions">Actions</string>
     <string name="path">Path</string>
+    <string name="pay_account">Pay account</string>
+    <string name="edit_config">Edit config</string>
     <string name="export_accounts">Export accounts</string>
     <string name="export_items">Export items</string>
     <string name="export_transactions">Export transactions</string>
@@ -51,7 +54,6 @@
     <string name="restore_database">Restore database</string>
     <string name="drop_database">Drop database</string>
     <string name="drop_database_warning">This will permanently delete the current database. This action cannot be undone.</string>
-    <string name="edit_config">Edit config</string>
     <string name="exit_application">Exit application</string>
     <string name="info">Info:</string>
     <string name="log">Log:</string>
@@ -78,6 +80,7 @@
     <string name="price">Price</string>
     <string name="price_equals">price=%d</string>
     <string name="image">Image</string>
+    <string name="credit">Credit</string>
     <string name="enabled">Enabled</string>
     <!-- Transaction -->
     <string name="transactions">Transactions</string>
@@ -89,11 +92,13 @@
     <string name="account">Account</string>
     <string name="invalid_account">Invalid account id</string>
     <string name="account_equals">account=%s</string>
+    <string name="number_and_full_name">%04d: %s %s</string>
     <string name="creator">Creator</string>
     <string name="creator_equals">creator=%s</string>
     <string name="item">Item</string>
     <string name="invalid_item">Invalid item id</string>
     <string name="item_equals">item=%s</string>
+    <string name="number_and_name">%04d: %s</string>
     <string name="amount">Amount</string>
     <string name="amount_equals">amount=%s</string>
     <string name="comments">Comments</string>
@@ -102,6 +107,9 @@
     <string name="current_password">Current password</string>
     <string name="new_password">New password</string>
     <string name="confirm_password">Confirm password</string>
+    <!-- Pay account -->
+    <string name="transaction_created">Transaction created</string>
+    <string name="create_transaction_warning">This will create the following transaction. This action cannot be undone.</string>
     <!-- Config -->
     <string name="config">Config</string>
     <string name="app_subtitle">App subtitle</string>
@@ -119,4 +127,5 @@
     <string name="two">Two</string>
     <string name="three">Three</string>
     <string name="config_saved">Config saved. Restart to apply changes.</string>
+    <string name="go_to_checkout">Go to checkout</string>
 </resources>

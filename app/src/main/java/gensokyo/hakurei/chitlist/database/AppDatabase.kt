@@ -73,14 +73,22 @@ abstract class AppDatabase : RoomDatabase() {
                     .insert(
                         Item(
                             name = "Cash",
-                            enabled = false
+                            credit = true
                         )
                     )
                 getInstance(context).itemDao
                     .insert(
                         Item(
                             name = "EFT",
-                            enabled = false
+                            credit = true
+                        )
+                    )
+                getInstance(context).itemDao
+                    .insert(
+                        Item(
+                            name = "Coffee",
+                            price = 250,
+                            image = "ic_mug_white_24dp"
                         )
                     )
             }

@@ -19,12 +19,18 @@
 </li>
 <li><a href="#admin_functions">Admin functions</a>
 <ol>
-<li><a href="#settings_screen">Settings screen</a></li>
+<li><a href="#actions_screen">Actions screen</a></li>
+<li><a href="#edit_config_screen">Edit config screen</a></li>
 <li><a href="#accounts_screen">Accounts screen</a></li>
 <li><a href="#items_screen">Items screen</a></li>
 <li><a href="#transactions_screen">Transactions screen</a></li>
 </ol>
 </li>
+<li><a href="#how_tos">How to's</a>
+<ol><li><a href="#pay_balance">Pay off a balance</a></li></ol>
+<ol><li><a href="#balance_sheet">Create a balance sheet</a></li></ol>
+</li>
+<li><a href="#about">About</a></li>
 </ol>
 </div>
 
@@ -34,10 +40,11 @@
 <h2><span id="installation">Installation</span></h2>
 <p>Failure to follow these instructions may result kiosk mode being disabled allowing users to close <span class="app_name">Chit list</span>, uninstall <span class="app_name">Chit list</span>, modify the database and more.</p>
 <ol>
-<li>Factory reset device</li>
-<li>Do not add Google Account</li>
-<li>Download and install .apk</li>
-<li>Set device admin: <code>adb shell dpm set-device-owner gensokyo.hakurei.chitlist/.ChitlistDeviceAdminReveiver</code></li>
+<li><a href="https://support.google.com/nexus/answer/4596836">Factory reset</a> your Android device<br />
+<em>Note: Do not add a Google Account when prompted</em></li>
+<li>Download and install the <span class="app_name">Chit list</span> .apk</li>
+<li>Enable <a href="https://developer.android.com/tools/device.html">USB debugging</a> on your Android device
+<li>Use <a href="https://developer.android.com/studio/command-line/adb">ADB</a> to set the app as the device owner: <code>adb shell dpm set-device-owner gensokyo.hakurei.chitlist/.ChitlistDeviceAdminReceiver</code></li>
 </ol>
 
 <h2><span id="setup">Setup</span></h2>
@@ -53,59 +60,133 @@ Password: <em>none</em></li>
 
 <h2><span id="user_functions">User functions</span></h2>
 <p>Users can <a href="#login_screen">login</a>, browse the <a href="#shop_screen">shop</a>, <a href="#checkout_screen">checkout</a> items and <a href="#history_screen">view</a> transactions recorded against their account.</p>
+<div class="hover">
+
 <h3><span id="login_screen">Login screen</span></h3>
 <p>Login using a username and password.</p>
 <p>The username field autocompletes when typing names and prepends a four digit <code>account_id</code>. The actual login credentials used are the <code>account_id</code> and the password. Thus, only the <code>account_id</code> is required for the username.</p>
+</div>
+<div class="hover">
+
 <h3><span id="home_screen">Home screen</span></h3>
 <p>Upon login users are taken to the home screen. Their full name is shown at the top of the screen as well as the account balance.</p>
 <p>To logout, either use the back button or the top right dropdown menu. The menu is also where the password can be changed and where administrators can access <a href="#admin_functions">admin functions</a>.</p>
+</div>
+<div class="hover">
+
 <h3><span id="shop_screen">Shop screen</span></h3>
 <p>Click on items to add them to your cart. You can add items multiple times.</p>
+</div>
+<div class="hover">
+
 <h3><span id="checkout_screen">Checkout screen</span></h3>
 <p>Click on items to remove them from your cart. When satisfied, click the checkout button. This records the transactions and automatically logs you out.</p>
+</div>
+<div class="hover">
+
 <h3><span id="history_screen">History screen</span></h3>
-<p>A list of previous transactions. Your balance is the sum of all transactions listed. Transactions created by other users have a different color.</p>
+<p>A list of previous transactions. Your balance is the sum of all transactions listed. Custom transactions created by administrators have a different color.</p>
+</div>
 
 <h2><span id="admin_functions">Admin functions</span></h2>
-<p>Admins can perform app <a href="#settings_screen">maintenance</a> functions, create/update <a href="#accounts_screen">accounts</a>, create/update <a href="#items_screen">items</a> and create <a href="#transactions_screen">transactions</a>.</p>
-<h3><span id="settings_screen">Settings screen</span></h3>
-<p>Export transactions as comma separated values (csv), create a copy of the database, restore the database from a previous copy or exit the app.</p>
+<p>Admins can perform maintenance <a href="#actions_screen">actions</a>, create/update <a href="#accounts_screen">accounts</a>, create/update <a href="#items_screen">items</a> and update <a href="#transactions_screen">transactions</a>.</p>
+
+<div class="hover">
+
+<h3><span id="actions_screen">Actions screen</span></h3>
+<p><a href="#pay_account_screen">Pay</a> accounts, edit the <a href="#edit_config_screen">config</a>, export transactions as comma separated values (CSV), create a copy of the database, restore the database from a previous copy or exit the app.</p>
+</div>
+
+<div class="hover">
+
+<h3><span id="pay_account_screen">Pay account screen</span></h3>
+<p>Pay off account balances. Functionally this creates a <a href="#transactions_screen">transaction</a>.</p>
+<p>The elements of the transaction are as follows:</p>
+<ul>
+<li><strong>Key</strong> - A unique id used to refer to a transaction. Also referred to as <code>transaction_id</code>.</li>
+<li><strong>Time</strong> - The time the transaction was created.</li>
+<li><strong>Custom transaction</strong> - Indicates the transaction was created by an <a href="#admin_functions">administrator</a>.</li>
+<li><strong>Account</strong> - The <a href="#accounts_screen">account</a> the transaction is recorded against. Similar to the login screen, only the four digit <code>account_id</code> is required and the field autocompletes using <code>full name</code>.</li>
+<li><strong>Creator</strong> - The <a href="#accounts_screen">creator</a> of the transaction.</li>
+<li><strong>Item</strong> - The <a href="#items_screen">item</a> the credit is categorised in. Only the four digit <code>item_id</code> is required and the field autocompletes on the item <code>name</code>.</li>
+<li><strong>Amount</strong> - The amount used for adjusting the balance. It is automatically converted to a negative.</li>
+<li><strong>Comments</strong> - An optional field that can be used to annotate transactions.</li>
+</ul>
+</div>
+
+<div class="hover">
+
+<h3><span id="edit_config_screen">Edit config screen</span></h3>
+<p>Add a subtitle to the <a href="#login_screen">Login</a> screen, change the logo on the <a href="#login_screen">Login</a> screen, change the database file, change the <code>balance cap</code> or the decimal separator offset.</p>
+</div>
+
+<div class="hover">
+
 <h3><span id="accounts_screen">Accounts screen</span></h3>
 <p>Click an account to edit it or the add button to create a new one.</p>
 <p>Blue accounts have user access only. Teal accounts have administrator access. Grey accounts cannot log in.</p>
 <p>The elements of an account are as follows:</p>
 <ul>
-<li>Key - A unique id used to refer to an account. Also referred to as <code>account_id</code>.</li>
-<li>First name and last name - A common name to associate the account with. Can be used on the login screen to trigger autocompletion.</li>
-<li>Location, contact number, email address - Optional
-<li>Password hash - The password, cryptographically hashed using SHA-1. New accounts have no password which corresponds to a SHA-1 hash of <code>da39a3ee5e6b4b0d3255bfef95601890afd80709.</code></li>
-<li>Administrator access - Enables/disables the account from accessing <a href="#admin_functions">admin functions</a>.</li>
-<li>Interactive login - Enables/disables the account from <a href="#login_screen">logging in</a>. Note that the account still exists in the database and can have transactions recorded against it.</li>
+<li><strong>Key</strong> - A unique id used to refer to an account. Also referred to as <code>account_id</code>.</li>
+<li><strong>First name</strong> and <strong>last name</strong> - A common name to associate the account with. Can be used on the login screen to trigger autocompletion.</li>
+<li><strong>Location, contact number, email address</strong> - Optional
+<li><strong>Password hash</strong> - The password, cryptographically hashed using SHA-1. New accounts have no password which corresponds to a SHA-1 hash of <code>da39a3ee5e6b4b0d3255bfef95601890afd80709.</code></li>
+<li><strong>Administrator access</strong> - Enables/disables the account from accessing <a href="#admin_functions">admin functions</a>.</li>
+<li><strong>Interactive login</strong> - Enables/disables the account from <a href="#login_screen">logging in</a>. Note that the account still exists in the database and can have transactions recorded against it.</li>
 </ul>
+</div>
+
+<div class="hover">
+
 <h3><span id="items_screen">Items screen</span></h3>
 <p>Click an item to edit it or the add button to create a new one.</p>
-<p>Yellow items are enabled. Grey items are disabled.</p>
+<p>Yellow items are enabled. Teal items have the credit flag set. Grey items are disabled.</p>
 <p>The elements of an item are as follows:</p>
 <ul>
-<li>Key - A unique id used to refer to an item. Also referred to as <code>item_id</code>.</li>
-<li>Name - The display name of the item.</li>
-<li>Price - Used to calculate the <code>amount</code> of transactions during <a href="#checkout_screen">checkout</a>. Prices can be changed without affecting existing transactions. Price has no effect on transactions created through the <a href="#transactions_screen">admin interface</a>.</li>
-<li>Image - The image used in the <a href="#shop_screen">shop</a>.</li>
-<li>Enabled - Shows/hides the item from the <a href="#shop_screen">shop</a>.</li>
+<li><strong>Key</strong> - A unique id used to refer to an item. Also referred to as <code>item_id</code>.</li>
+<li><strong>Name</strong> - The display name of the item.</li>
+<li><strong>Price</strong> - Used to calculate the <code>amount</code> of transactions during <a href="#checkout_screen">checkout</a>. Prices can be changed without affecting existing transactions. Price has no effect on transactions created through the <a href="#transactions_screen">admin interface</a>.</li>
+<li><strong>Image</strong> - The image used in the <a href="#shop_screen">shop</a>.</li>
+<li><strong>Credit</strong> - Hides the item from the <a href="#shop_screen">shop</a> and adds it as an option when <a href="#pay_account_screen">paying</a> accounts.</li>
+<li><strong>Enabled</strong> - Makes the item visible in the <a href="#shop_screen">shop</a>.</li>
 </ul>
-<p>The automatically created items <code>Cash</code> and <code>EFT</code> are designed for use when reconciling balances.</p>
+
+</div>
+<div class="hover">
+
 <h3><span id="transactions_screen">Transactions screen</span></h3>
-<p>Click a transaction to edit it (comments only) or the add button to create a new one.</p>
-<p>Red transactions have the same account_id and creator_id. Blue transactions have a differing account_id and creator_id. They can only be created by and administrator.</p>
+<p>Click a transaction to edit it (comments only). Transactions are created though the <a href="#checkout_screen">checkout</a> screen or the <a href="#pay_account_screen">pay account</a> screen.</p>
+<p>Red transactions are created through the shop. Teal transactions are created by administators.</p>
 <p>The elements of a transaction are as follows:</p>
 <ul>
-<li>Key - A unique id used to refer to a transaction. Also referred to as <code>transaction_id</code>.</li>
-<li>Time - The time the transaction was created.</li>
-<li>Account - The <a href="#accounts_screen">account</a> the transaction is recorded against. Similar to the login screen, only the four digit <code>account_id</code> is required and field autocompletes based on the <code>full name</code>.</li>
-<li>Creator - The creator of the transaction. Cannot be modified. For shop transactions, this is the same as the account. Again, only the four digit <code>account_id</code> is required.</li>
-<li>Item - The <a href="#items_screen">item</a> purchased or the item paid. Only the four digit <code>item_id</code> is required and the field autocompletes on the item <code>name</code>.</li>
-<li>Amount - The amount used for calculating the balance. For <a href="#shop_screen">shop</a> transactions, this is the item <code>price</code> at the time of the transaction. For transactions created though the transactions screen, this can be arbitrarily set. Using a negative value will reduce balances and is used to pay off balances.</li>
-<li>Comments - An optional field admins can use to annotate transactions.</li>
+<li><strong>Key</strong> - A unique id used to refer to a transaction. Also referred to as <code>transaction_id</code>.</li>
+<li><strong>Time</strong> - The time the transaction was created.</li>
+<li><strong>Shop/custom transaction</strong> - Whether the transaction was created automatically at the shop <a href="#checkout_screen">checkout</a> or it was created by an <a href="#admin_functions">administrator</a>.</li>
+<li><strong>Account</strong> - The <a href="#accounts_screen">account</a> the transaction is recorded against.</li>
+<li><strong>Creator</strong> - The <a href="#accounts_screen">creator</a> of the transaction.</li>
+<li><strong>Item</strong> - The <a href="#items_screen">item</a> purchased or the credit category.</li>
+<li><strong>Amount</strong> - The amount used for adjusting the balance. For <a href="#shop_screen">shop</a> transactions, this is the item <code>price</code> at the time of the transaction and is positive. For transactions created by an <a href="#admin_functions">administrator</a>, this can be arbitrarily set. A negative value indicates a credit.</li>
+<li><strong>Comments</strong> - An optional field admins can use to annotate transactions.</li>
 </ul>
+</div>
+
+<h2 id="how_tos">How to's</h2>
+<p>Walkthroughs for common operations.</p>
+
+<h3><span id="balance_sheet">Create a balance sheet</span></h3>
+<p>These are instructions for creating a balance sheet showing totals spent by each account out of exported transactions using <a href="https://docs.google.com/spreadsheets/">Google Sheets</a>. <span class="app_name">Chit list</span> exports are in comma separated values (CSV) format.</p>
+<ol>
+<li>Export transactions from the <a href="#actions_screen">actions</a> screen</li>
+<li>Import the CSV data into <a href="https://docs.google.com/spreadsheets/">Google Sheets</a></li>
+<li>If the columns are not seperated use <code>Data > Split text to columns</code></li>
+<li>Create a pivot table from <code>Data > Pivot table</code></li>
+<li>Add <code>account</code> rows</li>
+<li>Add <code>item</code> columns</li>
+<li>Add <code>amount</code> values summarised by <code>SUM</code> to populate the table with the <code>amount</code> each <code>account</code> has per <code>item</code></li>
+<li>The balance of each account is shown in the right most column</li>
+</ol>
+<p>Another useful value is <code>item</code> summarised by <code>COUNTA</code> which provides a count of the number of transactions each <code>account</code> has per <code>item</code>.</p>
+
+<h2 id="about">About</h2>
+<p><span class="app_name">Chit list</span> is maintained by Joseph Zhuang.</p>
 </body>
-</html>

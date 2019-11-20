@@ -6,7 +6,7 @@
     <data>
 
         <variable
-                name="hasItems"
+                name="hasCart"
                 type="boolean" />
 
         <variable
@@ -85,6 +85,18 @@
                     app:tabMode="fixed" />
 
         </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:backgroundTint="@color/colorPrimary"
+                android:id="@+id/goto_checkout_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_margin="@dimen/fab_margin"
+                android:text="@string/go_to_checkout"
+                android:textColor="@color/colorOnPrimary"
+                app:icon="@drawable/ic_arrow_forward_white_24dp"
+                app:iconTint="@color/colorOnPrimary" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/checkout_fab"

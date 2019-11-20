@@ -19,9 +19,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import gensokyo.hakurei.chitlist.ChitlistDeviceAdminReceiver
 import gensokyo.hakurei.chitlist.R
+import gensokyo.hakurei.chitlist.adminhome.AdminHomeViewModel
 import gensokyo.hakurei.chitlist.adminhome.AdminViewPagerFragmentDirections
 import gensokyo.hakurei.chitlist.database.AppDatabase
 import gensokyo.hakurei.chitlist.databinding.FragmentAdminActionsBinding
@@ -40,6 +42,8 @@ const val RESTORE_DATABASE_REQUEST_CODE = 202
 class AdminActionsFragment : Fragment() {
 
     private lateinit var adminActionsViewModel: AdminActionsViewModel
+
+    private val adminHomeViewModel: AdminHomeViewModel by navGraphViewModels(R.id.home_navigation)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +66,19 @@ class AdminActionsFragment : Fragment() {
         // Specify the current activity as the lifecycle owner of the binding.
         // This is necessary so that the binding can observe LiveData updates.
         binding.lifecycleOwner = viewLifecycleOwner
+
+
+        binding.payAccountButton.setOnClickListener {
+            this.findNavController().navigate(
+                AdminViewPagerFragmentDirections.actionAdminViewPagerFragmentToPayAccountFragment(adminHomeViewModel.userId)
+            )
+        }
+
+        binding.editConfigButton.setOnClickListener {
+            this.findNavController().navigate(
+                AdminViewPagerFragmentDirections.actionAdminViewPagerFragmentToEditConfigFragment()
+            )
+        }
 
         binding.exportAccountsButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
@@ -124,12 +141,6 @@ class AdminActionsFragment : Fragment() {
                 .setPositiveButton(getString(R.string.delete)) { _, _ -> adminActionsViewModel.dropDatabase() }
                 .setNegativeButton(getString(R.string.cancel), null)
                 .show()
-        }
-
-        binding.editConfigButton.setOnClickListener {
-            this.findNavController().navigate(
-                AdminViewPagerFragmentDirections.actionAdminViewPagerFragmentToEditConfigFragment()
-            )
         }
 
         // Observer to process return messages.

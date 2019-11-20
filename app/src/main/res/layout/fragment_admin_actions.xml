@@ -21,6 +21,20 @@
                     android:padding="@dimen/spacing_large">
 
                 <com.google.android.material.button.MaterialButton
+                        android:id="@+id/pay_account_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pay_account"
+                        app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/edit_config_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/edit_config"
+                        app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
+
+                <com.google.android.material.button.MaterialButton
                         android:id="@+id/export_accounts_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -55,13 +69,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/restore_database"
-                        app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
-
-                <com.google.android.material.button.MaterialButton
-                        android:id="@+id/edit_config_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/edit_config"
                         app:shapeAppearance="@style/ShapeAppearance.Button.Admin" />
 
                 <com.google.android.material.button.MaterialButton

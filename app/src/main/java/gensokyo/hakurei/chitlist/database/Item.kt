@@ -16,6 +16,8 @@ data class Item (
 
     var image: String = "",
 
+    var credit: Boolean = false,
+
     var enabled: Boolean = true
 )
 

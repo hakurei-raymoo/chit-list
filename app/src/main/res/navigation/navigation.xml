@@ -78,6 +78,9 @@
                     app:popEnterAnim="@anim/slide_in_left"
                     app:popExitAnim="@anim/slide_out_right" />
             <action
+                    android:id="@+id/action_admin_view_pager_fragment_to_pay_account_fragment"
+                    app:destination="@id/pay_account_fragment" />
+            <action
                     android:id="@+id/action_admin_view_pager_fragment_to_edit_config_fragment"
                     app:destination="@id/edit_config_fragment" />
         </fragment>
@@ -112,6 +115,16 @@
                     app:argType="long" />
             <argument
                     android:name="transactionKey"
+                    app:argType="long" />
+        </dialog>
+
+        <dialog
+                android:id="@+id/pay_account_fragment"
+                android:name="gensokyo.hakurei.chitlist.payaccount.PayAccountFragment"
+                android:label="PayAccountFragment"
+                tools:layout="@layout/fragment_pay_account">
+            <argument
+                    android:name="creatorId"
                     app:argType="long" />
         </dialog>
 

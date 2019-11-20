@@ -5,6 +5,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import gensokyo.hakurei.chitlist.R
 import gensokyo.hakurei.chitlist.utilities.GridMarginItemDecoration
@@ -39,10 +40,16 @@ class ShopFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         homeViewModel.items.observe(viewLifecycleOwner, Observer {
+            // Show empty shop layout if not null or empty.
+            binding.hasItems = !it.isNullOrEmpty()
             it?.let {
                 adapter.submitList(it)
             }
         })
+
+        binding.logoutButton.setOnClickListener {
+            this.findNavController().navigateUp()
+        }
 
         binding.itemsList.addItemDecoration(
             GridMarginItemDecoration(

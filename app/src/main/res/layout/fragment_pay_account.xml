@@ -6,15 +6,27 @@
     <data>
 
         <variable
-                name="transactionDetailViewModel"
-                type="gensokyo.hakurei.chitlist.transactiondetail.TransactionDetailViewModel" />
+                name="payAccountViewModel"
+                type="gensokyo.hakurei.chitlist.payaccount.PayAccountViewModel" />
 
         <import type="gensokyo.hakurei.chitlist.utilities.Converter" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/title_text"
+                style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:gravity="center"
+                android:text="@string/pay_account"
+                android:textAllCaps="true"
+                android:textColor="@color/colorOnPrimary"
+                android:textSize="16sp" />
 
         <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -33,7 +45,7 @@
                         style="@style/MaterialAlertDialog.MaterialComponents.Title.Text.CenterStacked"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{@string/primary_key_equals(transactionDetailViewModel.transaction.transactionId)}"
+                        android:text="@{@string/primary_key_equals(payAccountViewModel.transaction.transactionId)}"
                         android:textAllCaps="true"
                         tools:text="@string/primary_key_equals" />
 
@@ -41,7 +53,7 @@
                         style="@style/MaterialAlertDialog.MaterialComponents.Title.Text.CenterStacked"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Converter.convertLongToDateStringExpanded(transactionDetailViewModel.transaction.time)}"
+                        android:text="@{Converter.convertLongToDateStringExpanded(payAccountViewModel.transaction.time)}"
                         android:textAllCaps="true"
                         android:textSize="12sp"
                         tools:text="@string/time_equals" />
@@ -51,25 +63,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/spacing_normal"
-                        android:text="@{transactionDetailViewModel.transaction.type ? @string/shop_tx : @string/custom_tx}"
+                        android:text="@{payAccountViewModel.transaction.type ? @string/shop_tx : @string/custom_tx}"
                         android:textAllCaps="true"
                         android:textSize="12sp"
                         tools:text="@string/shop_tx" />
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/account_input"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="@{false}"
                         android:hint="@string/account"
                         android:labelFor="@id/account_autocomplete">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                             android:id="@+id/account_autocomplete"
+                            style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textNoSuggestions|textVisiblePassword"
-                            android:text="@{Converter.toAccountName(transactionDetailViewModel.transaction.accountId)}" />
+                            android:text="@={Converter.toAccountName(payAccountViewModel.transaction.accountId)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -83,29 +96,29 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
-                            android:text="@{Converter.toAccountName(transactionDetailViewModel.transaction.creatorId)}" />
+                            android:text="@={Converter.toAccountName(payAccountViewModel.transaction.creatorId)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/item_input"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="@{false}"
                         android:hint="@string/item"
                         android:labelFor="@id/item_autocomplete">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                             android:id="@+id/item_autocomplete"
+                            style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textNoSuggestions|textVisiblePassword"
-                            android:text="@{Converter.toItemName(transactionDetailViewModel.transaction.itemId)}" />
+                            android:text="@={Converter.toItemName(payAccountViewModel.transaction.itemId)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="@{false}"
                         android:hint="@string/amount">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -113,7 +126,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number|numberSigned|numberDecimal"
-                            android:text="@{Converter.addDecimal(transactionDetailViewModel.transaction.amount)}" />
+                            android:text="@={Converter.addDecimal(payAccountViewModel.transaction.amount)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -127,9 +140,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:text="@={transactionDetailViewModel.transaction.comments}">
-                        <requestFocus />
-                    </com.google.android.material.textfield.TextInputEditText>
+                            android:text="@={payAccountViewModel.transaction.comments}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
@@ -143,18 +154,17 @@
                             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:onClick="@{() -> transactionDetailViewModel.onCancelClicked()}"
                             android:text="@string/cancel" />
 
                     <com.google.android.material.button.MaterialButton
-                            android:id="@+id/update_button"
+                            android:id="@+id/create_button"
                             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:onClick="@{() -> transactionDetailViewModel.onUpdateClicked()}"
-                            android:text="@string/update" />
+                            android:enabled="@{payAccountViewModel.enableUpdate}"
+                            android:text="@string/create" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-    </RelativeLayout>
+    </LinearLayout>
 </layout>

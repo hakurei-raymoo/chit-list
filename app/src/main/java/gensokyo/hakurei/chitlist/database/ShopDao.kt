@@ -20,8 +20,8 @@ interface ShopDao {
 //    @Query("SELECT * FROM items_table WHERE item_id = :key")
 //    fun getItem(key: Long): Item
 
-    @Query("SELECT * FROM items_table WHERE enabled = :enabled ORDER BY name ASC")
-    fun getItems(enabled: Boolean = true): LiveData<List<Item>>
+    @Query("SELECT * FROM items_table WHERE credit = :credit AND enabled = :enabled ORDER BY name ASC")
+    fun getItems(credit: Boolean = false, enabled: Boolean = true): LiveData<List<Item>>
 
     @Query("SELECT transactions_table.*," +
             "a.account_id AS a_account_id, a.first_name AS a_first_name, a.last_name AS a_last_name," +

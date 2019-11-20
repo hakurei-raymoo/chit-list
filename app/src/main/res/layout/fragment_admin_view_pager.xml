@@ -88,16 +88,5 @@
                 app:backgroundTint="@color/colorItems"
                 app:srcCompat="@drawable/ic_add_black_24dp"
                 app:tint="@color/colorOnPrimary" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/transactions_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:onClick="@{() -> adminHomeViewModel.onNewTransaction()}"
-                app:backgroundTint="@color/colorTransactions"
-                app:srcCompat="@drawable/ic_add_black_24dp"
-                app:tint="@color/colorOnPrimary" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
